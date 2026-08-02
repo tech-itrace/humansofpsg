@@ -4,9 +4,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Custom domain via GitHub Pages — see public/CNAME. No `base` needed since
-  // a custom domain serves from the root, unlike a
-  // tech-itrace.github.io/humansofpsg/ project-page path.
-  site: 'https://www.psgians.org',
+  // Custom domain via Cloudflare Pages. No `base` needed since a custom
+  // domain serves from the root.
+  site: 'https://www.humansofpsg.com',
   integrations: [sitemap()],
 });

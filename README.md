@@ -56,28 +56,30 @@ setup documented in [oauth-proxy/README.md](oauth-proxy/README.md).
 
 ## Deployment
 
-Pushes to `main` build and deploy automatically via
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+The site deploys via [Cloudflare Pages](https://pages.cloudflare.com/),
+connected directly to this repo's `main` branch. Every push to `main`
+triggers an automatic build and deploy — no GitHub Actions workflow
+involved.
 
-One-time setup (repo admin, via the GitHub web UI): go to
-**Settings → Pages** and set **Source** to **GitHub Actions**. Until that's
-set, the workflow will build successfully but the deploy step will fail.
+One-time setup (Cloudflare dashboard, repo admin):
+
+1. **Workers & Pages → Create → Pages → Connect to Git**, select this repo
+   (`tech-itrace/humansofpsg`), branch `main`.
+2. Build settings:
+   - Framework preset: `Astro`
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Root directory: `/`
+   - The Node version is auto-detected from `.nvmrc` — no extra env var
+     needed.
+3. Deploy and verify the generated `*.pages.dev` preview URL works.
+4. On the Pages project's **Custom domains** tab, add `www.humansofpsg.com`
+   as primary and the apex `humansofpsg.com` with a redirect to `www`. Since
+   the zone lives on Cloudflare, this auto-creates the needed DNS records.
+5. Wait for SSL to issue, then confirm `https://www.humansofpsg.com` loads.
 
 The site is configured in `astro.config.mjs` for the custom domain
-`www.psgians.org` (see `public/CNAME`). To finish wiring it up:
-
-1. At your DNS registrar for `psgians.org`, add:
-   - A `CNAME` record: `www` → `tech-itrace.github.io`
-   - Four `A` records on the apex (`@`) → `185.199.108.153`,
-     `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (lets
-     `psgians.org` without `www` also resolve, and lets GitHub redirect it
-     to `www`)
-2. In the repo's **Settings → Pages**, set **Custom domain** to
-   `www.psgians.org` and wait for DNS to verify, then enable **Enforce
-   HTTPS**.
-
-DNS propagation can take up to 24 hours. Until it's verified, the site
-keeps building and deploying to the `github.io` URL as before.
+`www.humansofpsg.com`.
 
 ## Commands
 
