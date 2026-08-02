@@ -1,0 +1,158 @@
+---
+const base = import.meta.env.BASE_URL;
+
+interface NavChild {
+  label: string;
+  href: string;
+}
+
+interface NavLink {
+  label: string;
+  href?: string;
+  external?: boolean;
+  children?: NavChild[];
+}
+
+// Mirrors humansofpsg.org's own menu/submenu structure, with readable
+// #section hashes into the Alumni Journey page (confirmed working, even
+// though Wix's own markup uses opaque dataItem-* ids internally). Only Desk
+// (this site's own home) and PSGians (this site's own stories) stay local;
+// everything else links out to humansofpsg.org.
+const navLinks: NavLink[] = [
+  { label: 'Desk', href: base },
+  { label: 'PSGians', href: `${base}psgians/` },
+  {
+    label: 'HOP',
+    children: [
+      { label: 'About', href: 'https://www.humansofpsg.org/about' },
+      { label: 'PSG', href: 'https://www.humansofpsg.org/psg' },
+      { label: 'System', href: 'https://www.humansofpsg.org/system' },
+      { label: 'Alumni Journey', href: 'https://www.humansofpsg.org/alumnijourney' },
+    ],
+  },
+  {
+    label: 'Alumni Journey',
+    href: 'https://www.humansofpsg.org/alumnijourney',
+    external: true,
+    children: [
+      { label: 'Memories', href: 'https://www.humansofpsg.org/alumnijourney#memories' },
+      { label: 'Moments', href: 'https://www.humansofpsg.org/alumnijourney#moments' },
+      { label: 'Movements', href: 'https://www.humansofpsg.org/alumnijourney#movements' },
+      { label: 'Models', href: 'https://www.humansofpsg.org/alumnijourney#models' },
+      { label: 'Milestones', href: 'https://www.humansofpsg.org/alumnijourney#milestones' },
+    ],
+  },
+  { label: 'Community', href: 'http://hop.humansofpsg.org', external: true },
+  { label: 'Contact Us', href: 'https://www.humansofpsg.org#anchors-ldlfa5qy4', external: true },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => (href === base ? currentPath === base : currentPath.startsWith(href));
+---
+
+<div class="top-accent-bar"></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href={base}>Humans of PSG</a>
+    <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav id="site-nav">
+      <ul class="nav-list">
+        {
+          navLinks.map((link) => (
+            <li class={`nav-item ${link.children ? 'has-children' : ''}`}>
+              <div class="nav-item-row">
+                {link.href ? (
+                  <a
+                    href={link.href}
+                    class={!link.external && isActive(link.href) ? 'is-active' : ''}
+                    aria-current={!link.external && isActive(link.href) ? 'page' : undefined}
+                    target={link.external ? '_blank' : undefined}
+                    rel={link.external ? 'noopener' : undefined}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <span class="nav-item-label">{link.label}</span>
+                )}
+                {link.children && (
+                  <button class="nav-caret" type="button" aria-expanded="false" aria-label={`Show ${link.label} submenu`}>
+                    <svg viewBox="0 0 12 8" width="10" height="7" aria-hidden="true">
+                      <path
+                        d="M1 1l5 5 5-5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              {link.children && (
+                <ul class="nav-submenu">
+                  {link.children.map((child) => (
+                    <li>
+                      <a href={child.href} target="_blank" rel="noopener">
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const nav = document.getElementById('site-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+
+  nav?.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'A') {
+      nav.classList.remove('is-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Caret buttons toggle their submenu — needed for touch/mobile, where
+  // :hover never fires. Desktop pointers still get the CSS hover reveal.
+  document.querySelectorAll<HTMLButtonElement>('.nav-caret').forEach((caret) => {
+    caret.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const item = caret.closest('.nav-item');
+      const isOpen = item?.classList.toggle('is-open');
+      caret.setAttribute('aria-expanded', String(Boolean(isOpen)));
+
+      document.querySelectorAll('.nav-item.has-children').forEach((other) => {
+        if (other !== item) {
+          other.classList.remove('is-open');
+          other.querySelector('.nav-caret')?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target as HTMLElement).closest('.nav-item.has-children')) {
+      document.querySelectorAll('.nav-item.has-children.is-open').forEach((item) => {
+        item.classList.remove('is-open');
+        item.querySelector('.nav-caret')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+</script>

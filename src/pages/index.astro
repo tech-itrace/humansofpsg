@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StoryCarousel from '../components/StoryCarousel.astro';
+import ProfileWall from '../components/ProfileWall.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const stories = (await getCollection('stories', ({ data }) => data.status === 'published')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<BaseLayout title="Humans of PSG">
+  <div class="wrap">
+    <div class="hero">
+      <h1>Stories from every <span class="accent-word">PSGian</span>, near or far.</h1>
+      <p>Short, first-person stories about PSG alumni around the world — their journeys, their work, and the moments that shaped them.</p>
+    </div>
+
+    <section class="section-teaser reveal">
+      <div class="section-teaser-head">
+        <div>
+          <p class="section-title">Find a PSGian</p>
+          <p class="section-teaser-desc">Filter by city, department, or expertise — or just watch everyone float by.</p>
+        </div>
+      </div>
+      <ProfileWall stories={stories} />
+    </section>
+
+    <section class="section-teaser reveal">
+      <div class="section-teaser-head">
+        <div>
+          <p class="section-title">Stories</p>
+          <p class="section-teaser-desc">The latest stories, told in people's own words.</p>
+        </div>
+        <a class="see-all" href={`${base}psgians/`}>See all Stories &rarr;</a>
+      </div>
+      <StoryCarousel stories={stories} />
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,87 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import StoryCard from '../../../components/StoryCard.astro';
+import { slugify } from '../../../lib/slugify';
+import { resolvePhotoUrl } from '../../../lib/photoUrl';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories', ({ data }) => data.status === 'published');
+  return stories.map((story) => ({
+    params: { id: story.id },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props;
+const { Content } = await render(story);
+const base = import.meta.env.BASE_URL;
+
+const allStories = await getCollection('stories', ({ data }) => data.status === 'published');
+const moreStories = allStories.filter((s) => s.id !== story.id).slice(0, 3);
+
+const seenSlugs = new Set<string>();
+const tagValues = [
+  story.data.location,
+  story.data.city,
+  story.data.department,
+  story.data.expertise,
+  story.data.category,
+  ...story.data.tags,
+]
+  .filter((value): value is string => Boolean(value))
+  .filter((value) => {
+    const slug = slugify(value);
+    if (seenSlugs.has(slug)) return false;
+    seenSlugs.add(slug);
+    return true;
+  });
+const ogImageUrl = new URL(`${base}og/${story.id}.png`, Astro.site).toString();
+const storyUrl = new URL(`${base}psgians/${story.id}/`, Astro.site).toString();
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: story.data.name,
+  description: story.data.pullQuote,
+  image: new URL(resolvePhotoUrl(base, story.data.photo), Astro.site).toString(),
+  url: storyUrl,
+  homeLocation: story.data.city,
+  ...(story.data.department && { affiliation: { '@type': 'Organization', name: `PSG ${story.data.department}` } }),
+  ...(story.data.expertise && { jobTitle: story.data.expertise }),
+};
+---
+
+<BaseLayout
+  title={`${story.data.name} — Humans of PSG`}
+  description={story.data.pullQuote}
+  image={ogImageUrl}
+  structuredData={personSchema}
+>
+  <div class="story-hero wrap">
+    <img src={resolvePhotoUrl(base, story.data.photo)} alt={story.data.photoAlt} />
+  </div>
+  <article class="story-body">
+    <p class="pull-quote">{story.data.pullQuote}</p>
+    <p class="meta-line">
+      {story.data.name} &middot; {story.data.location} &middot; {story.data.category}
+      <br />
+      As told to {story.data.contributedBy}
+    </p>
+    <Content />
+    <p class="tag-list">
+      {tagValues.map((value) => (
+        <a class="tag-pill" href={`${base}tag/${slugify(value)}/`}>{value}</a>
+      ))}
+    </p>
+  </article>
+
+  {moreStories.length > 0 && (
+    <div class="wrap">
+      <p class="section-title">More stories</p>
+      <div class="story-grid">
+        {moreStories.map((s) => <StoryCard story={s} />)}
+      </div>
+    </div>
+  )}
+</BaseLayout>
