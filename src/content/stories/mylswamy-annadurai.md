@@ -9,9 +9,11 @@ pullQuote: Moon Man of India
 publishDate: 2026-08-09T12:02:00.000+05:30
 contributedBy: Venk
 status: published
-tags: []
+tags:
+  - '"ISRO"'
+  - '"Milestones"'
 ---
-**🚀 Dr. Mylswamy Annadurai | THE MOON MAN OF INDIA 🌕**
+#### **🚀 Dr. Mylswamy Annadurai | THE MOON MAN OF INDIA 🌕**
 
 “Moon Man of India” | Padma Shri Awardee | PSG Tech Alumnus
 
@@ -25,7 +27,7 @@ In this special Humans of PSG interaction, Dr. Annadurai takes us through his re
 
 
 
-**🎓 FROM PSG TECH TO ISRO**
+##### **🎓 FROM PSG TECH TO ISRO**
 
 Although his postgraduate specialization was applied electronics, PSG gave him opportunities to work on interdisciplinary projects, including CNC-related projects.
 
@@ -37,7 +39,7 @@ His project work at PSG was also instrumental during his ISRO interview—ultima
 
 
 
-**🌕 CHANDRAYAAN: YOU CAN START LATE**
+##### **🌕 CHANDRAYAAN: YOU CAN START LATE**
 
 Chandrayaan-1 was not simply another mission.
 
@@ -55,7 +57,7 @@ Being late is not the same as being irrelevant.
 
 
 
-**🚀 MANGALYAAN: GRAB THE OPPORTUNITY**
+##### **🚀 MANGALYAAN: GRAB THE OPPORTUNITY**
 
 One of the most fascinating lessons from the Mars Orbiter Mission was the ability to recognize and reuse what was already available.
 
@@ -73,7 +75,7 @@ Sometimes going beyond the sky begins with making better use of what is already 
 
 
 
-**🌗 CHANDRAYAAN-2: LEARN FROM THE SETBACK**
+##### **🌗 CHANDRAYAAN-2: LEARN FROM THE SETBACK**
 
 Success isn't the absence of failure.
 
@@ -95,7 +97,7 @@ Accept. Analyze. Learn. Improve. Return stronger.
 
 
 
-**🧠 BEYOND ROCKETS**
+##### **🧠 BEYOND ROCKETS**
 
 What makes this interaction even more interesting is that Dr. Annadurai's thinking extends far beyond space missions.
 
@@ -107,7 +109,7 @@ It is about identifying real problems and designing systems that solve them.
 
 
 
-**⚡ RAPID FIRE WITH THE MOON MAN**
+##### **⚡ RAPID FIRE WITH THE MOON MAN**
 
 And of course, no Humans of PSG conversation would be complete without a little fun!
 
@@ -133,7 +135,7 @@ His answers reveal the person behind the scientist—curious, grounded, humorous
 
 
 
-**🌱 THE BIGGER LESSON**
+##### **🌱 THE BIGGER LESSON**
 
 Dr. Mylswamy Annadurai's journey is not merely a story about rockets, satellites, or missions to the Moon.
 
@@ -155,29 +157,27 @@ And inspiring the next generation to dream bigger.
 
 From PSG Tech to the Moon and Mars, his journey reminds us:
 
-> **You don't have to start first to make history.**
+> ### **You don't have to start first to make history.**
 >
-> **You have to be ready when your opportunity arrives.**
+> ### **You have to be ready when your opportunity arrives.**
 
-🌕 This is Humans of PSG,
-
-
-
-**Connect Through Stories.**
-
-**Collaborate for Impact.**
-
-**Contribute to Our Journey.**
-
-**From Memories to Milestones—Let's Grow Together.**
+🌕 This is Humans of PSG.
 
 
 
-\#HumansOfPSG #PSGTech #PSGAlumni #MylswamyAnnadurai #ISRO #Chandrayaan #Innovation #Engineering
+### **Connect Through Stories.**
+
+### **Collaborate for Impact.**
+
+### **Contribute to Our Journey.**
+
+### **From Memories to Milestones—Let's Grow Together.**
 
 
 
-References:
+
+
+###### References:
 
 https://en.wikipedia.org/wiki/Mylswamy_Annadurai
 
