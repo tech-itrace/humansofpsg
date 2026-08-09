@@ -151,11 +151,13 @@ Building with purpose.
 
 And inspiring the next generation to dream bigger.
 
+
+
 From PSG Tech to the Moon and Mars, his journey reminds us:
 
-«You don't have to start first to make history.
-
-You have to be ready when your opportunity arrives.»
+> **You don't have to start first to make history.**
+>
+> **You have to be ready when your opportunity arrives.**
 
 🌕 This is Humans of PSG,
 
@@ -167,8 +169,18 @@ You have to be ready when your opportunity arrives.»
 
 **Contribute to Our Journey.**
 
-
-
 **From Memories to Milestones—Let's Grow Together.**
 
+
+
 \#HumansOfPSG #PSGTech #PSGAlumni #MylswamyAnnadurai #ISRO #Chandrayaan #Innovation #Engineering
+
+
+
+References:
+
+https://en.wikipedia.org/wiki/Mylswamy_Annadurai
+
+https://www.psgtech.edu/DAlumni.php
+
+https://www.linkedin.com/posts/psgtechalumnibengaluruchapter_psgtech-psgtechalumni-activity-7348320834869960704-AGmo
