@@ -8,7 +8,7 @@ category: Scientist
 pullQuote: Moon Man of India
 publishDate: 2026-08-09T12:02:00.000+05:30
 contributedBy: Venk
-status: draft
+status: published
 tags: []
 ---
 **🚀 Dr. Mylswamy Annadurai | THE MOON MAN OF INDIA 🌕**
