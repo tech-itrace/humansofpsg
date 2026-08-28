@@ -108,16 +108,15 @@ img {
 }
 
 .site-header .brand {
-  font-family: var(--font-ui);
-  font-weight: 800;
-  font-size: 1.2rem;
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  display: inline-flex;
+  align-items: center;
   transition: filter 0.25s var(--ease);
+}
+
+.site-header .brand img {
+  display: block;
+  height: 2.15rem;
+  width: auto;
 }
 
 .site-header .brand:hover {
