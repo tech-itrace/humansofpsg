@@ -872,14 +872,15 @@ img {
 }
 
 .profile-filters {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
 
 .profile-filters select,
 .profile-filters input {
+  width: 100%;
   font-family: var(--font-ui);
   font-size: 0.9rem;
   color: var(--color-ink);
@@ -889,8 +890,10 @@ img {
   padding: 0.55rem 1.1rem;
 }
 
-.profile-filters input[type='search'] {
-  flex: 1 1 220px;
+@media (max-width: 640px) {
+  .profile-filters {
+    grid-template-columns: 1fr;
+  }
 }
 
 .profile-filters select:focus,
