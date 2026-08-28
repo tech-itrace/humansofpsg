@@ -20,6 +20,18 @@ const {
 const base = import.meta.env.BASE_URL;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Humans of PSG',
+  url: 'https://www.humansofpsg.org',
+  logo: 'https://www.humansofpsg.org/favicon-512.png',
+  sameAs: [
+    'https://www.instagram.com/hop_humansofpsg',
+    'https://www.linkedin.com/company/humansofpsg',
+  ],
+};
+
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -46,7 +58,7 @@ const websiteSchema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Jost:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Jost:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
@@ -63,6 +75,7 @@ const websiteSchema = {
     {image && <meta property="og:image" content={image} />}
     <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
     <title>{title}</title>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)} />
     {structuredData && <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />}
   </head>
@@ -88,6 +101,46 @@ const websiteSchema = {
       );
 
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+    <script>
+      // Right-click content protection, matching humansofpsg.org: block the
+      // native context menu and show a small "HOP © Copyright" toast instead.
+      let rcToast: HTMLDivElement | null = null;
+      let rcHideTimer: ReturnType<typeof setTimeout> | undefined;
+
+      const hideRcToast = () => {
+        rcToast?.classList.remove('is-visible');
+      };
+
+      document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+
+        if (!rcToast) {
+          rcToast = document.createElement('div');
+          rcToast.className = 'rc-protect-toast';
+          rcToast.textContent = 'HOP © Copyright';
+          document.body.appendChild(rcToast);
+        }
+
+        const { clientX, clientY } = event;
+        const offset = 12;
+        rcToast.style.left = `${clientX + offset}px`;
+        rcToast.style.top = `${clientY + offset}px`;
+        rcToast.classList.add('is-visible');
+
+        clearTimeout(rcHideTimer);
+        rcHideTimer = setTimeout(hideRcToast, 1800);
+      });
+
+      document.addEventListener('click', hideRcToast);
+      document.addEventListener('scroll', hideRcToast, { passive: true });
+
+      // Discourage casual image dragging/copying alongside the context menu.
+      document.addEventListener('dragstart', (event) => {
+        if ((event.target as HTMLElement)?.tagName === 'IMG') {
+          event.preventDefault();
+        }
+      });
     </script>
   </body>
 </html>

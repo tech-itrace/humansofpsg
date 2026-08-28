@@ -4,6 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import StoryCard from '../../../components/StoryCard.astro';
 import { slugify } from '../../../lib/slugify';
 import { resolvePhotoUrl } from '../../../lib/photoUrl';
+import { defaultPhotoAlt } from '../../../lib/photoAlt';
 
 export async function getStaticPaths() {
   const stories = await getCollection('stories', ({ data }) => data.status === 'published');
@@ -26,7 +27,6 @@ const tagValues = [
   story.data.city,
   story.data.department,
   story.data.expertise,
-  story.data.category,
   ...story.data.tags,
 ]
   .filter((value): value is string => Boolean(value))
@@ -59,14 +59,15 @@ const personSchema = {
   structuredData={personSchema}
 >
   <div class="story-hero wrap">
-    <img src={resolvePhotoUrl(base, story.data.photo)} alt={story.data.photoAlt} />
+    <img
+      src={resolvePhotoUrl(base, story.data.bannerImage ?? story.data.photo)}
+      alt={defaultPhotoAlt(story.data.name)}
+    />
   </div>
   <article class="story-body">
     <p class="pull-quote">{story.data.pullQuote}</p>
     <p class="meta-line">
-      {story.data.name} &middot; {story.data.location} &middot; {story.data.category}
-      <br />
-      As told to {story.data.contributedBy}
+      {story.data.name} &middot; {story.data.location}
     </p>
     <Content />
     <p class="tag-list">

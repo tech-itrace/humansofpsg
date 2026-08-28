@@ -4,8 +4,66 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Content Manager — Humans of PSG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Jost:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Match the public site's typefaces: Fredoka for headings, Jost
+         elsewhere — same substitution used on the public site for the
+         client's requested Fedora/Futura pairing (see CLIENT-FEEDBACK-PLAN.md). */
+      body,
+      input,
+      textarea,
+      select,
+      button {
+        font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Fredoka', 'Segoe UI', sans-serif;
+      }
+
+      /* Reference links, pinned above the CMS app (Admin #7). Fixed +
+         high z-index since Decap CMS mounts its own full-viewport root
+         after this markup and would otherwise cover a normal-flow footer. */
+      #cms-reference-footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+        display: flex;
+        gap: 1.25rem;
+        justify-content: center;
+        padding: 0.6rem 1rem;
+        font-size: 0.82rem;
+        background: #1864ab;
+        color: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      #cms-reference-footer a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      #cms-reference-footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!--
+      TODO: add the wiki/reference links the client wants here once URLs
+      are provided — see CLIENT-FEEDBACK-PLAN.md (Admin #7). LinkedIn is
+      the only confirmed URL so far.
+    -->
+    <div id="cms-reference-footer">
+      <a href="https://www.linkedin.com/company/humansofpsg" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
   </body>
 </html>
