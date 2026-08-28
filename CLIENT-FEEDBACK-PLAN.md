@@ -25,8 +25,8 @@ Legend: ✅ Addressed · ⚠️ Partially addressed · ❌ Not addressed
 
 | # | Comment | Status | Evidence / Gap |
 |---|---|---|---|
-| 1 | Banner image 3:2 | ❌ | There is no separate banner-image field — [`content.config.ts`](src/content.config.ts) and [`public/admin/config.yml`](public/admin/config.yml) only define one `photo` field, reused as both story hero and profile thumbnail. No aspect-ratio constraint exists for it either. |
-| 2 | Profile photo 4:5 | ❌ | Profile thumbnails ([`global.css`](src/styles/global.css#L913) `.profile-chip img`) are rendered as 1:1 circles (`border-radius: 50%`), not 4:5. |
+| 1 | Banner image 3:2 | ✅ | Added a separate optional `bannerImage` field (falls back to the profile photo when unset), enforced at `aspect-ratio: 3/2` on the story-page hero ([`content.config.ts`](src/content.config.ts), [`config.yml`](public/admin/config.yml), [`psgians/[id]/index.astro`](src/pages/psgians/%5Bid%5D/index.astro)). |
+| 2 | Profile photo 4:5 | ✅ | The main profile-photo display (story cards, `.story-card-media`) was already `aspect-ratio: 4/5` — renamed the CMS field to "Profile photo" with a 4:5 crop hint for clarity. The small circular avatars in the floating marquee/filter grid (`.profile-chip`/`.profile-card`, ~88px) are a separate decorative treatment, left as-is — flag if those should also become 4:5 rectangles. |
 | 3 | Fonts Fedora/Futura in admin | ✅ | Same Fredoka (headings) / Jost (elsewhere) pairing now loaded and applied via broad selectors in [`public/admin/index.html`](public/admin/index.html). |
 | 4 | Editor content area adapts to web/mobile space | ❌ | No custom CMS styling exists to verify/tune this — currently 100% Decap CMS defaults, unreviewed. |
 | 5 | Remove fields: photo description, area, category, contributor, tags | ❌ | All five are still present in [`config.yml`](public/admin/config.yml): `photoAlt` (l.38-43), `location` (l.44-49), `category` (l.71-76), `contributedBy` (l.84), `tags` (l.91-97). Note: `photoAlt` and `location`/`category`/`tags` are also read by the schema and used on the site (alt text, tag pills, filters) — removing them from the form has downstream effects (see Plan, Admin #5). |

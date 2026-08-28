@@ -59,7 +59,7 @@ const personSchema = {
   structuredData={personSchema}
 >
   <div class="story-hero wrap">
-    <img src={resolvePhotoUrl(base, story.data.photo)} alt={story.data.photoAlt} />
+    <img src={resolvePhotoUrl(base, story.data.bannerImage ?? story.data.photo)} alt={story.data.photoAlt} />
   </div>
   <article class="story-body">
     <p class="pull-quote">{story.data.pullQuote}</p>

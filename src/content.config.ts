@@ -7,6 +7,7 @@ const stories = defineCollection({
     name: z.string(),
     photo: z.string(),
     photoAlt: z.string(),
+    bannerImage: z.string().optional(),
     location: z.string(),
     city: z.string().default('Chennai'),
     department: z.string().optional(),

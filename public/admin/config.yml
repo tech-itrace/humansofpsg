@@ -34,12 +34,24 @@ collections:
           widget: "string",
           hint: "First name (or however the subject wants to be identified).",
         }
-      - { label: "Photo", name: "photo", widget: "image" }
+      - {
+          label: "Profile photo",
+          name: "photo",
+          widget: "image",
+          hint: "Crop to 4:5 (portrait) before uploading — shown on story cards and the profile wall.",
+        }
       - {
           label: "Photo description",
           name: "photoAlt",
           widget: "string",
           hint: "For screen readers — describe the photo, not the story.",
+        }
+      - {
+          label: "Banner image",
+          name: "bannerImage",
+          widget: "image",
+          required: false,
+          hint: "Crop to 3:2 (landscape) before uploading — shown at the top of the story page. Falls back to the profile photo if left blank.",
         }
       - {
           label: "Neighborhood / area",
