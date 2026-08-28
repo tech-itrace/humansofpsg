@@ -110,6 +110,14 @@ img {
 .site-header .brand {
   display: inline-flex;
   align-items: center;
+  /* The logo file itself has an opaque white background baked in (not
+     transparent) — invisible against our white light-mode header, but
+     would show as a stray white box in dark mode without this. Giving it
+     an explicit white card, always, matches how the source image already
+     looks and avoids a light/dark mismatch either way. */
+  padding: 0.35rem 0.65rem;
+  background: #ffffff;
+  border-radius: 8px;
   transition: filter 0.25s var(--ease);
 }
 
