@@ -89,5 +89,45 @@ const websiteSchema = {
 
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     </script>
+    <script>
+      // Right-click content protection, matching humansofpsg.org: block the
+      // native context menu and show a small "HOP © Copyright" toast instead.
+      let rcToast: HTMLDivElement | null = null;
+      let rcHideTimer: ReturnType<typeof setTimeout> | undefined;
+
+      const hideRcToast = () => {
+        rcToast?.classList.remove('is-visible');
+      };
+
+      document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+
+        if (!rcToast) {
+          rcToast = document.createElement('div');
+          rcToast.className = 'rc-protect-toast';
+          rcToast.textContent = 'HOP © Copyright';
+          document.body.appendChild(rcToast);
+        }
+
+        const { clientX, clientY } = event;
+        const offset = 12;
+        rcToast.style.left = `${clientX + offset}px`;
+        rcToast.style.top = `${clientY + offset}px`;
+        rcToast.classList.add('is-visible');
+
+        clearTimeout(rcHideTimer);
+        rcHideTimer = setTimeout(hideRcToast, 1800);
+      });
+
+      document.addEventListener('click', hideRcToast);
+      document.addEventListener('scroll', hideRcToast, { passive: true });
+
+      // Discourage casual image dragging/copying alongside the context menu.
+      document.addEventListener('dragstart', (event) => {
+        if ((event.target as HTMLElement)?.tagName === 'IMG') {
+          event.preventDefault();
+        }
+      });
+    </script>
   </body>
 </html>
