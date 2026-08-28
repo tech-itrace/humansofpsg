@@ -31,7 +31,7 @@ Legend: ✅ Addressed · ⚠️ Partially addressed · ❌ Not addressed
 | 4 | Editor content area adapts to web/mobile space | ❌ | No custom CMS styling exists to verify/tune this — currently 100% Decap CMS defaults, unreviewed. |
 | 5 | Remove fields: photo description, area, category, contributor, tags | ✅ | Removed `photoAlt` (now auto-generated as "Photo of {name}" via [`lib/photoAlt.ts`](src/lib/photoAlt.ts)), `category`, and `contributedBy` (and its "As told to" byline) from the schema, CMS form, and every template that read them. **Kept** `location` ("area") and `tags` per client decision — `tags` turned out to be load-bearing for 5 site sections (Memories/Moments/Movements/Models/Milestones), not just tag browsing, so it was flagged and kept rather than silently breaking those. Dropping `category` also removed the 3 tag pages that existed solely from category values (23 → 20 built pages), which is expected. |
 | 6 | Story field: underline, "edited but not published" indicator, richer editing | ❌ | The story field is a plain Decap `markdown` widget ([`config.yml`](public/admin/config.yml#L98)) — no visual customization, no draft/dirty indicator beyond the existing `status: draft/published` dropdown. |
-| 7 | LinkedIn/wiki + references links in admin footer | ❌ | `public/admin/index.html` has no footer at all. |
+| 7 | LinkedIn/wiki + references links in admin footer | ⚠️ | Added a fixed footer bar to [`public/admin/index.html`](public/admin/index.html) with a LinkedIn link (matching the public site's). Wiki/references URLs weren't available yet — a `TODO` marks where to add them once provided. Also unverified live: Decap CMS's own root may overlap the fixed bar depending on its internal layout — needs a quick visual check once deployed. |
 
 ---
 
