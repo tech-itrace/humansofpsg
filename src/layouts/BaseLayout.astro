@@ -20,6 +20,18 @@ const {
 const base = import.meta.env.BASE_URL;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Humans of PSG',
+  url: 'https://www.humansofpsg.org',
+  logo: 'https://www.humansofpsg.org/favicon-512.png',
+  sameAs: [
+    'https://www.instagram.com/hop_humansofpsg',
+    'https://www.linkedin.com/company/humansofpsg',
+  ],
+};
+
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -63,6 +75,7 @@ const websiteSchema = {
     {image && <meta property="og:image" content={image} />}
     <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
     <title>{title}</title>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(websiteSchema)} />
     {structuredData && <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />}
   </head>
