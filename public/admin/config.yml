@@ -41,12 +41,6 @@ collections:
           hint: "Crop to 4:5 (portrait) before uploading — shown on story cards and the profile wall.",
         }
       - {
-          label: "Photo description",
-          name: "photoAlt",
-          widget: "string",
-          hint: "For screen readers — describe the photo, not the story.",
-        }
-      - {
           label: "Banner image",
           name: "bannerImage",
           widget: "image",
@@ -81,19 +75,12 @@ collections:
           hint: "e.g. Management, Business, Founder, Researcher, Investor, CXO, Mentor, Coach, Advisor",
         }
       - {
-          label: "Category",
-          name: "category",
-          widget: "string",
-          hint: "e.g. Work, Family, Craft, Migration, Tradition",
-        }
-      - {
           label: "Pull quote",
           name: "pullQuote",
           widget: "string",
           hint: "One short line from the story, shown on the story card.",
         }
       - { label: "Publish date", name: "publishDate", widget: "datetime" }
-      - { label: "Contributed by", name: "contributedBy", widget: "string" }
       - label: "Status"
         name: "status"
         widget: "select"

@@ -16,7 +16,6 @@ export async function getStaticPaths() {
       story.data.city,
       story.data.department,
       story.data.expertise,
-      story.data.category,
       ...story.data.tags,
     ].filter((value): value is string => Boolean(value));
     for (const value of values) {

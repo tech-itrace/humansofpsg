@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { resolvePhotoUrl } from '../lib/photoUrl';
+import { defaultPhotoAlt } from '../lib/photoAlt';
 
 interface Props {
   stories: CollectionEntry<'stories'>[];
@@ -64,7 +65,7 @@ const rows = [shuffle(stories, 1), shuffle(stories, 2), shuffle(stories, 3)];
               data-expertise={story.data.expertise ?? ''}
               data-search={searchText(story)}
             >
-              <img src={resolvePhotoUrl(base, story.data.photo)} alt={story.data.photoAlt} loading="lazy" />
+              <img src={resolvePhotoUrl(base, story.data.photo)} alt={defaultPhotoAlt(story.data.name)} loading="lazy" />
               <span class="profile-chip-name">{story.data.name}</span>
             </a>
           ))}
@@ -83,7 +84,7 @@ const rows = [shuffle(stories, 1), shuffle(stories, 2), shuffle(stories, 3)];
         data-expertise={story.data.expertise ?? ''}
         data-search={searchText(story)}
       >
-        <img src={resolvePhotoUrl(base, story.data.photo)} alt={story.data.photoAlt} loading="lazy" />
+        <img src={resolvePhotoUrl(base, story.data.photo)} alt={defaultPhotoAlt(story.data.name)} loading="lazy" />
         <span class="profile-card-name">{story.data.name}</span>
       </a>
     ))}
