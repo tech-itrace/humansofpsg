@@ -86,7 +86,7 @@ collections:
         widget: "select"
         options: ["draft", "published"]
         default: "draft"
-        hint: 'Only "published" stories appear on the live site. Leave as draft until the PR is reviewed and merged.'
+        hint: '⚠️ If this is set to "draft", none of your edits are live yet — even after saving. Set to "published" and wait for the PR to be reviewed and merged before this story (or any changes to it) appears on the site.'
       - {
           label: "Tags",
           name: "tags",
