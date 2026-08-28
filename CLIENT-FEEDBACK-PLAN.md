@@ -1,0 +1,117 @@
+# Client Feedback — Status &amp; Remediation Plan
+
+Reviewed against the codebase at commit `013efb9` (2026-08-28).
+
+Legend: ✅ Addressed · ⚠️ Partially addressed · ❌ Not addressed
+
+---
+
+## Home Page — Public View
+
+| # | Comment | Status | Evidence / Gap |
+|---|---|---|---|
+| 1 | Marquee photos float horizontally, shuffled | ✅ | [`ProfileWall.astro`](src/components/ProfileWall.astro) seeds a random shuffle per row and animates three rows in alternating directions (`profile-scroll` keyframes in [`global.css`](src/styles/global.css#L893)), pausing on hover. |
+| 2 | Sync menu with main site, fix mobile bug | ⚠️ | [`Header.astro`](src/components/Header.astro) is deliberately built to mirror humansofpsg.org's menu tree (comment in the file says so) with a working mobile toggle + touch-friendly submenu carets. Structurally done, but needs a **side-by-side visual QA pass against the live main site** (desktop and mobile) to confirm no remaining mismatch — the "bug" that was reported hasn't been reproduced/verified as fixed. |
+| 3 | Background white, as main site | ⚠️ | `--color-bg` is `#fff8f0` (warm cream), not pure white. `--color-bg-raised` (`#ffffff`) is only used for cards/inputs. Needs a decision + change (see Plan #3). |
+| 4 | Fonts: Fedora (heading) / Futura (subheading) | ❌ | Currently `Fraunces` (headings/body) + `Jost` (UI) via Google Fonts, set in [`global.css`](src/styles/global.css#L14). Neither Fedora nor Futura is loaded anywhere. |
+| 5 | Header/footer font size & position match main site (web + mobile) | ⚠️ | Structure/links are mirrored, but exact type scale and spacing haven't been pixel-checked against the main site, and this is blocked by #4 (fonts not yet swapped). |
+| 6 | SEO tooling for discoverability | ✅ | Canonical URLs, OG/Twitter tags, JSON-LD (`WebSite` + `Person` schema per story), `@astrojs/sitemap`, `robots.txt`, RSS feed all present ([`BaseLayout.astro`](src/layouts/BaseLayout.astro), [`astro.config.mjs`](astro.config.mjs)). Remaining work is mostly operational, not code (see Plan #6). |
+| 7 | Favicon + logo image, as humansofpsg.org | ⚠️ | Favicon set (`favicon.ico`, 16x16/32x32 PNG, apple-touch-icon — recently updated in `013efb9`). No **logo image** yet — the header brand mark is still plain text ("Humans of PSG"), not humansofpsg.org's logo graphic. |
+| 8 | Search field and other filters same size | ❌ | In [`global.css`](src/styles/global.css#L826), `.profile-filters input[type=search]` is `flex: 1 1 220px` while the three `<select>` filters auto-size to their content — visibly inconsistent widths. |
+| 9 | Right-click content protection | ✅ | Matches humansofpsg.org: context menu blocked site-wide, custom "HOP © Copyright" gradient toast shown at cursor, image drag disabled ([`BaseLayout.astro`](src/layouts/BaseLayout.astro)). |
+| 10 | Copyright line in footer, as desk page | ✅ | `© {year} by HOP \| Build in India by PSGians`, right-aligned bottom bar, matching humansofpsg.org verbatim ([`Footer.astro`](src/components/Footer.astro)). |
+
+## Admin Page — Author View
+
+| # | Comment | Status | Evidence / Gap |
+|---|---|---|---|
+| 1 | Banner image 3:2 | ❌ | There is no separate banner-image field — [`content.config.ts`](src/content.config.ts) and [`public/admin/config.yml`](public/admin/config.yml) only define one `photo` field, reused as both story hero and profile thumbnail. No aspect-ratio constraint exists for it either. |
+| 2 | Profile photo 4:5 | ❌ | Profile thumbnails ([`global.css`](src/styles/global.css#L913) `.profile-chip img`) are rendered as 1:1 circles (`border-radius: 50%`), not 4:5. |
+| 3 | Fonts Fedora/Futura in admin | ❌ | [`public/admin/index.html`](public/admin/index.html) loads stock Decap CMS with zero custom CSS/fonts. |
+| 4 | Editor content area adapts to web/mobile space | ❌ | No custom CMS styling exists to verify/tune this — currently 100% Decap CMS defaults, unreviewed. |
+| 5 | Remove fields: photo description, area, category, contributor, tags | ❌ | All five are still present in [`config.yml`](public/admin/config.yml): `photoAlt` (l.38-43), `location` (l.44-49), `category` (l.71-76), `contributedBy` (l.84), `tags` (l.91-97). Note: `photoAlt` and `location`/`category`/`tags` are also read by the schema and used on the site (alt text, tag pills, filters) — removing them from the form has downstream effects (see Plan, Admin #5). |
+| 6 | Story field: underline, "edited but not published" indicator, richer editing | ❌ | The story field is a plain Decap `markdown` widget ([`config.yml`](public/admin/config.yml#L98)) — no visual customization, no draft/dirty indicator beyond the existing `status: draft/published` dropdown. |
+| 7 | LinkedIn/wiki + references links in admin footer | ❌ | `public/admin/index.html` has no footer at all. |
+
+---
+
+## Remediation Plan
+
+Ordered roughly by effort; items in the same numbered group can be done together since they touch the same files.
+
+### A. Quick styling fixes (low effort, no open questions)
+
+1. **Copyright line** (Public #10) — add `© {new Date().getFullYear()} Humans of PSG. All rights reserved.` to [`Footer.astro`](src/components/Footer.astro), styled to match the "desk page" reference.
+2. **Equal-size filter controls** (Public #8) — give `.profile-filters select` and `input[type=search]` the same `flex-basis`/`min-width` in [`global.css`](src/styles/global.css#L826).
+3. **Right-click content protection** (Public #9) — add a `contextmenu` handler (and `user-select: none` on images/story text) in a small script in [`BaseLayout.astro`](src/layouts/BaseLayout.astro), matching whatever the "desk page" does today. *(Note: this is a deterrent only, not real protection — flag this expectation to the client.)*
+
+### B. Background color (Public #3)
+
+- Confirm the exact hex the main site uses for its page background (likely `#ffffff`).
+- Change `--color-bg` in [`global.css`](src/styles/global.css#L2) to that value in both the light and (if applicable) dark blocks, then visually re-check contrast on the cream-tinted elements that were designed against `#fff8f0` (borders, shadows).
+
+### C. Logo image (Public #7)
+
+- Obtain the logo asset (SVG/PNG) used at humansofpsg.org.
+- Replace the text brand mark in [`Header.astro`](src/components/Header.astro#L56) with an `<img>`/`<svg>` logo, sized correctly for both header and footer, with matching favicon already in place.
+
+### D. Typography — Fedora / Futura (Public #4, #5; Admin #3)
+
+- **Open question for the client**: Futura is a commercial typeface (not on Google Fonts); "Fedora" isn't a common web font name either — likely a licensed/custom font already used on humansofpsg.org, or possibly a free lookalike (e.g. Google's "Jost" is already a Futura-style geometric sans — it may already be the intended substitute). Need the client to confirm:
+  - exact font names/weights used on the main site, and
+  - whether we have license/webfont files for them, or should use a close free alternative.
+- Once confirmed: replace the `@font-face`/Google Fonts `<link>` in [`BaseLayout.astro`](src/layouts/BaseLayout.astro#L46) and the `--font-body`/`--font-ui` variables in [`global.css`](src/styles/global.css#L14), then do a full pass matching header/footer type scale and spacing to the main site (closes Public #5 together with this).
+- Apply the same fonts to the admin UI (Admin #3) via custom CSS injected in [`public/admin/index.html`](public/admin/index.html).
+
+### E. Mobile menu / main-site sync verification (Public #2)
+
+- Do a side-by-side pass of `Header.astro`/`Footer.astro` against humansofpsg.org on both desktop and common mobile widths (375px, 390px, 428px), specifically re-checking the originally reported mobile bug.
+- Fix any drift found (spacing, submenu behavior, breakpoint mismatches).
+
+### F. SEO polish (Public #6)
+
+Code is largely done; remaining items are small additions + operational steps:
+- Add `Organization`/`BreadcrumbList` JSON-LD to listing pages (`psgians/index.astro`, tag pages) for richer search results.
+- Verify all story photos have meaningful `photoAlt` text (already required by schema).
+- Operational (not code): submit the sitemap to Google Search Console / Bing Webmaster Tools, verify site ownership, confirm `astro.config.mjs`'s `site` URL matches the final production domain.
+
+### G. Admin — banner (3:2) vs profile photo (4:5) (Admin #1, #2)
+
+- **Open question for the client**: today there is a single `photo` field used both as the story hero image *and* the profile-wall thumbnail. A 3:2 banner and a 4:5 profile photo are two different crops/purposes — confirm whether the client wants:
+  - (a) two separate upload fields (`bannerImage` 3:2 + `profilePhoto` 4:5), or
+  - (b) one uploaded photo with two different CSS crops applied (simpler for contributors, but crops may look off depending on framing).
+- Once decided:
+  - If (a): add a `bannerImage` field to [`content.config.ts`](src/content.config.ts) and [`config.yml`](public/admin/config.yml), update [`psgians/[id]/index.astro`](src/pages/psgians/[id]/index.astro) to render it in `.story-hero` with `aspect-ratio: 3/2`, and update `ProfileWall`/`StoryCard` to use `profilePhoto` with `aspect-ratio: 4/5` (dropping the current circular crop).
+  - If (b): apply `aspect-ratio` + `object-fit: cover` at the two call sites without touching the schema, and add CMS `hint:` text telling contributors how each crop will be used.
+
+### H. Admin — remove/rework fields (Admin #5)
+
+- `contributedBy` can be safely removed from the *editor form* only if the client no longer wants "as told to X" attribution shown on the story page — otherwise keep it (used in [`psgians/[id]/index.astro`](src/pages/psgians/[id]/index.astro#L69)).
+- `photoAlt`, `location`, `category`, `tags` are all load-bearing: `photoAlt` drives accessibility text, `location`/`category` appear on story cards and detail pages, `tags` power `/tag/[tag]/` pages and the profile filters. Removing them from the form without removing the *feature* would break those pages/filters or leave empty values.
+- **Recommendation to the client**: either (i) keep these fields but make them optional with sensible defaults so contributors can skip them, or (ii) confirm dropping the features they power (tag pages, city/dept/expertise filters) is acceptable, so the schema and pages can be simplified together. Needs a decision before touching `config.yml`/`content.config.ts`.
+
+### I. Admin — richer story editor (Admin #6)
+
+- Add a "Draft has unpublished edits" indicator: compare the entry's last-edited state against its published `status` (Decap CMS editorial workflow already tracks draft/in-review/ready — this can likely be surfaced with the CMS's built-in workflow UI rather than custom-built, needs a short spike).
+- For "underline" and "more features to design content" — clarify with the client exactly which formatting controls they want (the current `markdown` widget already supports bold/italic/links/lists/headings via its toolbar; underline is *not* standard Markdown, so confirm whether they mean rich-text underline support or something else) before customizing the widget/toolbar.
+
+### J. Admin — layout responsiveness (Admin #4)
+
+- Audit the CMS editor at common breakpoints (mobile, tablet, desktop) once custom fonts/CSS are added (Step D), since no custom admin styling exists yet to have introduced any regressions — likely fine on Decap defaults, but unverified.
+
+### K. Admin — footer links (Admin #7)
+
+- Add a simple footer to [`public/admin/index.html`](public/admin/index.html) (Decap CMS supports custom UI via its React registration API, or a plain HTML footer appended outside the CMS mount point) with the LinkedIn/wiki and "references" links the client wants — need the actual URLs from the client.
+
+---
+
+## Open questions for the client (blockers)
+
+1. Exact hex for "white" background, if not `#ffffff`.
+2. Font files/license for Fedora and Futura, or confirmation to use free equivalents.
+3. The logo image asset (SVG/PNG) from humansofpsg.org.
+4. Banner (3:2) vs profile photo (4:5): one shared image with two crops, or two separate uploads?
+5. Which admin fields are safe to drop vs. which downstream features (tag pages, filters, "as told to" byline) they're allowed to break.
+6. What "add underline" and "more features to design content input field" specifically mean for the story editor.
+7. The LinkedIn/wiki and "references" URLs for the admin footer.
+8. What the desk page's existing right-click protection and copyright line actually look like (implementation reference), to match Public #9/#10.
