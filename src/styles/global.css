@@ -110,6 +110,14 @@ img {
 .site-header .brand {
   display: inline-flex;
   align-items: center;
+  /* The logo file itself has an opaque white background baked in (not
+     transparent) — invisible against our white light-mode header, but
+     would show as a stray white box in dark mode without this. Giving it
+     an explicit white card, always, matches how the source image already
+     looks and avoids a light/dark mismatch either way. */
+  padding: 0.35rem 0.65rem;
+  background: #ffffff;
+  border-radius: 8px;
   transition: filter 0.25s var(--ease);
 }
 
@@ -284,11 +292,22 @@ img {
     display: flex;
   }
 
+  /* backdrop-filter on the sticky header can, in some browsers, glitch the
+     rendering of the absolutely-positioned dropdown menu below it (the
+     submenu items visually vanishing while remaining present in the DOM).
+     Purely decorative, so just drop it on mobile where the menu opens. */
+  .site-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
   .site-header nav {
+    isolation: isolate;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
+    z-index: 25;
     background: var(--color-bg-raised);
     border-bottom: 1px solid var(--color-border);
     max-height: 0;
@@ -466,13 +485,14 @@ img {
   z-index: 9999;
   padding: 0.6rem 1.1rem;
   border-radius: 8px;
-  background: linear-gradient(120deg, #1e2a8f, #6d28d9);
-  color: #fff;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  color: var(--color-ink);
   font-family: var(--font-ui);
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow-card-hover);
   pointer-events: none;
   opacity: 0;
   transform: translateY(4px);
