@@ -1,0 +1,1637 @@
+---
+const locations = [
+  {
+    id: "chennai",
+    city: "Chennai",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 13.0827,
+    lng: 80.2707,
+    branch: "PSG Chennai",
+    person: "Arun Kumar",
+    role: "Branch Coordinator",
+    address: "Chennai, Tamil Nadu",
+    phone: "+91 98765 10001",
+    email: "chennai@psg.org"
+  },
+  {
+    id: "coimbatore",
+    city: "Coimbatore",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 11.0168,
+    lng: 76.9558,
+    branch: "PSG Coimbatore",
+    person: "Priya S",
+    role: "Community Lead",
+    address: "Coimbatore, Tamil Nadu",
+    phone: "+91 98765 10002",
+    email: "coimbatore@psg.org"
+  },
+  {
+    id: "madurai",
+    city: "Madurai",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 9.9252,
+    lng: 78.1198,
+    branch: "PSG Madurai",
+    person: "Karthik R",
+    role: "Regional Coordinator",
+    address: "Madurai, Tamil Nadu",
+    phone: "+91 98765 10003",
+    email: "madurai@psg.org"
+  },
+  {
+    id: "salem",
+    city: "Salem",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 11.6643,
+    lng: 78.1460,
+    branch: "PSG Salem",
+    person: "Meena P",
+    role: "Branch Lead",
+    address: "Salem, Tamil Nadu",
+    phone: "+91 98765 10004",
+    email: "salem@psg.org"
+  },
+  {
+    id: "trichy",
+    city: "Tiruchirappalli",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 10.7905,
+    lng: 78.7047,
+    branch: "PSG Trichy",
+    person: "Vijay M",
+    role: "Community Coordinator",
+    address: "Tiruchirappalli, Tamil Nadu",
+    phone: "+91 98765 10005",
+    email: "trichy@psg.org"
+  },
+  {
+    id: "tirunelveli",
+    city: "Tirunelveli",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 8.7139,
+    lng: 77.7567,
+    branch: "PSG Tirunelveli",
+    person: "Joseph A",
+    role: "Branch Coordinator",
+    address: "Tirunelveli, Tamil Nadu",
+    phone: "+91 98765 10006",
+    email: "tirunelveli@psg.org"
+  },
+  {
+    id: "tiruppur",
+    city: "Tiruppur",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 11.1085,
+    lng: 77.3411,
+    branch: "PSG Tiruppur",
+    person: "Sathish K",
+    role: "Regional Lead",
+    address: "Tiruppur, Tamil Nadu",
+    phone: "+91 98765 10007",
+    email: "tiruppur@psg.org"
+  },
+  {
+    id: "erode",
+    city: "Erode",
+    country: "India",
+    state: "Tamil Nadu",
+    lat: 11.3410,
+    lng: 77.7172,
+    branch: "PSG Erode",
+    person: "Divya R",
+    role: "Community Lead",
+    address: "Erode, Tamil Nadu",
+    phone: "+91 98765 10008",
+    email: "erode@psg.org"
+  },
+  {
+    id: "bengaluru",
+    city: "Bengaluru",
+    country: "India",
+    state: "Karnataka",
+    lat: 12.9716,
+    lng: 77.5946,
+    branch: "PSG Bengaluru",
+    person: "Rahul N",
+    role: "Branch Lead",
+    address: "Bengaluru, Karnataka",
+    phone: "+91 98765 10009",
+    email: "bengaluru@psg.org"
+  },
+  {
+    id: "hyderabad",
+    city: "Hyderabad",
+    country: "India",
+    state: "Telangana",
+    lat: 17.3850,
+    lng: 78.4867,
+    branch: "PSG Hyderabad",
+    person: "Anitha V",
+    role: "Regional Coordinator",
+    address: "Hyderabad, Telangana",
+    phone: "+91 98765 10010",
+    email: "hyderabad@psg.org"
+  },
+  {
+    id: "mumbai",
+    city: "Mumbai",
+    country: "India",
+    state: "Maharashtra",
+    lat: 19.0760,
+    lng: 72.8777,
+    branch: "PSG Mumbai",
+    person: "David J",
+    role: "Branch Coordinator",
+    address: "Mumbai, Maharashtra",
+    phone: "+91 98765 10011",
+    email: "mumbai@psg.org"
+  },
+  {
+    id: "pune",
+    city: "Pune",
+    country: "India",
+    state: "Maharashtra",
+    lat: 18.5204,
+    lng: 73.8567,
+    branch: "PSG Pune",
+    person: "Sneha T",
+    role: "Community Lead",
+    address: "Pune, Maharashtra",
+    phone: "+91 98765 10012",
+    email: "pune@psg.org"
+  },
+  {
+    id: "ahmedabad",
+    city: "Ahmedabad",
+    country: "India",
+    state: "Gujarat",
+    lat: 23.0225,
+    lng: 72.5714,
+    branch: "PSG Ahmedabad",
+    person: "Rakesh P",
+    role: "Regional Lead",
+    address: "Ahmedabad, Gujarat",
+    phone: "+91 98765 10013",
+    email: "ahmedabad@psg.org"
+  },
+  {
+    id: "delhi",
+    city: "New Delhi",
+    country: "India",
+    state: "Delhi",
+    lat: 28.6139,
+    lng: 77.2090,
+    branch: "PSG New Delhi",
+    person: "Manoj S",
+    role: "Branch Lead",
+    address: "New Delhi, India",
+    phone: "+91 98765 10014",
+    email: "delhi@psg.org"
+  },
+  {
+    id: "jaipur",
+    city: "Jaipur",
+    country: "India",
+    state: "Rajasthan",
+    lat: 26.9124,
+    lng: 75.7873,
+    branch: "PSG Jaipur",
+    person: "Pooja K",
+    role: "Community Coordinator",
+    address: "Jaipur, Rajasthan",
+    phone: "+91 98765 10015",
+    email: "jaipur@psg.org"
+  },
+  {
+    id: "kolkata",
+    city: "Kolkata",
+    country: "India",
+    state: "West Bengal",
+    lat: 22.5726,
+    lng: 88.3639,
+    branch: "PSG Kolkata",
+    person: "Sourav D",
+    role: "Branch Coordinator",
+    address: "Kolkata, West Bengal",
+    phone: "+91 98765 10016",
+    email: "kolkata@psg.org"
+  },
+  {
+    id: "kochi",
+    city: "Kochi",
+    country: "India",
+    state: "Kerala",
+    lat: 9.9312,
+    lng: 76.2673,
+    branch: "PSG Kochi",
+    person: "Naveen B",
+    role: "Regional Lead",
+    address: "Kochi, Kerala",
+    phone: "+91 98765 10017",
+    email: "kochi@psg.org"
+  },
+  {
+    id: "lucknow",
+    city: "Lucknow",
+    country: "India",
+    state: "Uttar Pradesh",
+    lat: 26.8467,
+    lng: 80.9462,
+    branch: "PSG Lucknow",
+    person: "Asha M",
+    role: "Community Lead",
+    address: "Lucknow, Uttar Pradesh",
+    phone: "+91 98765 10018",
+    email: "lucknow@psg.org"
+  },
+  {
+    id: "singapore",
+    city: "Singapore",
+    country: "Singapore",
+    state: "",
+    lat: 1.3521,
+    lng: 103.8198,
+    branch: "PSG Singapore",
+    person: "Daniel R",
+    role: "International Coordinator",
+    address: "Singapore",
+    phone: "+65 9000 1001",
+    email: "singapore@psg.org"
+  },
+  {
+    id: "dubai",
+    city: "Dubai",
+    country: "UAE",
+    state: "",
+    lat: 25.2048,
+    lng: 55.2708,
+    branch: "PSG Dubai",
+    person: "Fahad A",
+    role: "International Lead",
+    address: "Dubai, UAE",
+    phone: "+971 500 100001",
+    email: "dubai@psg.org"
+  }
+];
+
+const locationsJson = JSON.stringify(locations);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>PSG World Network</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+  </head>
+
+  <body>
+    <div class="app">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">PSG</div>
+
+          <div>
+            <div class="brand-title">PSG WORLD</div>
+            <div class="brand-subtitle">
+              Humans of PSG
+            </div>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <button id="randomBtn">Random</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+      </header>
+
+
+      <!-- MAIN -->
+      <main class="main">
+
+        <!-- LEFT -->
+        <aside class="left-panel">
+
+          <div class="intro">
+            <div class="eyebrow">GLOBAL NETWORK</div>
+
+            <h1>
+              PSGians<br />
+              <span>around the world.</span>
+            </h1>
+
+            <p>
+              Explore PSG branches and PSGians across the world.
+            </p>
+          </div>
+
+
+          <div class="search-box">
+            <span>⌕</span>
+
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Search city, person or branch..."
+            />
+          </div>
+
+
+          <div class="location-header">
+            <span>LOCATIONS</span>
+            <strong id="count">20</strong>
+          </div>
+
+
+          <div id="locationList" class="location-list"></div>
+
+        </aside>
+
+
+        <!-- MAP -->
+        <section class="map-panel">
+
+          <div id="map"></div>
+
+          <div class="map-help">
+            <span>Drag</span> to move
+            <span>Scroll</span> to zoom
+            <span>Click</span> a marker
+          </div>
+
+        </section>
+
+
+        <!-- RIGHT -->
+        <aside id="detailsPanel" class="details-panel">
+
+          <div class="empty-state">
+
+            <div class="empty-icon">+</div>
+
+            <h2>Select a location</h2>
+
+            <p>
+              Click a PSG marker on the world map
+              or choose a city from the list.
+            </p>
+
+          </div>
+
+        </aside>
+
+      </main>
+
+    </div>
+
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
+
+
+    <script
+      id="psgLocationData"
+      type="application/json"
+      set:html={locationsJson}
+    ></script>
+
+
+    <script is:inline>
+      const locations = JSON.parse(
+        document.getElementById("psgLocationData").textContent
+      );
+
+      const map = L.map("map", {
+        zoomControl: false,
+        minZoom: 2,
+        maxZoom: 7,
+        worldCopyJump: true
+      }).setView([20, 20], 2);
+
+
+      L.control.zoom({
+        position: "bottomright"
+      }).addTo(map);
+
+
+      /*
+       * WORLD COUNTRY BOUNDARIES
+       */
+      fetch(
+        "https://cdn.jsdelivr.net/npm/three-globe/example/country-polygons/ne_110m_admin_0_countries.geojson"
+      )
+        .then(response => response.json())
+        .then(world => {
+
+          L.geoJSON(world, {
+
+            style: {
+              color: "#26364b",
+              weight: 1,
+              fillColor: "#111c2c",
+              fillOpacity: 0.92
+            },
+
+            onEachFeature: (feature, layer) => {
+
+              layer.on({
+
+                mouseover: event => {
+                  event.target.setStyle({
+                    fillColor: "#1b3048",
+                    color: "#607d9d",
+                    weight: 1.2
+                  });
+                },
+
+                mouseout: event => {
+                  event.target.setStyle({
+                    fillColor: "#111c2c",
+                    color: "#26364b",
+                    weight: 1
+                  });
+                }
+
+              });
+
+              const name =
+                feature.properties?.ADMIN ||
+                feature.properties?.NAME ||
+                "";
+
+              if (name) {
+                layer.bindTooltip(name, {
+                  sticky: true,
+                  className: "country-tooltip"
+                });
+              }
+            }
+
+          }).addTo(map);
+
+        })
+        .catch(error => {
+          console.error("World GeoJSON failed:", error);
+        });
+
+
+      /*
+       * PSG MARKERS
+       */
+
+      const markerLayer = L.layerGroup().addTo(map);
+
+      const markerObjects = [];
+
+
+      function createMarker(location) {
+
+        const marker = L.circleMarker(
+          [location.lat, location.lng],
+          {
+            radius: 7,
+            color: "#ffffff",
+            weight: 2,
+            fillColor: "#ff6b35",
+            fillOpacity: 1
+          }
+        );
+
+
+        marker.bindTooltip(
+          `<strong>${location.city}</strong><br>${location.branch}`,
+          {
+            direction: "top",
+            offset: [0, -8]
+          }
+        );
+
+
+        marker.on("click", () => {
+          showDetails(location);
+
+          map.flyTo(
+            [location.lat, location.lng],
+            5,
+            {
+              duration: 1.2
+            }
+          );
+        });
+
+
+        marker.addTo(markerLayer);
+
+        markerObjects.push({
+          marker,
+          location
+        });
+
+        return marker;
+      }
+
+
+      locations.forEach(createMarker);
+
+
+      /*
+       * DETAILS PANEL
+       */
+
+      function showDetails(location) {
+
+        const panel =
+          document.getElementById("detailsPanel");
+
+        panel.innerHTML = `
+
+          <div class="details-content">
+
+            <button
+              class="close-btn"
+              id="closeDetails"
+            >
+              ×
+            </button>
+
+
+            <div class="detail-label">
+              PSG NETWORK
+            </div>
+
+
+            <div class="person-avatar">
+              ${location.person
+                .split(" ")
+                .map(word => word[0])
+                .slice(0, 2)
+                .join("")
+                .toUpperCase()}
+            </div>
+
+
+            <h2 class="person-name">
+              ${location.person}
+            </h2>
+
+
+            <div class="person-role">
+              ${location.role}
+            </div>
+
+
+            <div class="location-name">
+              ${location.city}
+            </div>
+
+
+            <div class="branch-name">
+              ${location.branch}
+            </div>
+
+
+            <div class="info-list">
+
+              <div class="info-row">
+                <span>Country</span>
+                <strong>${location.country}</strong>
+              </div>
+
+              ${
+                location.state
+                  ? `
+                    <div class="info-row">
+                      <span>State</span>
+                      <strong>${location.state}</strong>
+                    </div>
+                  `
+                  : ""
+              }
+
+              <div class="info-row">
+                <span>Address</span>
+                <strong>${location.address}</strong>
+              </div>
+
+              <div class="info-row">
+                <span>Phone</span>
+                <strong>${location.phone}</strong>
+              </div>
+
+              <div class="info-row">
+                <span>Email</span>
+                <strong>${location.email}</strong>
+              </div>
+
+            </div>
+
+
+            <button
+              class="focus-btn"
+              id="focusBtn"
+            >
+              Focus on location
+            </button>
+
+          </div>
+        `;
+
+
+        document
+          .getElementById("closeDetails")
+          ?.addEventListener("click", () => {
+
+            panel.innerHTML = `
+              <div class="empty-state">
+                <div class="empty-icon">+</div>
+                <h2>Select a location</h2>
+                <p>
+                  Click a PSG marker on the world map
+                  or choose a city from the list.
+                </p>
+              </div>
+            `;
+
+          });
+
+
+        document
+          .getElementById("focusBtn")
+          ?.addEventListener("click", () => {
+
+            map.flyTo(
+              [location.lat, location.lng],
+              6,
+              {
+                duration: 1
+              }
+            );
+
+          });
+
+
+        markerObjects.forEach(item => {
+
+          item.marker.setStyle({
+            radius:
+              item.location.id === location.id
+                ? 11
+                : 7,
+
+            fillColor:
+              item.location.id === location.id
+                ? "#ffffff"
+                : "#ff6b35",
+
+            color:
+              item.location.id === location.id
+                ? "#ff6b35"
+                : "#ffffff"
+          });
+
+        });
+
+      }
+
+
+      /*
+       * LOCATION LIST
+       */
+
+      const list =
+        document.getElementById("locationList");
+
+      const count =
+        document.getElementById("count");
+
+
+      function renderList(items) {
+
+        list.innerHTML = "";
+
+        count.textContent = items.length;
+
+
+        items.forEach(location => {
+
+          const button =
+            document.createElement("button");
+
+          button.className = "location-item";
+
+          button.innerHTML = `
+            <span class="location-dot"></span>
+
+            <span class="location-text">
+              <strong>${location.city}</strong>
+              <small>
+                ${location.country}
+              </small>
+            </span>
+          `;
+
+
+          button.addEventListener("click", () => {
+
+            showDetails(location);
+
+            map.flyTo(
+              [location.lat, location.lng],
+              5,
+              {
+                duration: 1.2
+              }
+            );
+
+          });
+
+
+          list.appendChild(button);
+
+        });
+
+      }
+
+
+      renderList(locations);
+
+
+      /*
+       * SEARCH
+       */
+
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", event => {
+
+          const query =
+            event.target.value
+              .toLowerCase()
+              .trim();
+
+
+          const filtered =
+            locations.filter(location => {
+
+              return (
+
+                location.city
+                  .toLowerCase()
+                  .includes(query)
+
+                ||
+
+                location.country
+                  .toLowerCase()
+                  .includes(query)
+
+                ||
+
+                location.branch
+                  .toLowerCase()
+                  .includes(query)
+
+                ||
+
+                location.person
+                  .toLowerCase()
+                  .includes(query)
+
+                ||
+
+                location.role
+                  .toLowerCase()
+                  .includes(query)
+
+              );
+
+            });
+
+
+          renderList(filtered);
+
+
+          markerObjects.forEach(item => {
+
+            const visible =
+              filtered.some(
+                location =>
+                  location.id ===
+                  item.location.id
+              );
+
+            if (visible) {
+              item.marker.addTo(markerLayer);
+            } else {
+              markerLayer.removeLayer(
+                item.marker
+              );
+            }
+
+          });
+
+        });
+
+
+      /*
+       * RANDOM
+       */
+
+      document
+        .getElementById("randomBtn")
+        .addEventListener("click", () => {
+
+          const random =
+            locations[
+              Math.floor(
+                Math.random() *
+                locations.length
+              )
+            ];
+
+          showDetails(random);
+
+          map.flyTo(
+            [random.lat, random.lng],
+            5,
+            {
+              duration: 1.5
+            }
+          );
+
+        });
+
+
+      /*
+       * RESET
+       */
+
+      document
+        .getElementById("resetBtn")
+        .addEventListener("click", () => {
+
+          document
+            .getElementById("searchInput")
+            .value = "";
+
+          renderList(locations);
+
+          markerObjects.forEach(item => {
+            item.marker.addTo(markerLayer);
+            item.marker.setStyle({
+              radius: 7,
+              fillColor: "#ff6b35",
+              color: "#ffffff"
+            });
+          });
+
+
+          map.flyTo(
+            [20, 20],
+            2,
+            {
+              duration: 1
+            }
+          );
+
+        });
+    </script>
+  </body>
+</html>
+
+
+<style is:global>
+
+  * {
+    box-sizing: border-box;
+  }
+
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family:
+      Inter,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    background: #060a10;
+    color: #ffffff;
+  }
+
+
+  button,
+  input {
+    font: inherit;
+  }
+
+
+  .app {
+    width: 100vw;
+    height: 100vh;
+    background: #060a10;
+  }
+
+
+  /* TOP */
+
+  .topbar {
+    height: 72px;
+    padding: 0 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #182230;
+
+    background: #080d15;
+  }
+
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #060a10;
+
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+
+  .brand-title {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+  }
+
+
+  .brand-subtitle {
+    margin-top: 2px;
+
+    font-size: 11px;
+    color: #7f8da0;
+  }
+
+
+  .top-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+
+  .top-actions button {
+    border: 1px solid #293548;
+
+    background: #0c131e;
+    color: #cbd5e1;
+
+    padding: 9px 15px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+  }
+
+
+  .top-actions button:hover {
+    background: #162132;
+  }
+
+
+  /* MAIN */
+
+  .main {
+    height: calc(100vh - 72px);
+
+    display: grid;
+
+    grid-template-columns:
+      310px
+      minmax(0, 1fr)
+      330px;
+  }
+
+
+  /* LEFT */
+
+  .left-panel {
+    overflow-y: auto;
+
+    padding: 32px 22px;
+
+    border-right: 1px solid #182230;
+
+    background: #080d15;
+  }
+
+
+  .eyebrow {
+    margin-bottom: 12px;
+
+    color: #7c8ca2;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+
+  .intro h1 {
+    margin: 0;
+
+    font-size: 30px;
+    line-height: 1.05;
+    letter-spacing: -1.2px;
+  }
+
+
+  .intro h1 span {
+    color: #6f8095;
+  }
+
+
+  .intro p {
+    margin: 16px 0 25px;
+
+    color: #8391a4;
+
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+
+  .search-box {
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 0 12px;
+
+    border: 1px solid #263244;
+    border-radius: 7px;
+
+    background: #0c131e;
+  }
+
+
+  .search-box span {
+    color: #708097;
+    font-size: 20px;
+  }
+
+
+  .search-box input {
+    width: 100%;
+
+    outline: none;
+    border: 0;
+
+    background: transparent;
+    color: white;
+
+    font-size: 12px;
+  }
+
+
+  .search-box input::placeholder {
+    color: #647286;
+  }
+
+
+  .location-header {
+    margin: 28px 0 12px;
+
+    display: flex;
+    justify-content: space-between;
+
+    color: #718096;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+  }
+
+
+  .location-header strong {
+    color: #ffffff;
+  }
+
+
+  .location-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+
+  .location-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: transparent;
+    color: white;
+
+    text-align: left;
+
+    cursor: pointer;
+  }
+
+
+  .location-item:hover {
+    background: #111b29;
+  }
+
+
+  .location-dot {
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 auto;
+
+    border-radius: 50%;
+
+    background: #ff6b35;
+
+    box-shadow:
+      0 0 0 4px rgba(255, 107, 53, 0.1);
+  }
+
+
+  .location-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+
+  .location-text strong {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+
+  .location-text small {
+    color: #69788c;
+    font-size: 10px;
+  }
+
+
+  /* MAP */
+
+  .map-panel {
+    position: relative;
+
+    min-width: 0;
+
+    background:
+      radial-gradient(
+        circle at center,
+        #0c1828 0%,
+        #060a10 70%
+      );
+  }
+
+
+  #map {
+    width: 100%;
+    height: 100%;
+
+    background: #060a10;
+  }
+
+
+  .leaflet-container {
+    background: #060a10;
+    font-family: inherit;
+  }
+
+
+  .leaflet-control-zoom {
+    border: 1px solid #293548 !important;
+  }
+
+
+  .leaflet-control-zoom a {
+    background: #0b121c !important;
+    color: #ffffff !important;
+    border-color: #293548 !important;
+  }
+
+
+  .leaflet-control-zoom a:hover {
+    background: #182333 !important;
+  }
+
+
+  .leaflet-tooltip {
+    background: #0b121c;
+    color: #ffffff;
+
+    border: 1px solid #293548;
+
+    box-shadow: none;
+
+    font-size: 11px;
+  }
+
+
+  .leaflet-tooltip:before {
+    border-top-color: #293548;
+  }
+
+
+  .map-help {
+    position: absolute;
+
+    left: 50%;
+    bottom: 20px;
+
+    transform: translateX(-50%);
+
+    z-index: 500;
+
+    padding: 8px 13px;
+
+    border: 1px solid #202c3d;
+    border-radius: 6px;
+
+    background: rgba(7, 12, 20, 0.9);
+
+    color: #68778b;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+  }
+
+
+  .map-help span {
+    color: #d7dee8;
+    font-weight: 700;
+  }
+
+
+  /* RIGHT */
+
+  .details-panel {
+    overflow-y: auto;
+
+    border-left: 1px solid #182230;
+
+    background: #080d15;
+  }
+
+
+  .empty-state {
+    height: 100%;
+
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #263447;
+    border-radius: 50%;
+
+    color: #73849a;
+
+    font-size: 22px;
+  }
+
+
+  .empty-state h2 {
+    margin: 0 0 8px;
+
+    font-size: 15px;
+  }
+
+
+  .empty-state p {
+    max-width: 220px;
+
+    margin: 0;
+
+    color: #6d7b8e;
+
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+
+  .details-content {
+    position: relative;
+
+    padding: 34px 26px;
+  }
+
+
+  .close-btn {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #293548;
+    border-radius: 50%;
+
+    background: transparent;
+    color: #9aa8ba;
+
+    cursor: pointer;
+
+    font-size: 18px;
+  }
+
+
+  .detail-label {
+    color: #728198;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+  }
+
+
+  .person-avatar {
+    width: 68px;
+    height: 68px;
+
+    display: grid;
+    place-items: center;
+
+    margin-top: 25px;
+
+    border-radius: 50%;
+
+    background: #172336;
+
+    border: 1px solid #304158;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+
+  .person-name {
+    margin: 18px 0 5px;
+
+    font-size: 24px;
+    letter-spacing: -0.5px;
+  }
+
+
+  .person-role {
+    color: #8c9aae;
+
+    font-size: 12px;
+  }
+
+
+  .location-name {
+    margin-top: 30px;
+
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+
+  .branch-name {
+    margin-top: 4px;
+
+    color: #718096;
+
+    font-size: 12px;
+  }
+
+
+  .info-list {
+    margin-top: 28px;
+
+    border-top: 1px solid #1b2635;
+  }
+
+
+  .info-row {
+    padding: 13px 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    border-bottom: 1px solid #1b2635;
+  }
+
+
+  .info-row span {
+    color: #66758a;
+
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+
+  .info-row strong {
+    color: #d7dee8;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    word-break: break-word;
+  }
+
+
+  .focus-btn {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 12px;
+
+    border: 1px solid #34445a;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #080d15;
+
+    cursor: pointer;
+
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+
+  .focus-btn:hover {
+    background: #dfe6ef;
+  }
+
+
+  /* MOBILE */
+
+  @media (max-width: 900px) {
+
+    html,
+    body {
+      overflow: auto;
+    }
+
+
+    .app {
+      min-height: 100vh;
+      height: auto;
+    }
+
+
+    .topbar {
+      height: 64px;
+      padding: 0 15px;
+    }
+
+
+    .main {
+      height: auto;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    .left-panel {
+      order: 1;
+
+      max-height: 300px;
+
+      border-right: 0;
+      border-bottom: 1px solid #182230;
+
+      padding: 20px 15px;
+    }
+
+
+    .intro h1 {
+      font-size: 25px;
+    }
+
+
+    .map-panel {
+      order: 2;
+
+      height: 55vh;
+
+      min-height: 400px;
+    }
+
+
+    .details-panel {
+      order: 3;
+
+      min-height: 400px;
+
+      border-left: 0;
+      border-top: 1px solid #182230;
+    }
+
+  }
+
+
+  @media (max-width: 550px) {
+
+    .brand-title {
+      font-size: 12px;
+    }
+
+
+    .brand-subtitle {
+      display: none;
+    }
+
+
+    .top-actions button {
+      padding: 8px 10px;
+      font-size: 11px;
+    }
+
+
+    .map-panel {
+      height: 50vh;
+      min-height: 350px;
+    }
+
+
+    .map-help {
+      font-size: 9px;
+      bottom: 10px;
+    }
+
+  }
+
+</style>
