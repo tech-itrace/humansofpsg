@@ -1,21 +1,55 @@
 ---
 name: Mylswamy Annadurai
+
 photo: images/stories/{{slug}}/mylswamy-annadurai-indian-chandrayaan-lunar-probe-model-792900956.jpg
+
 photoAlt: ISRO Scientist
-location: Guindy
+
+bannerImage: images/stories/{{slug}}/mylswamy-annadurai-indian-chandrayaan-lunar-probe-model-792900956.jpg
+
+country: India
+countryCode: IND
+
+state: Tamil Nadu
+stateCode: TN
+
+district: Chennai
+
 city: Chennai
+
+location: Guindy
+
+latitude: 13.0067
+longitude: 80.2206
+
 category: Scientist
+
+jobTitle: ISRO Scientist
+
 pullQuote: Moon Man of India
+
 publishDate: 2026-08-09T12:02:00.000+05:30
+
 contributedBy: Humans of PSG
+
 status: published
-tags: []
+
+tags:
+  - Scientist
+  - ISRO
+  - Chandrayaan
+  - Mangalyaan
+  - Space
+  - PSG Tech
+  - Moon Man of India
+
 ---
-#### **🚀 Dr. Mylswamy Annadurai | THE MOON MAN OF INDIA 🌕**
 
-“Moon Man of India” | Padma Shri Awardee | PSG Tech Alumnus
+# 🚀 Dr. Mylswamy Annadurai | THE MOON MAN OF INDIA 🌕
 
-M.E. Applied Electronics, 1982
+**“Moon Man of India” | Padma Shri Awardee | PSG Tech Alumnus**
+
+**M.E. Applied Electronics, 1982**
 
 What does a child who once watched a rocket plume in the sky grow up to become one of the key figures behind India’s lunar and planetary missions?
 
@@ -23,9 +57,9 @@ Meet Dr. Mylswamy Annadurai—one of PSG’s distinguished alumni and a scientis
 
 In this special Humans of PSG interaction, Dr. Annadurai takes us through his remarkable journey—from his days at PSG Tech to Chandrayaan, Mangalyaan, learning from setbacks, mentoring young innovators, and imagining the future of technology.
 
+---
 
-
-##### **🎓 FROM PSG TECH TO ISRO**
+# 🎓 FROM PSG TECH TO ISRO
 
 Although his postgraduate specialization was applied electronics, PSG gave him opportunities to work on interdisciplinary projects, including CNC-related projects.
 
@@ -35,9 +69,9 @@ Rocket science, as he reminds us, is never just about rockets. It brings togethe
 
 His project work at PSG was also instrumental during his ISRO interview—ultimately helping him secure his opportunity to join India's space program.
 
+---
 
-
-##### **🌕 CHANDRAYAAN: YOU CAN START LATE**
+# 🌕 CHANDRAYAAN: YOU CAN START LATE
 
 Chandrayaan-1 was not simply another mission.
 
@@ -45,17 +79,17 @@ It represented India's entry into a new chapter of planetary exploration.
 
 Dr. Annadurai's insight is particularly powerful:
 
-“Even though you start late, you can make your presence felt.”
+> “Even though you start late, you can make your presence felt.”
 
 India may have entered the lunar exploration journey decades after some other nations, but Chandrayaan-1 helped initiate an entirely new campaign of Indian planetary missions.
 
 The lesson goes far beyond space science:
 
-Being late is not the same as being irrelevant.
+**Being late is not the same as being irrelevant.**
 
+---
 
-
-##### **🚀 MANGALYAAN: GRAB THE OPPORTUNITY**
+# 🚀 MANGALYAAN: GRAB THE OPPORTUNITY
 
 One of the most fascinating lessons from the Mars Orbiter Mission was the ability to recognize and reuse what was already available.
 
@@ -63,17 +97,17 @@ Hardware originally developed with Chandrayaan-2 in mind was regrouped for the M
 
 The result?
 
-Mangalyaan—India's Mars Orbiter Mission—succeeded on its first attempt.
+**Mangalyaan—India's Mars Orbiter Mission—succeeded on its first attempt.**
 
 The lesson is simple:
 
-When an opportunity appears, be ready to grab it.
+**When an opportunity appears, be ready to grab it.**
 
 Sometimes going beyond the sky begins with making better use of what is already in your hands.
 
+---
 
-
-##### **🌗 CHANDRAYAAN-2: LEARN FROM THE SETBACK**
+# 🌗 CHANDRAYAAN-2: LEARN FROM THE SETBACK
 
 Success isn't the absence of failure.
 
@@ -91,11 +125,11 @@ For Chandrayaan-3, the team returned to a configuration based on the lessons lea
 
 That is a powerful leadership principle:
 
-Accept. Analyze. Learn. Improve. Return stronger.
+**Accept. Analyze. Learn. Improve. Return stronger.**
 
+---
 
-
-##### **🧠 BEYOND ROCKETS**
+# 🧠 BEYOND ROCKETS
 
 What makes this interaction even more interesting is that Dr. Annadurai's thinking extends far beyond space missions.
 
@@ -103,11 +137,11 @@ We spoke about his current interests and mentoring—including robot-assisted su
 
 Because ultimately, innovation isn't about building technology for its own sake.
 
-It is about identifying real problems and designing systems that solve them.
+**It is about identifying real problems and designing systems that solve them.**
 
+---
 
-
-##### **⚡ RAPID FIRE WITH THE MOON MAN**
+# ⚡ RAPID FIRE WITH THE MOON MAN
 
 And of course, no Humans of PSG conversation would be complete without a little fun!
 
@@ -131,54 +165,43 @@ We asked Dr. Annadurai:
 
 His answers reveal the person behind the scientist—curious, grounded, humorous, and deeply committed to inspiring the next generation.
 
+---
 
-
-##### **🌱 THE BIGGER LESSON**
+# 🌱 THE BIGGER LESSON
 
 Dr. Mylswamy Annadurai's journey is not merely a story about rockets, satellites, or missions to the Moon.
 
 It is a story about:
 
-Starting wherever you are.
-
-Making the most of opportunities.
-
-Thinking across disciplines.
-
-Learning from setbacks.
-
-Building with purpose.
-
-And inspiring the next generation to dream bigger.
-
-
+- Starting wherever you are.
+- Making the most of opportunities.
+- Thinking across disciplines.
+- Learning from setbacks.
+- Building with purpose.
+- Inspiring the next generation to dream bigger.
 
 From PSG Tech to the Moon and Mars, his journey reminds us:
 
-> ### **You don't have to start first to make history.**
->
-> ### **You have to be ready when your opportunity arrives.**
+> **You don't have to start first to make history.**
+
+> **You have to be ready when your opportunity arrives.**
 
 🌕 This is Humans of PSG.
 
+---
 
+# Connect Through Stories.
 
-### **Connect Through Stories.**
+# Collaborate for Impact.
 
-### **Collaborate for Impact.**
+# Contribute to Our Journey.
 
-### **Contribute to Our Journey.**
+# From Memories to Milestones—Let's Grow Together.
 
-### **From Memories to Milestones—Let's Grow Together.**
-
-
-
-
+---
 
 ###### References:
 
-https://en.wikipedia.org/wiki/Mylswamy_Annadurai
-
-https://www.psgtech.edu/DAlumni.php
-
-https://www.linkedin.com/posts/psgtechalumnibengaluruchapter_psgtech-psgtechalumni-activity-7348320834869960704-AGmo
+- https://en.wikipedia.org/wiki/Mylswamy_Annadurai
+- https://www.psgtech.edu/DAlumni.php
+- https://www.linkedin.com/posts/psgtechalumnibengaluruchapter_psgtech-psgtechalumni-activity-7348320834869960704-AGmo

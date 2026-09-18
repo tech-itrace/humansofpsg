@@ -16,6 +16,8 @@ const stories = defineCollection({
 
     photo: z.string(),
 
+    photoAlt: z.string().optional(),
+
     bannerImage: z.string().optional(),
 
     /* =========================================
@@ -56,6 +58,8 @@ const stories = defineCollection({
 
     expertise: z.string().optional(),
 
+    category: z.string().optional(),
+
     /* =========================================
        MAP COORDINATES
     ========================================= */
@@ -69,6 +73,12 @@ const stories = defineCollection({
     ========================================= */
 
     pullQuote: z.string().optional(),
+
+    /* =========================================
+       CONTRIBUTOR
+    ========================================= */
+
+    contributedBy: z.string().optional(),
 
     /* =========================================
        DATE / STATUS
