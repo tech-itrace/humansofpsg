@@ -1,3111 +1,720 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-
-  <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <title>PSG World</title>
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-
-      font-family:
-        Inter,
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      background: #02070d;
-      color: #fff;
-    }
-
-
-    /* =====================================================
-       APP
-    ===================================================== */
-
-    .app {
-      width: 100vw;
-      height: 100vh;
-
-      display: grid;
-
-      grid-template-columns:
-        280px
-        minmax(0, 1fr)
-        310px;
-
-      grid-template-rows:
-        60px
-        minmax(0, 1fr);
-
-      background:
-        radial-gradient(
-          circle at center,
-          #0a1824 0%,
-          #030a11 48%,
-          #010407 100%
-        );
-    }
-
-
-    /* =====================================================
-       TOP BAR
-    ===================================================== */
-
-    .topbar {
-
-      grid-column: 1 / 4;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0 20px;
-
-      background:
-        rgba(2, 8, 14, 0.97);
-
-      border-bottom:
-        1px solid rgba(255,255,255,.08);
-
-      z-index: 20;
-    }
-
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-
-    .brand-globe {
-
-      width: 34px;
-      height: 34px;
-
-      border-radius: 50%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ff9b25,
-          #ff5c18
-        );
-
-      box-shadow:
-        0 0 18px
-        rgba(255,105,20,.45);
-
-      font-size: 18px;
-    }
-
-
-    .brand-text {
-
-      font-size: 18px;
-      font-weight: 800;
-
-      letter-spacing: 1px;
-    }
-
-
-    .brand-sub {
-
-      font-size: 11px;
-
-      color: #6f8496;
-
-      margin-left: 8px;
-
-      letter-spacing: 1px;
-    }
-
-
-    .top-actions {
-
-      display: flex;
-      align-items: center;
-
-      gap: 8px;
-    }
-
-
-    .top-btn {
-
-      border:
-        1px solid
-        rgba(255,255,255,.1);
-
-      background:
-        rgba(255,255,255,.035);
-
-      color: #b9c8d4;
-
-      padding: 8px 13px;
-
-      border-radius: 7px;
-
-      cursor: pointer;
-
-      font-size: 12px;
-
-      transition: .2s;
-    }
-
-
-    .top-btn:hover {
-
-      background:
-        rgba(255,130,30,.12);
-
-      border-color:
-        rgba(255,130,30,.4);
-
-      color: #fff;
-    }
-
-
-    /* =====================================================
-       LEFT PANEL
-    ===================================================== */
-
-    .left-panel {
-
-      grid-column: 1;
-      grid-row: 2;
-
-      background:
-        rgba(3,11,18,.97);
-
-      border-right:
-        1px solid
-        rgba(255,255,255,.07);
-
-      display: flex;
-
-      flex-direction: column;
-
-      min-height: 0;
-
-      z-index: 10;
-    }
-
-
-    .panel-heading {
-
-      padding:
-        20px 18px 10px;
-    }
-
-
-    .panel-title {
-
-      font-size: 20px;
-
-      font-weight: 800;
-
-      letter-spacing: .5px;
-    }
-
-
-    .panel-subtitle {
-
-      color: #637888;
-
-      font-size: 11px;
-
-      margin-top: 5px;
-    }
-
-
-    /* =====================================================
-       COUNTRY SELECTED
-    ===================================================== */
-
-    .country-box {
-
-      padding:
-        8px 14px 4px;
-    }
-
-
-    .country-label {
-
-      color: #566e7c;
-
-      font-size: 9px;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1px;
-
-      margin-bottom: 6px;
-    }
-
-
-    .country-selected {
-
-      width: 100%;
-
-      padding: 9px 10px;
-
-      border:
-        1px solid
-        rgba(255,117,24,.4);
-
-      border-radius: 6px;
-
-      background:
-        rgba(255,117,24,.10);
-
-      color: #ff974e;
-
-      font-size: 11px;
-
-      text-align: left;
-
-      cursor: pointer;
-
-      transition: .2s;
-    }
-
-
-    .country-selected:hover {
-
-      background:
-        rgba(255,117,24,.16);
-    }
-
-
-    /* =====================================================
-       SEARCH
-    ===================================================== */
-
-    .search-wrap {
-
-      padding:
-        10px 14px 12px;
-    }
-
-
-    .search {
-
-      width: 100%;
-
-      border:
-        1px solid
-        rgba(255,255,255,.1);
-
-      outline: none;
-
-      background: #07131d;
-
-      color: #fff;
-
-      border-radius: 7px;
-
-      padding: 11px 12px;
-
-      font-size: 12px;
-    }
-
-
-    .search::placeholder {
-
-      color: #506674;
-    }
-
-
-    .search:focus {
-
-      border-color:
-        rgba(255,125,20,.65);
-
-      box-shadow:
-        0 0 0 2px
-        rgba(255,125,20,.08);
-    }
-
-
-    .location-count {
-
-      padding:
-        0 16px 8px;
-
-      font-size: 10px;
-
-      color: #607586;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1px;
-    }
-
-
-    /* =====================================================
-       LOCATION LIST
-    ===================================================== */
-
-    .locations {
-
-      flex: 1;
-
-      min-height: 0;
-
-      overflow-y: auto;
-
-      padding:
-        0 8px 14px;
-    }
-
-
-    .locations::-webkit-scrollbar {
-      width: 5px;
-    }
-
-
-    .locations::-webkit-scrollbar-thumb {
-
-      background: #20303c;
-
-      border-radius: 20px;
-    }
-
-
-    /* IMPORTANT:
-       Reset browser button appearance
-    */
-
-    .location-item {
-
-      appearance: none;
-      -webkit-appearance: none;
-
-      width: 100%;
-
-      border:
-        1px solid transparent;
-
-      background:
-        rgba(255,255,255,.015);
-
-      color: #dbe4ea;
-
-      padding: 10px;
-
-      margin-bottom: 4px;
-
-      border-radius: 7px;
-
-      cursor: pointer;
-
-      text-align: left;
-
-      display: flex;
-
-      gap: 10px;
-
-      align-items: center;
-
-      transition: .2s;
-
-      font-family: inherit;
-
-      outline: none;
-    }
-
-
-    .location-item:hover {
-
-      background:
-        rgba(255,255,255,.055);
-
-      border-color:
-        rgba(255,255,255,.08);
-    }
-
-
-    .location-item.active {
-
-      background:
-        rgba(255,103,20,.12);
-
-      border-color:
-        rgba(255,112,25,.45);
-    }
-
-
-    .location-dot {
-
-      width: 9px;
-      height: 9px;
-
-      flex:
-        0 0 9px;
-
-      background:
-        #ff7518;
-
-      border-radius: 50%;
-
-      box-shadow:
-        0 0 7px
-        rgba(255,117,24,.9);
-    }
-
-
-    .location-name {
-
-      font-size: 12px;
-
-      font-weight: 700;
-
-      color: #e2e9ee;
-    }
-
-
-    .location-meta {
-
-      color: #647b8b;
-
-      font-size: 10px;
-
-      margin-top: 3px;
-    }
-
-
-    .empty-list {
-
-      padding: 25px 15px;
-
-      text-align: center;
-
-      color: #607586;
-
-      font-size: 11px;
-
-      line-height: 1.6;
-    }
-
-
-    /* =====================================================
-       GLOBE
-    ===================================================== */
-
-    .globe-panel {
-
-      grid-column: 2;
-      grid-row: 2;
-
-      position: relative;
-
-      min-width: 0;
-      min-height: 0;
-
-      overflow: hidden;
-
-      background:
-        radial-gradient(
-          circle at 50% 48%,
-          rgba(16,47,68,.32),
-          rgba(1,6,10,.95) 65%
-        );
-    }
-
-
-    #globe {
-
-      position: absolute;
-
-      inset: 0;
-
-      width: 100%;
-      height: 100%;
-    }
-
-
-    #globe canvas {
-
-      display: block;
-
-      width: 100% !important;
-
-      height: 100% !important;
-    }
-
-
-    .globe-title {
-
-      position: absolute;
-
-      left: 18px;
-      top: 18px;
-
-      z-index: 5;
-
-      pointer-events: none;
-    }
-
-
-    .globe-title h2 {
-
-      margin: 0;
-
-      font-size: 13px;
-
-      color: #d5e1e8;
-
-      font-weight: 700;
-    }
-
-
-    .globe-title p {
-
-      margin: 4px 0 0;
-
-      color: #607889;
-
-      font-size: 10px;
-    }
-
-
-    .globe-controls {
-
-      position: absolute;
-
-      right: 15px;
-      bottom: 15px;
-
-      display: flex;
-
-      gap: 6px;
-
-      z-index: 5;
-    }
-
-
-    .globe-control {
-
-      width: 36px;
-      height: 32px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.1);
-
-      background:
-        rgba(2,9,15,.78);
-
-      color: #a9bac6;
-
-      border-radius: 6px;
-
-      cursor: pointer;
-
-      font-size: 13px;
-    }
-
-
-    .globe-control:hover {
-
-      color: #fff;
-
-      border-color:
-        rgba(255,117,24,.5);
-    }
-
-
-    /* =====================================================
-       LOADING
-    ===================================================== */
-
-    .loading {
-
-      position: absolute;
-
-      inset: 0;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      z-index: 10;
-
-      background: #02070d;
-
-      color: #8498a6;
-
-      font-size: 13px;
-    }
-
-
-    .loading.hidden {
-      display: none;
-    }
-
-
-    .loading-content {
-      text-align: center;
-    }
-
-
-    .loader {
-
-      width: 34px;
-      height: 34px;
-
-      border-radius: 50%;
-
-      border:
-        3px solid
-        rgba(255,255,255,.1);
-
-      border-top-color:
-        #ff7418;
-
-      animation:
-        spin .8s linear infinite;
-
-      margin:
-        0 auto 12px;
-    }
-
-
-    @keyframes spin {
-
-      to {
-        transform: rotate(360deg);
-      }
-
-    }
-
-
-    /* =====================================================
-       RIGHT PANEL
-    ===================================================== */
-
-    .right-panel {
-
-      grid-column: 3;
-      grid-row: 2;
-
-      background:
-        rgba(3,11,18,.97);
-
-      border-left:
-        1px solid
-        rgba(255,255,255,.07);
-
-      padding: 20px;
-
-      overflow-y: auto;
-
-      z-index: 10;
-    }
-
-
-    .details-empty {
-
-      height: 100%;
-
-      min-height: 300px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      text-align: center;
-
-      color: #506674;
-
-      font-size: 12px;
-
-      line-height: 1.6;
-    }
-
-
-    .details {
-      display: none;
-    }
-
-
-    .details.show {
-      display: block;
-    }
-
-
-    .country-badge {
-
-      display: inline-flex;
-
-      padding: 5px 8px;
-
-      background:
-        rgba(255,108,20,.1);
-
-      color: #ff8a3d;
-
-      border:
-        1px solid
-        rgba(255,108,20,.2);
-
-      border-radius: 5px;
-
-      font-size: 9px;
-
-      font-weight: 800;
-
-      letter-spacing: 1px;
-
-      text-transform: uppercase;
-
-      margin-bottom: 12px;
-    }
-
-
-    .details h2 {
-
-      margin: 0;
-
-      font-size: 22px;
-
-      line-height: 1.2;
-    }
-
-
-    .details-role {
-
-      margin-top: 5px;
-
-      color: #738896;
-
-      font-size: 11px;
-    }
-
-
-    .details-divider {
-
-      height: 1px;
-
-      background:
-        rgba(255,255,255,.07);
-
-      margin: 18px 0;
-    }
-
-
-    .detail-row {
-
-      margin-bottom: 16px;
-    }
-
-
-    .detail-label {
-
-      color: #566e7c;
-
-      font-size: 9px;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1px;
-
-      margin-bottom: 5px;
-    }
-
-
-    .detail-value {
-
-      color: #d8e2e8;
-
-      font-size: 12px;
-
-      line-height: 1.5;
-    }
-
-
-    .detail-value a {
-
-      color: #ff8530;
-
-      text-decoration: none;
-    }
-
-
-    .detail-value a:hover {
-      text-decoration: underline;
-    }
-
-
-    .focus-btn {
-
-      width: 100%;
-
-      margin-top: 10px;
-
-      padding: 11px;
-
-      border:
-        1px solid
-        rgba(255,110,20,.4);
-
-      border-radius: 6px;
-
-      background:
-        rgba(255,110,20,.1);
-
-      color: #ff9145;
-
-      cursor: pointer;
-
-      font-size: 11px;
-
-      font-weight: 700;
-    }
-
-
-    .focus-btn:hover {
-
-      background:
-        rgba(255,110,20,.18);
-    }
-
-
-    /* =====================================================
-       MOBILE
-    ===================================================== */
-
-    @media (max-width: 1000px) {
-
-      .app {
-
-        grid-template-columns:
-          230px
-          minmax(0,1fr);
-
-        grid-template-rows:
-          58px
-          minmax(0,1fr);
-      }
-
-
-      .topbar {
-        grid-column: 1 / 3;
-      }
-
-
-      .right-panel {
-        display: none;
-      }
-
-
-      .left-panel {
-        grid-column: 1;
-      }
-
-
-      .globe-panel {
-        grid-column: 2;
-      }
-
-    }
-
-
-    @media (max-width: 700px) {
-
-      .app {
-
-        grid-template-columns: 1fr;
-
-        grid-template-rows:
-          56px
-          minmax(0,1fr);
-      }
-
-
-      .topbar {
-        grid-column: 1;
-      }
-
-
-      .left-panel {
-
-        position: absolute;
-
-        left: 10px;
-        top: 66px;
-
-        width: 235px;
-
-        height:
-          calc(100vh - 76px);
-
-        z-index: 30;
-
-        border:
-          1px solid
-          rgba(255,255,255,.08);
-
-        border-radius: 10px;
-
-        box-shadow:
-          0 10px 30px
-          rgba(0,0,0,.5);
-      }
-
-
-      .globe-panel {
-
-        grid-column: 1;
-        grid-row: 2;
-      }
-
-
-      .brand-sub {
-        display: none;
-      }
-
-
-      .top-btn {
-        padding: 7px 9px;
-      }
-
-    }
-
-  </style>
-
-</head>
-
-
-<body>
-
-
-<div class="app">
-
-
-  <!-- =====================================================
-       TOP BAR
-  ====================================================== -->
-
-  <header class="topbar">
-
-    <div class="brand">
-
-      <div class="brand-globe">
-        🌐
+```astro
+---
+const locations = [
+  {
+    id: "chennai",
+    name: "Arun Kumar",
+    city: "Chennai",
+    branch: "Chennai Main Branch",
+    address: "Anna Salai, Chennai, Tamil Nadu",
+    phone: "+91 98765 10001",
+    email: "arun.chennai@example.com",
+  },
+  {
+    id: "salem",
+    name: "Suresh Kumar",
+    city: "Salem",
+    branch: "Salem Branch",
+    address: "Five Roads, Salem, Tamil Nadu",
+    phone: "+91 98765 10002",
+    email: "suresh.salem@example.com",
+  },
+  {
+    id: "virudhunagar",
+    name: "Muthu Raj",
+    city: "Virudhunagar",
+    branch: "Virudhunagar Branch",
+    address: "Main Road, Virudhunagar, Tamil Nadu",
+    phone: "+91 98765 10003",
+    email: "muthu.virudhunagar@example.com",
+  },
+  {
+    id: "madurai",
+    name: "Ramesh Kumar",
+    city: "Madurai",
+    branch: "Madurai Branch",
+    address: "KK Nagar, Madurai, Tamil Nadu",
+    phone: "+91 98765 10004",
+    email: "ramesh.madurai@example.com",
+  },
+  {
+    id: "coimbatore",
+    name: "Prakash",
+    city: "Coimbatore",
+    branch: "Coimbatore Main Branch",
+    address: "RS Puram, Coimbatore, Tamil Nadu",
+    phone: "+91 98765 10005",
+    email: "prakash.coimbatore@example.com",
+  },
+  {
+    id: "trichy",
+    name: "Vijay",
+    city: "Tiruchirappalli",
+    branch: "Trichy Branch",
+    address: "Cantonment, Tiruchirappalli, Tamil Nadu",
+    phone: "+91 98765 10006",
+    email: "vijay.trichy@example.com",
+  },
+  {
+    id: "tirunelveli",
+    name: "Antony Raj",
+    city: "Tirunelveli",
+    branch: "Tirunelveli Branch",
+    address: "Palayamkottai, Tirunelveli, Tamil Nadu",
+    phone: "+91 98765 10007",
+    email: "antony.tirunelveli@example.com",
+  },
+  {
+    id: "thoothukudi",
+    name: "Michael",
+    city: "Thoothukudi",
+    branch: "Thoothukudi Branch",
+    address: "Beach Road, Thoothukudi, Tamil Nadu",
+    phone: "+91 98765 10008",
+    email: "michael.thoothukudi@example.com",
+  },
+  {
+    id: "erode",
+    name: "Karthik",
+    city: "Erode",
+    branch: "Erode Branch",
+    address: "Perundurai Road, Erode, Tamil Nadu",
+    phone: "+91 98765 10009",
+    email: "karthik.erode@example.com",
+  },
+  {
+    id: "tiruppur",
+    name: "Manoj",
+    city: "Tiruppur",
+    branch: "Tiruppur Branch",
+    address: "Avinashi Road, Tiruppur, Tamil Nadu",
+    phone: "+91 98765 10010",
+    email: "manoj.tiruppur@example.com",
+  },
+  {
+    id: "vellore",
+    name: "Ravi",
+    city: "Vellore",
+    branch: "Vellore Branch",
+    address: "Katpadi Road, Vellore, Tamil Nadu",
+    phone: "+91 98765 10011",
+    email: "ravi.vellore@example.com",
+  },
+  {
+    id: "pondicherry",
+    name: "David",
+    city: "Puducherry",
+    branch: "Puducherry Branch",
+    address: "Mission Street, Puducherry",
+    phone: "+91 98765 10012",
+    email: "david.pondicherry@example.com",
+  },
+  {
+    id: "bangalore",
+    name: "Rahul",
+    city: "Bengaluru",
+    branch: "Bengaluru Branch",
+    address: "MG Road, Bengaluru, Karnataka",
+    phone: "+91 98765 10013",
+    email: "rahul.bangalore@example.com",
+  },
+  {
+    id: "hyderabad",
+    name: "Pradeep",
+    city: "Hyderabad",
+    branch: "Hyderabad Branch",
+    address: "Banjara Hills, Hyderabad, Telangana",
+    phone: "+91 98765 10014",
+    email: "pradeep.hyderabad@example.com",
+  },
+  {
+    id: "mumbai",
+    name: "Amit Shah",
+    city: "Mumbai",
+    branch: "Mumbai Branch",
+    address: "Andheri East, Mumbai, Maharashtra",
+    phone: "+91 98765 10015",
+    email: "amit.mumbai@example.com",
+  },
+  {
+    id: "delhi",
+    name: "Vikram Singh",
+    city: "New Delhi",
+    branch: "Delhi Main Branch",
+    address: "Connaught Place, New Delhi",
+    phone: "+91 98765 10016",
+    email: "vikram.delhi@example.com",
+  },
+  {
+    id: "kolkata",
+    name: "Sanjay Das",
+    city: "Kolkata",
+    branch: "Kolkata Branch",
+    address: "Park Street, Kolkata, West Bengal",
+    phone: "+91 98765 10017",
+    email: "sanjay.kolkata@example.com",
+  },
+  {
+    id: "ahmedabad",
+    name: "Nirav Patel",
+    city: "Ahmedabad",
+    branch: "Ahmedabad Branch",
+    address: "SG Highway, Ahmedabad, Gujarat",
+    phone: "+91 98765 10018",
+    email: "nirav.ahmedabad@example.com",
+  },
+  {
+    id: "pune",
+    name: "Akash Patil",
+    city: "Pune",
+    branch: "Pune Branch",
+    address: "Hinjewadi, Pune, Maharashtra",
+    phone: "+91 98765 10019",
+    email: "akash.pune@example.com",
+  },
+  {
+    id: "kochi",
+    name: "Joseph Thomas",
+    city: "Kochi",
+    branch: "Kochi Branch",
+    address: "MG Road, Kochi, Kerala",
+    phone: "+91 98765 10020",
+    email: "joseph.kochi@example.com",
+  },
+];
+---
+
+<div class="map-page">
+
+  <div class="page-header">
+    <div>
+      <h1>India Locations</h1>
+      <p>Click a location marker to view branch details.</p>
+    </div>
+
+    <div class="location-count">
+      <strong>20</strong>
+      <span>Locations</span>
+    </div>
+  </div>
+
+  <div class="map-layout">
+
+    <!-- INDIA MAP -->
+    <div class="map-card">
+
+      <div class="map-title">
+        <h2><span class="flag-icon" aria-hidden="true">&#127470;&#127475;</span> India</h2>
+        <span>Click a location</span>
       </div>
 
-      <div>
+      <div class="india-map">
 
-        <span class="brand-text">
-          PSG WORLD
-        </span>
+        <div class="real-india-map" aria-label="Real India map">
+          <img
+            class="india-map-image"
+            src="https://simplemaps.com/static/svg/country/in/admin1/in.svg"
+            alt="India map"
+            loading="eager"
+          />
 
-        <span class="brand-sub">
-          GLOBAL DIRECTORY
-        </span>
+          <!-- 20 real city markers -->
+          <button class="city-marker" style="left:31.2%;top:26.7%" data-city="delhi" aria-label="Delhi" title="Delhi"></button>
+          <button class="city-marker" style="left:15.5%;top:46.2%" data-city="ahmedabad" aria-label="Ahmedabad" title="Ahmedabad"></button>
+          <button class="city-marker" style="left:16.5%;top:59.4%" data-city="mumbai" aria-label="Mumbai" title="Mumbai"></button>
+          <button class="city-marker" style="left:19.9%;top:61.3%" data-city="pune" aria-label="Pune" title="Pune"></button>
+          <button class="city-marker" style="left:35.5%;top:65%" data-city="hyderabad" aria-label="Hyderabad" title="Hyderabad"></button>
+          <button class="city-marker" style="left:32.5%;top:79.4%" data-city="bangalore" aria-label="Bengaluru" title="Bengaluru"></button>
+          <button class="city-marker" style="left:28%;top:89.1%" data-city="kochi" aria-label="Kochi" title="Kochi"></button>
+          <button class="city-marker" style="left:41.6%;top:79%" data-city="chennai" aria-label="Chennai" title="Chennai"></button>
+          <button class="city-marker" style="left:36.3%;top:86.4%" data-city="tiruchirappalli" aria-label="Tiruchirappalli" title="Tiruchirappalli"></button>
+          <button class="city-marker" style="left:34.3%;top:89.1%" data-city="madurai" aria-label="Madurai" title="Madurai"></button>
+          <button class="city-marker" style="left:33.8%;top:90.3%" data-city="virudhunagar" aria-label="Virudhunagar" title="Virudhunagar"></button>
+          <button class="city-marker" style="left:33.1%;top:93%" data-city="tirunelveli" aria-label="Tirunelveli" title="Tirunelveli"></button>
+          <button class="city-marker" style="left:34.4%;top:92.8%" data-city="thoothukudi" aria-label="Thoothukudi" title="Thoothukudi"></button>
+          <button class="city-marker" style="left:34.4%;top:83.6%" data-city="salem" aria-label="Salem" title="Salem"></button>
+          <button class="city-marker" style="left:32.9%;top:84.6%" data-city="erode" aria-label="Erode" title="Erode"></button>
+          <button class="city-marker" style="left:31.7%;top:85.4%" data-city="tiruppur" aria-label="Tiruppur" title="Tiruppur"></button>
+          <button class="city-marker" style="left:37.7%;top:79.6%" data-city="vellore" aria-label="Vellore" title="Vellore"></button>
+          <button class="city-marker" style="left:40%;top:82.7%" data-city="pondicherry" aria-label="Puducherry" title="Puducherry"></button>
+          <button class="city-marker" style="left:69%;top:47.7%" data-city="kolkata" aria-label="Kolkata" title="Kolkata"></button>
+
+          <!-- No city-name labels: only data location markers are shown. -->
+
+        </div>
 
       </div>
-
     </div>
 
 
-    <div class="top-actions">
+    <!-- SIDE DETAILS -->
+    <aside class="details-card">
 
-      <button
-        class="top-btn"
-        id="randomBtn"
-      >
-        Random
-      </button>
-
-
-      <button
-        class="top-btn"
-        id="resetBtn"
-      >
-        Reset Globe
-      </button>
-
-    </div>
-
-  </header>
-
-
-
-  <!-- =====================================================
-       LEFT
-  ====================================================== -->
-
-  <aside class="left-panel">
-
-
-    <div class="panel-heading">
-
-      <div class="panel-title">
-        PSG Locations
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">&#128205;</div>
+        <h3>Select a location</h3>
+        <p>
+          Click Chennai, Salem, Virudhunagar or another
+          location on the map.
+        </p>
       </div>
 
-      <div class="panel-subtitle">
-        Explore PSG locations around the world
-      </div>
+      <div id="location-details" class="location-details hidden">
 
-    </div>
+        <div class="details-header">
+          <div class="details-icon">&#128205;</div>
 
+          <div>
+            <span>Location</span>
+            <h2 id="detail-city"></h2>
+          </div>
+        </div>
 
-    <div class="country-box">
+        <div class="detail-list">
 
-      <div class="country-label">
-        Selected Country
-      </div>
+          <div class="detail-item">
+            <span class="detail-label">Name</span>
+            <strong id="detail-name"></strong>
+          </div>
 
+          <div class="detail-item">
+            <span class="detail-label">City</span>
+            <strong id="detail-city-2"></strong>
+          </div>
 
-      <button
-        class="country-selected"
-        id="countrySelected"
-      >
-        🌍 All Countries
-      </button>
+          <div class="detail-item">
+            <span class="detail-label">Branch</span>
+            <strong id="detail-branch"></strong>
+          </div>
 
-    </div>
+          <div class="detail-item">
+            <span class="detail-label">Address</span>
+            <strong id="detail-address"></strong>
+          </div>
 
+          <div class="detail-item">
+            <span class="detail-label">Phone</span>
+            <strong id="detail-phone"></strong>
+          </div>
 
-    <div class="search-wrap">
+          <div class="detail-item">
+            <span class="detail-label">Email</span>
+            <strong id="detail-email"></strong>
+          </div>
 
-      <input
-        id="searchInput"
-        class="search"
-        type="text"
-        placeholder="Search location..."
-        autocomplete="off"
-      />
-
-    </div>
-
-
-    <div
-      class="location-count"
-      id="locationCount"
-    >
-      0 LOCATIONS
-    </div>
-
-
-    <div
-      class="locations"
-      id="locationList"
-    ></div>
-
-  </aside>
-
-
-
-  <!-- =====================================================
-       GLOBE
-  ====================================================== -->
-
-  <main class="globe-panel">
-
-
-    <div id="globe"></div>
-
-
-    <div class="globe-title">
-
-      <h2>
-        Interactive World
-      </h2>
-
-      <p>
-        Drag to rotate • Scroll to zoom • Click a country
-      </p>
-
-    </div>
-
-
-    <div class="globe-controls">
-
-      <button
-        class="globe-control"
-        id="zoomIn"
-      >
-        +
-      </button>
-
-
-      <button
-        class="globe-control"
-        id="zoomOut"
-      >
-        −
-      </button>
-
-    </div>
-
-
-    <div
-      class="loading"
-      id="loading"
-    >
-
-      <div class="loading-content">
-
-        <div class="loader"></div>
-
-        <div id="loadingText">
-          Loading 3D world...
         </div>
 
       </div>
 
-    </div>
+    </aside>
 
-  </main>
-
-
-
-  <!-- =====================================================
-       RIGHT
-  ====================================================== -->
-
-  <aside class="right-panel">
-
-
-    <div
-      class="details-empty"
-      id="detailsEmpty"
-    >
-      Click a country or PSG location
-    </div>
-
-
-    <div
-      class="details"
-      id="details"
-    >
-
-
-      <div
-        class="country-badge"
-        id="detailCountry"
-      >
-        LOCATION
-      </div>
-
-
-      <h2 id="detailName">
-        -
-      </h2>
-
-
-      <div
-        class="details-role"
-        id="detailRole"
-      >
-        -
-      </div>
-
-
-      <div class="details-divider"></div>
-
-
-      <div class="detail-row">
-
-        <div class="detail-label">
-          Branch
-        </div>
-
-        <div
-          class="detail-value"
-          id="detailBranch"
-        >
-          -
-        </div>
-
-      </div>
-
-
-      <div class="detail-row">
-
-        <div class="detail-label">
-          Address
-        </div>
-
-        <div
-          class="detail-value"
-          id="detailAddress"
-        >
-          -
-        </div>
-
-      </div>
-
-
-      <div class="detail-row">
-
-        <div class="detail-label">
-          Phone
-        </div>
-
-        <div
-          class="detail-value"
-          id="detailPhone"
-        >
-          -
-        </div>
-
-      </div>
-
-
-      <div class="detail-row">
-
-        <div class="detail-label">
-          Email
-        </div>
-
-        <div
-          class="detail-value"
-          id="detailEmail"
-        >
-          -
-        </div>
-
-      </div>
-
-
-      <button
-        class="focus-btn"
-        id="focusBtn"
-      >
-        Focus on Globe
-      </button>
-
-
-    </div>
-
-  </aside>
-
+  </div>
 
 </div>
 
 
+<style>
 
-<script type="module">
-
-import Globe
-  from "https://esm.sh/globe.gl@2.45.0";
-
-
-/* =====================================================
-   DATA
-===================================================== */
-
-const locations = [
-
-  {
-    id: 1,
-    name: "Chennai",
-    country: "India",
-    countryCode: "IND",
-    lat: 13.0827,
-    lng: 80.2707,
-    branch: "PSG Chennai",
-    role: "Regional Office",
-    address: "Chennai, Tamil Nadu, India",
-    phone: "+91 44 0000 0000",
-    email: "chennai@psgworld.com"
-  },
-
-  {
-    id: 2,
-    name: "Coimbatore",
-    country: "India",
-    countryCode: "IND",
-    lat: 11.0168,
-    lng: 76.9558,
-    branch: "PSG Coimbatore",
-    role: "Regional Office",
-    address: "Coimbatore, Tamil Nadu, India",
-    phone: "+91 422 000 0000",
-    email: "coimbatore@psgworld.com"
-  },
-
-  {
-    id: 3,
-    name: "Madurai",
-    country: "India",
-    countryCode: "IND",
-    lat: 9.9252,
-    lng: 78.1198,
-    branch: "PSG Madurai",
-    role: "Regional Office",
-    address: "Madurai, Tamil Nadu, India",
-    phone: "+91 452 000 0000",
-    email: "madurai@psgworld.com"
-  },
-
-  {
-    id: 4,
-    name: "Salem",
-    country: "India",
-    countryCode: "IND",
-    lat: 11.6643,
-    lng: 78.146,
-    branch: "PSG Salem",
-    role: "Regional Office",
-    address: "Salem, Tamil Nadu, India",
-    phone: "+91 427 000 0000",
-    email: "salem@psgworld.com"
-  },
-
-  {
-    id: 5,
-    name: "Tiruchirappalli",
-    country: "India",
-    countryCode: "IND",
-    lat: 10.7905,
-    lng: 78.7047,
-    branch: "PSG Trichy",
-    role: "Regional Office",
-    address: "Tiruchirappalli, Tamil Nadu, India",
-    phone: "+91 431 000 0000",
-    email: "trichy@psgworld.com"
-  },
-
-  {
-    id: 6,
-    name: "Tirunelveli",
-    country: "India",
-    countryCode: "IND",
-    lat: 8.7139,
-    lng: 77.7567,
-    branch: "PSG Tirunelveli",
-    role: "Regional Office",
-    address: "Tirunelveli, Tamil Nadu, India",
-    phone: "+91 462 000 0000",
-    email: "tirunelveli@psgworld.com"
-  },
-
-  {
-    id: 7,
-    name: "Tiruppur",
-    country: "India",
-    countryCode: "IND",
-    lat: 11.1085,
-    lng: 77.3411,
-    branch: "PSG Tiruppur",
-    role: "Regional Office",
-    address: "Tiruppur, Tamil Nadu, India",
-    phone: "+91 421 000 0000",
-    email: "tiruppur@psgworld.com"
-  },
-
-  {
-    id: 8,
-    name: "Erode",
-    country: "India",
-    countryCode: "IND",
-    lat: 11.341,
-    lng: 77.7172,
-    branch: "PSG Erode",
-    role: "Regional Office",
-    address: "Erode, Tamil Nadu, India",
-    phone: "+91 424 000 0000",
-    email: "erode@psgworld.com"
-  },
-
-  {
-    id: 9,
-    name: "Bengaluru",
-    country: "India",
-    countryCode: "IND",
-    lat: 12.9716,
-    lng: 77.5946,
-    branch: "PSG Bengaluru",
-    role: "Regional Office",
-    address: "Bengaluru, Karnataka, India",
-    phone: "+91 80 0000 0000",
-    email: "bengaluru@psgworld.com"
-  },
-
-  {
-    id: 10,
-    name: "Hyderabad",
-    country: "India",
-    countryCode: "IND",
-    lat: 17.385,
-    lng: 78.4867,
-    branch: "PSG Hyderabad",
-    role: "Regional Office",
-    address: "Hyderabad, Telangana, India",
-    phone: "+91 40 0000 0000",
-    email: "hyderabad@psgworld.com"
-  },
-
-  {
-    id: 11,
-    name: "Mumbai",
-    country: "India",
-    countryCode: "IND",
-    lat: 19.076,
-    lng: 72.8777,
-    branch: "PSG Mumbai",
-    role: "Regional Office",
-    address: "Mumbai, Maharashtra, India",
-    phone: "+91 22 0000 0000",
-    email: "mumbai@psgworld.com"
-  },
-
-  {
-    id: 12,
-    name: "Pune",
-    country: "India",
-    countryCode: "IND",
-    lat: 18.5204,
-    lng: 73.8567,
-    branch: "PSG Pune",
-    role: "Regional Office",
-    address: "Pune, Maharashtra, India",
-    phone: "+91 20 0000 0000",
-    email: "pune@psgworld.com"
-  },
-
-  {
-    id: 13,
-    name: "Ahmedabad",
-    country: "India",
-    countryCode: "IND",
-    lat: 23.0225,
-    lng: 72.5714,
-    branch: "PSG Ahmedabad",
-    role: "Regional Office",
-    address: "Ahmedabad, Gujarat, India",
-    phone: "+91 79 0000 0000",
-    email: "ahmedabad@psgworld.com"
-  },
-
-  {
-    id: 14,
-    name: "New Delhi",
-    country: "India",
-    countryCode: "IND",
-    lat: 28.6139,
-    lng: 77.209,
-    branch: "PSG New Delhi",
-    role: "Regional Office",
-    address: "New Delhi, India",
-    phone: "+91 11 0000 0000",
-    email: "delhi@psgworld.com"
-  },
-
-  {
-    id: 15,
-    name: "Jaipur",
-    country: "India",
-    countryCode: "IND",
-    lat: 26.9124,
-    lng: 75.7873,
-    branch: "PSG Jaipur",
-    role: "Regional Office",
-    address: "Jaipur, Rajasthan, India",
-    phone: "+91 141 000 0000",
-    email: "jaipur@psgworld.com"
-  },
-
-  {
-    id: 16,
-    name: "Kolkata",
-    country: "India",
-    countryCode: "IND",
-    lat: 22.5726,
-    lng: 88.3639,
-    branch: "PSG Kolkata",
-    role: "Regional Office",
-    address: "Kolkata, West Bengal, India",
-    phone: "+91 33 0000 0000",
-    email: "kolkata@psgworld.com"
-  },
-
-  {
-    id: 17,
-    name: "Kochi",
-    country: "India",
-    countryCode: "IND",
-    lat: 9.9312,
-    lng: 76.2673,
-    branch: "PSG Kochi",
-    role: "Regional Office",
-    address: "Kochi, Kerala, India",
-    phone: "+91 484 000 0000",
-    email: "kochi@psgworld.com"
-  },
-
-  {
-    id: 18,
-    name: "Lucknow",
-    country: "India",
-    countryCode: "IND",
-    lat: 26.8467,
-    lng: 80.9462,
-    branch: "PSG Lucknow",
-    role: "Regional Office",
-    address: "Lucknow, Uttar Pradesh, India",
-    phone: "+91 522 000 0000",
-    email: "lucknow@psgworld.com"
-  },
-
-  {
-    id: 19,
-    name: "Singapore",
-    country: "Singapore",
-    countryCode: "SGP",
-    lat: 1.3521,
-    lng: 103.8198,
-    branch: "PSG Singapore",
-    role: "International Office",
-    address: "Singapore",
-    phone: "+65 0000 0000",
-    email: "singapore@psgworld.com"
-  },
-
-  {
-    id: 20,
-    name: "Dubai",
-    country: "United Arab Emirates",
-    countryCode: "ARE",
-    lat: 25.2048,
-    lng: 55.2708,
-    branch: "PSG Dubai",
-    role: "International Office",
-    address: "Dubai, UAE",
-    phone: "+971 4 000 0000",
-    email: "dubai@psgworld.com"
+  * {
+    box-sizing: border-box;
   }
 
-];
+  .map-page {
+    min-height: 100vh;
+    padding: 40px;
+    background: #f5f7fa;
+    font-family: Arial, sans-serif;
+  }
+
+  .page-header {
+    max-width: 1250px;
+    margin: 0 auto 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .page-header h1 {
+    margin: 0;
+    font-size: 30px;
+    color: #172033;
+  }
+
+  .page-header p {
+    margin: 7px 0 0;
+    color: #6b7280;
+  }
+
+  .location-count {
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,.06);
+  }
+
+  .location-count strong {
+    display: block;
+    font-size: 22px;
+    color: #2563eb;
+  }
+
+  .location-count span {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .map-layout {
+    max-width: 1250px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 390px;
+    gap: 25px;
+    align-items: stretch;
+  }
+
+  .map-card,
+  .details-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.06);
+  }
+
+  .map-card {
+    min-height: 700px;
+    overflow: hidden;
+  }
+
+  .map-title {
+    padding: 22px 25px;
+    border-bottom: 1px solid #edf0f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .map-title h2 {
+    margin: 0;
+    color: #172033;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .flag-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .map-title span {
+    color: #8a93a3;
+    font-size: 14px;
+  }
+
+  .india-map {
+    height: 620px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .real-india-map {
+    position: relative;
+    width: min(720px, 98%);
+    height: 610px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .india-map-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .city-marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    padding: 0;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #2563eb;
+    box-shadow: 0 2px 7px rgba(37, 99, 235, .35);
+    cursor: pointer;
+    z-index: 5;
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+
+  .city-marker:hover,
+  .city-marker.selected {
+    transform: translate(-50%, -50%) scale(1.45);
+    background: #1d4ed8;
+    box-shadow: 0 0 0 5px rgba(37, 99, 235, .14);
+  }
+
+  .city-marker.selected {
+    background: #0f172a;
+  }
+
+  .map-label {
+    position: absolute;
+    z-index: 6;
+    border: 0;
+    background: white;
+    border-radius: 7px;
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #26344d;
+    box-shadow: 0 3px 10px rgba(0,0,0,.12);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .map-label:hover {
+    background: #2563eb;
+    color: white;
+  }
+
+  .map-label.chennai { left: 43%; top: 75%; }
+  .map-label.salem { left: 35%; top: 79%; }
+  .map-label.virudhunagar { left: 35%; top: 87%; }
+  .map-label.madurai { left: 37%; top: 84%; }
+  .map-label.delhi { left: 28%; top: 21%; }
+  .map-label.mumbai { left: 11%; top: 54%; }
+  .map-label.bangalore { left: 28%; top: 74%; }
+
+  /* DETAILS */
+
+  .details-card {
+    padding: 25px;
+    min-height: 700px;
+  }
+
+  .empty-state {
+    height: 100%;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #7b8494;
+  }
+
+  .empty-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #eef4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+
+  .empty-state h3 {
+    margin: 0 0 8px;
+    color: #26344d;
+  }
+
+  .empty-state p {
+    max-width: 260px;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .details-header {
+    display: flex;
+    gap: 14px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #edf0f4;
+  }
+
+  .details-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: #eef4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+  }
+
+  .details-header span {
+    color: #8a93a3;
+    font-size: 12px;
+  }
+
+  .details-header h2 {
+    margin: 3px 0 0;
+    color: #172033;
+  }
+
+  .detail-list {
+    margin-top: 10px;
+  }
+
+  .detail-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f2f5;
+  }
+
+  .detail-label {
+    display: block;
+    font-size: 12px;
+    color: #8a93a3;
+    margin-bottom: 5px;
+  }
+
+  .detail-item strong {
+    display: block;
+    color: #26344d;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: break-word;
+  }
 
 
-/* =====================================================
-   DOM
-===================================================== */
+  @media (max-width: 900px) {
 
-const globeContainer =
-  document.getElementById("globe");
+    .map-page {
+      padding: 20px;
+    }
 
-const loading =
-  document.getElementById("loading");
+    .map-layout {
+      grid-template-columns: 1fr;
+    }
 
-const loadingText =
-  document.getElementById("loadingText");
+    .details-card {
+      min-height: auto;
+    }
 
-const locationList =
-  document.getElementById("locationList");
-
-const locationCount =
-  document.getElementById("locationCount");
-
-const searchInput =
-  document.getElementById("searchInput");
-
-const countrySelected =
-  document.getElementById("countrySelected");
-
-const detailsEmpty =
-  document.getElementById("detailsEmpty");
-
-const details =
-  document.getElementById("details");
-
-const detailCountry =
-  document.getElementById("detailCountry");
-
-const detailName =
-  document.getElementById("detailName");
-
-const detailRole =
-  document.getElementById("detailRole");
-
-const detailBranch =
-  document.getElementById("detailBranch");
-
-const detailAddress =
-  document.getElementById("detailAddress");
-
-const detailPhone =
-  document.getElementById("detailPhone");
-
-const detailEmail =
-  document.getElementById("detailEmail");
-
-const focusBtn =
-  document.getElementById("focusBtn");
-
-
-/* =====================================================
-   STATE
-===================================================== */
-
-let globe = null;
-
-let countryData = [];
-
-let selectedLocation = null;
-
-let selectedCountryCode = null;
-
-let selectedCountryName = null;
-
-
-/* =====================================================
-   COUNTRY HELPERS
-===================================================== */
-
-function getCountryName(feature) {
-
-  const p =
-    feature?.properties || {};
-
-  return (
-    p.ADMIN ||
-    p.NAME_LONG ||
-    p.NAME ||
-    p.name ||
-    "Country"
-  );
-}
-
-
-function getCountryCode(feature) {
-
-  const p =
-    feature?.properties || {};
-
-  const values = [
-
-    p.ISO_A3,
-    p.ADM0_A3,
-    p.GU_A3,
-    p.SOV_A3,
-    p.WB_A3
-
-  ];
-
-  for (
-    const value of values
-  ) {
-
-    if (
-      value &&
-      value !== "-99"
-    ) {
-
-      return String(value)
-        .toUpperCase();
+    .empty-state {
+      min-height: 350px;
     }
 
   }
 
-  return null;
-}
+
+  @media (max-width: 600px) {
+
+    .page-header {
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .page-header h1 {
+      font-size: 24px;
+    }
+
+    .location-count {
+      padding: 8px 12px;
+    }
+
+    .map-card {
+      min-height: 550px;
+    }
+
+    .india-map {
+      height: 470px;
+    }
+
+    .real-india-map {
+      width: 98%;
+      height: 450px;
+    }
+
+    .map-label {
+      font-size: 10px;
+      padding: 4px 6px;
+    }
+
+    .details-card {
+      padding: 20px;
+    }
+
+  }
+
+</style>
 
 
-function normalize(value) {
+<script define:vars={{ locations }}>
 
-  return String(value || "")
-    .toLowerCase()
-    .trim()
-    .replace(
-      /[^a-z0-9]/g,
-      ""
+  const emptyState = document.getElementById("empty-state");
+  const details = document.getElementById("location-details");
+
+  const detailCity = document.getElementById("detail-city");
+  const detailCity2 = document.getElementById("detail-city-2");
+  const detailName = document.getElementById("detail-name");
+  const detailBranch = document.getElementById("detail-branch");
+  const detailAddress = document.getElementById("detail-address");
+  const detailPhone = document.getElementById("detail-phone");
+  const detailEmail = document.getElementById("detail-email");
+
+
+  function showLocation(cityId) {
+
+    const location = locations.find(
+      (item) => item.id === cityId
     );
-}
 
+    if (!location) return;
 
-/* =====================================================
-   FIND PSG LOCATIONS FOR COUNTRY
-===================================================== */
+    emptyState.classList.add("hidden");
+    details.classList.remove("hidden");
 
-function getLocationsForCountry(
-  countryCode,
-  countryName
-) {
+    detailCity.textContent = location.city;
+    detailCity2.textContent = location.city;
+    detailName.textContent = location.name;
+    detailBranch.textContent = location.branch;
+    detailAddress.textContent = location.address;
+    detailPhone.textContent = location.phone;
+    detailEmail.textContent = location.email;
 
-  let result = [];
+    // Highlight selected markers
+    document
+      .querySelectorAll(".city-marker")
+      .forEach((marker) => {
+        marker.classList.remove("selected");
 
-
-  if (countryCode) {
-
-    result =
-      locations.filter(
-        item =>
-          item.countryCode ===
-          countryCode
-      );
-
-  }
-
-
-  /*
-    Important fallback:
-    If GeoJSON country code
-    does not match, use name.
-  */
-
-  if (!result.length) {
-
-    const normalizedCountry =
-      normalize(countryName);
-
-    result =
-      locations.filter(
-        item =>
-          normalize(item.country) ===
-          normalizedCountry
-      );
-
-  }
-
-
-  return result;
-}
-
-
-/* =====================================================
-   RENDER LEFT PANEL
-===================================================== */
-
-function renderLocations() {
-
-  let list =
-    locations.slice();
-
-
-  /* COUNTRY FILTER */
-
-  if (selectedCountryCode) {
-
-    list =
-      getLocationsForCountry(
-        selectedCountryCode,
-        selectedCountryName
-      );
-
-  }
-
-
-  /* SEARCH */
-
-  const query =
-    searchInput.value
-      .trim()
-      .toLowerCase();
-
-
-  if (query) {
-
-    list =
-      list.filter(
-        item =>
-
-          item.name
-            .toLowerCase()
-            .includes(query)
-
-          ||
-
-          item.country
-            .toLowerCase()
-            .includes(query)
-
-          ||
-
-          item.branch
-            .toLowerCase()
-            .includes(query)
-
-          ||
-
-          item.address
-            .toLowerCase()
-            .includes(query)
-      );
-
-  }
-
-
-  locationList.innerHTML = "";
-
-
-  locationCount.textContent =
-    `${list.length} LOCATION${
-      list.length === 1
-        ? ""
-        : "S"
-    }`;
-
-
-  if (!list.length) {
-
-    locationList.innerHTML = `
-
-      <div class="empty-list">
-
-        ${
-          selectedCountryName
-            ? `
-              No PSG locations
-              in ${selectedCountryName}.
-            `
-            : `
-              No PSG locations found.
-            `
+        if (marker.dataset.city === cityId) {
+          marker.classList.add("selected");
         }
-
-      </div>
-
-    `;
-
-    return;
+      });
   }
 
 
-  /* CREATE LOCATION BUTTONS */
+  document
+    .querySelectorAll("[data-city]")
+    .forEach((element) => {
 
-  list.forEach(
-    location => {
+      element.addEventListener("click", () => {
 
-      const button =
-        document.createElement(
-          "button"
-        );
+        const cityId = element.dataset.city;
 
+        showLocation(cityId);
 
-      button.type =
-        "button";
+      });
 
-
-      button.className =
-        "location-item";
-
-
-      button.dataset.id =
-        location.id;
-
-
-      button.innerHTML = `
-
-        <span class="location-dot"></span>
-
-        <span style="min-width:0">
-
-          <div class="location-name">
-            ${location.name}
-          </div>
-
-          <div class="location-meta">
-            ${location.country}
-          </div>
-
-        </span>
-
-      `;
-
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          showLocation(
-            location
-          );
-
-        }
-      );
-
-
-      locationList.appendChild(
-        button
-      );
-
-    }
-  );
-
-
-  /* ACTIVE LOCATION */
-
-  if (selectedLocation) {
-
-    const active =
-      document.querySelector(
-        `.location-item[data-id="${selectedLocation.id}"]`
-      );
-
-    if (active) {
-
-      active.classList.add(
-        "active"
-      );
-
-    }
-
-  }
-
-}
-
-
-/* =====================================================
-   SHOW LOCATION DETAILS
-===================================================== */
-
-function showLocation(location) {
-
-  selectedLocation =
-    location;
-
-
-  /*
-    IMPORTANT:
-
-    If user clicked an orange
-    PSG point directly, automatically
-    select that point's country.
-
-    Therefore left panel will show
-    ALL PSG locations in that country.
-  */
-
-  selectedCountryCode =
-    location.countryCode;
-
-  selectedCountryName =
-    location.country;
-
-
-  countrySelected.textContent =
-    `✕ ${location.country}`;
-
-
-  searchInput.value =
-    "";
-
-
-  renderLocations();
-
-
-  /* RIGHT DETAILS */
-
-  detailsEmpty.style.display =
-    "none";
-
-  details.classList.add(
-    "show"
-  );
-
-
-  detailCountry.textContent =
-    location.country;
-
-
-  detailName.textContent =
-    location.name;
-
-
-  detailRole.textContent =
-    location.role;
-
-
-  detailBranch.textContent =
-    location.branch;
-
-
-  detailAddress.textContent =
-    location.address;
-
-
-  detailPhone.innerHTML = `
-
-    <a href="tel:${location.phone}">
-      ${location.phone}
-    </a>
-
-  `;
-
-
-  detailEmail.innerHTML = `
-
-    <a href="mailto:${location.email}">
-      ${location.email}
-    </a>
-
-  `;
-
-
-  /*
-    Focus location
-  */
-
-  if (globe) {
-
-    globe.pointOfView(
-
-      {
-        lat: location.lat,
-        lng: location.lng,
-        altitude: 1.45
-      },
-
-      1000
-
-    );
-
-
-    globe.controls()
-      .autoRotate = false;
-
-  }
-
-}
-
-
-/* =====================================================
-   SHOW COUNTRY
-===================================================== */
-
-function showCountry(
-  countryName,
-  countryCode,
-  polygon
-) {
-
-  selectedLocation =
-    null;
-
-
-  selectedCountryCode =
-    countryCode;
-
-
-  selectedCountryName =
-    countryName;
-
-
-  /*
-    Get ALL locations
-    inside clicked country.
-  */
-
-  const countryLocations =
-    getLocationsForCountry(
-      countryCode,
-      countryName
-    );
-
-
-  /*
-    LEFT PANEL
-  */
-
-  countrySelected.textContent =
-    `✕ ${countryName}`;
-
-
-  searchInput.value =
-    "";
-
-
-  renderLocations();
-
-
-  /*
-    RIGHT PANEL
-  */
-
-  detailsEmpty.style.display =
-    "none";
-
-
-  details.classList.add(
-    "show"
-  );
-
-
-  detailCountry.textContent =
-    "COUNTRY";
-
-
-  detailName.textContent =
-    countryName;
-
-
-  detailRole.textContent =
-    "Country selected";
-
-
-  detailBranch.textContent =
-    `${countryLocations.length} PSG location${
-      countryLocations.length === 1
-        ? ""
-        : "s"
-    }`;
-
-
-  if (countryLocations.length) {
-
-    detailAddress.textContent =
-      countryLocations
-        .map(
-          item =>
-            item.name
-        )
-        .join(", ");
-
-  } else {
-
-    detailAddress.textContent =
-      "No PSG location available";
-
-  }
-
-
-  detailPhone.textContent =
-    "-";
-
-  detailEmail.textContent =
-    "-";
-
-
-  /*
-    COUNTRY CENTER
-
-    If PSG locations exist,
-    calculate their center.
-  */
-
-  let lat = 20;
-
-  let lng = 0;
-
-
-  if (
-    countryLocations.length
-  ) {
-
-    lat =
-      countryLocations.reduce(
-        (sum, item) =>
-          sum + item.lat,
-        0
-      ) /
-      countryLocations.length;
-
-
-    lng =
-      countryLocations.reduce(
-        (sum, item) =>
-          sum + item.lng,
-        0
-      ) /
-      countryLocations.length;
-
-  }
-
-
-  /*
-    Better centers
-  */
-
-  const centers = {
-
-    IND: {
-      lat: 20.5937,
-      lng: 78.9629
-    },
-
-    SGP: {
-      lat: 1.3521,
-      lng: 103.8198
-    },
-
-    ARE: {
-      lat: 23.4241,
-      lng: 53.8478
-    }
-
-  };
-
-
-  if (
-    centers[countryCode]
-  ) {
-
-    lat =
-      centers[countryCode].lat;
-
-    lng =
-      centers[countryCode].lng;
-
-  }
-
-
-  if (globe) {
-
-    globe.pointOfView(
-
-      {
-        lat,
-        lng,
-        altitude:
-          countryLocations.length <= 1
-            ? 1.45
-            : 1.75
-      },
-
-      1200
-
-    );
-
-
-    globe.controls()
-      .autoRotate = false;
-
-  }
-
-
-  /*
-    Highlight selected country.
-  */
-
-  updateCountryColors();
-
-}
-
-
-/* =====================================================
-   COUNTRY COLORS
-===================================================== */
-
-function updateCountryColors() {
-
-  if (!globe) return;
-
-
-  globe.polygonCapColor(
-    feature => {
-
-      const code =
-        getCountryCode(
-          feature
-        );
-
-
-      if (
-        selectedCountryCode &&
-        code ===
-        selectedCountryCode
-      ) {
-
-        return "#2c6682";
-
-      }
-
-
-      return "#173444";
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-searchInput.addEventListener(
-  "input",
-  () => {
-
-    renderLocations();
-
-  }
-);
-
-
-/* =====================================================
-   CLEAR COUNTRY
-===================================================== */
-
-countrySelected.addEventListener(
-  "click",
-  () => {
-
-    selectedCountryCode =
-      null;
-
-    selectedCountryName =
-      null;
-
-    selectedLocation =
-      null;
-
-
-    countrySelected.textContent =
-      "🌍 All Countries";
-
-
-    searchInput.value =
-      "";
-
-
-    renderLocations();
-
-
-    detailsEmpty.style.display =
-      "flex";
-
-
-    details.classList.remove(
-      "show"
-    );
-
-
-    if (globe) {
-
-      globe
-        .polygonCapColor(
-          () =>
-            "#173444"
-        );
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   LOAD GEOJSON
-===================================================== */
-
-async function loadCountries() {
-
-  const url =
-    "https://cdn.jsdelivr.net/npm/three-globe/example/country-polygons/ne_110m_admin_0_countries.geojson";
-
-
-  const response =
-    await fetch(url);
-
-
-  if (!response.ok) {
-
-    throw new Error(
-      "Country GeoJSON could not be loaded"
-    );
-
-  }
-
-
-  const data =
-    await response.json();
-
-
-  return data.features || [];
-
-}
-
-
-/* =====================================================
-   CREATE GLOBE
-===================================================== */
-
-async function createGlobe() {
-
-  try {
-
-    loadingText.textContent =
-      "Loading countries...";
-
-
-    countryData =
-      await loadCountries();
-
-
-    loadingText.textContent =
-      "Building 3D globe...";
-
-
-    globe =
-      Globe({
-
-        animateIn: true,
-
-        waitForGlobeReady: false
-
-      })(globeContainer);
-
-
-    /* =================================================
-       GLOBE
-    ================================================= */
-
-    globe
-
-      .globeImageUrl(null)
-
-      .backgroundColor(
-        "rgba(0,0,0,0)"
-      )
-
-      .showAtmosphere(true)
-
-      .atmosphereColor(
-        "#1c8ed1"
-      )
-
-      .atmosphereAltitude(
-        0.13
-      );
-
-
-    /* =================================================
-       COUNTRIES
-    ================================================= */
-
-    globe
-
-      .polygonsData(
-        countryData
-      )
-
-      .polygonGeoJsonGeometry(
-        feature =>
-          feature.geometry
-      )
-
-      .polygonCapColor(
-        () =>
-          "#173444"
-      )
-
-      .polygonSideColor(
-        () =>
-          "rgba(15,48,65,.85)"
-      )
-
-      .polygonStrokeColor(
-        () =>
-          "#4f7183"
-      )
-
-      .polygonAltitude(
-        0.006
-      )
-
-
-      /*
-        COUNTRY LABEL
-      */
-
-      .polygonLabel(
-        feature => {
-
-          const name =
-            getCountryName(
-              feature
-            );
-
-
-          const code =
-            getCountryCode(
-              feature
-            );
-
-
-          const count =
-            getLocationsForCountry(
-              code,
-              name
-            ).length;
-
-
-          return `
-
-            <div style="
-              background:#07121b;
-              border:1px solid
-                rgba(255,255,255,.15);
-              color:#fff;
-              padding:8px 10px;
-              border-radius:5px;
-              font-size:11px;
-            ">
-
-              <strong>
-                ${name}
-              </strong>
-
-              ${
-                count
-                  ? `
-                    <br>
-
-                    <span style="
-                      color:#ff9145;
-                      font-size:10px;
-                    ">
-
-                      ${count}
-                      PSG location${
-                        count === 1
-                          ? ""
-                          : "s"
-                      }
-
-                    </span>
-                  `
-                  : ""
-              }
-
-            </div>
-
-          `;
-
-        }
-      )
-
-
-      /*
-        HOVER
-      */
-
-      .onPolygonHover(
-        (polygon) => {
-
-          globe
-            .polygonCapColor(
-              feature => {
-
-                const code =
-                  getCountryCode(
-                    feature
-                  );
-
-
-                if (
-                  feature ===
-                  polygon
-                ) {
-
-                  return "#28566c";
-
-                }
-
-
-                if (
-                  selectedCountryCode &&
-                  code ===
-                  selectedCountryCode
-                ) {
-
-                  return "#2c6682";
-
-                }
-
-
-                return "#173444";
-
-              }
-            );
-
-        }
-      )
-
-
-      /*
-        =================================================
-        IMPORTANT COUNTRY CLICK
-        =================================================
-
-        Click any country
-        -> left panel changes
-        -> all PSG locations in that country
-        -> country focus
-      */
-
-      .onPolygonClick(
-        polygon => {
-
-          if (!polygon) return;
-
-
-          const countryName =
-            getCountryName(
-              polygon
-            );
-
-
-          const countryCode =
-            getCountryCode(
-              polygon
-            );
-
-
-          showCountry(
-            countryName,
-            countryCode,
-            polygon
-          );
-
-        }
-      );
-
-
-    /* =================================================
-       PSG POINTS
-    ================================================= */
-
-    globe
-
-      .pointsData(
-        locations
-      )
-
-      .pointLat(
-        item =>
-          item.lat
-      )
-
-      .pointLng(
-        item =>
-          item.lng
-      )
-
-      .pointAltitude(
-        0.025
-      )
-
-      .pointRadius(
-        0.35
-      )
-
-      .pointColor(
-        () =>
-          "#ff7418"
-      )
-
-      .pointResolution(
-        12
-      )
-
-
-      .pointLabel(
-        location => `
-
-          <div style="
-            background:#07121b;
-            color:#fff;
-            border:
-              1px solid
-              rgba(255,110,20,.5);
-            padding:8px 10px;
-            border-radius:6px;
-            font-size:11px;
-          ">
-
-            <strong>
-              ${location.name}
-            </strong>
-
-            <br>
-
-            <span style="
-              color:#899daa;
-              font-size:10px;
-            ">
-
-              ${location.country}
-
-            </span>
-
-          </div>
-
-        `
-      )
-
-
-      /*
-        ORANGE POINT CLICK
-
-        This now also changes
-        left panel to that country.
-      */
-
-      .onPointClick(
-        location => {
-
-          showLocation(
-            location
-          );
-
-        }
-      );
-
-
-    /* =================================================
-       CONTROLS
-    ================================================= */
-
-    const controls =
-      globe.controls();
-
-
-    controls.enablePan =
-      false;
-
-    controls.enableZoom =
-      true;
-
-    controls.enableDamping =
-      true;
-
-    controls.dampingFactor =
-      0.08;
-
-    controls.minDistance =
-      180;
-
-    controls.maxDistance =
-      500;
-
-
-    controls.autoRotate =
-      true;
-
-    controls.autoRotateSpeed =
-      0.35;
-
-
-    /* =================================================
-       INITIAL CAMERA
-    ================================================= */
-
-    globe.pointOfView(
-
-      {
-        lat: 20,
-        lng: 78,
-        altitude: 2.25
-      },
-
-      0
-
-    );
-
-
-    /* =================================================
-       LOADING OFF
-    ================================================= */
-
-    setTimeout(
-      () => {
-
-        loading.classList.add(
-          "hidden"
-        );
-
-      },
-      700
-    );
-
-
-    console.log(
-      "PSG World 3D Globe loaded"
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      error
-    );
-
-
-    loadingText.innerHTML = `
-
-      <div style="
-        color:#ff8a5b;
-        max-width:280px;
-        line-height:1.6;
-      ">
-
-        Unable to load the 3D globe.
-
-        <br><br>
-
-        Please check your internet
-        connection and reload.
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-/* =====================================================
-   RANDOM
-===================================================== */
-
-document
-  .getElementById("randomBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      let list =
-        locations;
-
-
-      if (
-        selectedCountryCode
-      ) {
-
-        list =
-          getLocationsForCountry(
-            selectedCountryCode,
-            selectedCountryName
-          );
-
-      }
-
-
-      if (!list.length)
-        return;
-
-
-      const random =
-        list[
-          Math.floor(
-            Math.random() *
-            list.length
-          )
-        ];
-
-
-      showLocation(
-        random
-      );
-
-    }
-  );
-
-
-/* =====================================================
-   RESET
-===================================================== */
-
-document
-  .getElementById("resetBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      selectedCountryCode =
-        null;
-
-      selectedCountryName =
-        null;
-
-      selectedLocation =
-        null;
-
-
-      countrySelected.textContent =
-        "🌍 All Countries";
-
-
-      searchInput.value =
-        "";
-
-
-      renderLocations();
-
-
-      detailsEmpty.style.display =
-        "flex";
-
-
-      details.classList.remove(
-        "show"
-      );
-
-
-      if (globe) {
-
-        globe
-          .polygonCapColor(
-            () =>
-              "#173444"
-          );
-
-
-        globe.pointOfView(
-
-          {
-            lat: 20,
-            lng: 78,
-            altitude: 2.25
-          },
-
-          1000
-
-        );
-
-
-        globe.controls()
-          .autoRotate = true;
-
-      }
-
-    }
-  );
-
-
-/* =====================================================
-   ZOOM IN
-===================================================== */
-
-document
-  .getElementById("zoomIn")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (!globe) return;
-
-
-      const controls =
-        globe.controls();
-
-
-      controls.dollyIn(
-        1.25
-      );
-
-
-      controls.update();
-
-    }
-  );
-
-
-/* =====================================================
-   ZOOM OUT
-===================================================== */
-
-document
-  .getElementById("zoomOut")
-  .addEventListener(
-    "click",
-    () => {
-
-      if (!globe) return;
-
-
-      const controls =
-        globe.controls();
-
-
-      controls.dollyOut(
-        1.25
-      );
-
-
-      controls.update();
-
-    }
-  );
-
-
-/* =====================================================
-   FOCUS
-===================================================== */
-
-focusBtn.addEventListener(
-  "click",
-  () => {
-
-    if (
-      !globe ||
-      !selectedLocation
-    ) return;
-
-
-    globe.pointOfView(
-
-      {
-        lat:
-          selectedLocation.lat,
-
-        lng:
-          selectedLocation.lng,
-
-        altitude: 1.45
-      },
-
-      1000
-
-    );
-
-
-    globe.controls()
-      .autoRotate = false;
-
-  }
-);
-
-
-/* =====================================================
-   INITIAL
-===================================================== */
-
-renderLocations();
-
-createGlobe();
+    });
 
 </script>
-
-</body>
-
-</html>
+```
