@@ -1,0 +1,499 @@
+---
+// GlobeDirectory.astro
+// A 3D rotating globe (Three.js) with 6 clickable continent markers.
+// Clicking a marker (or a quick-select chip) searches the dummy roster
+// and shows matching people in the side panel. A search box filters
+// across all 20 people regardless of the selected region.
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" is:inline></script>
+
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <span class="brand__mark">&#9679;</span>
+      <span class="brand__name">Global Roster</span>
+      <span class="brand__tag">spin the globe, find your people</span>
+    </div>
+    <div class="search">
+      <input id="searchInput" type="text" placeholder="Search name, city, branch, or job title…" />
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="main">
+    <div class="globe-stage" id="globeStage">
+      <div class="globe-hint">Drag to rotate · click a marker to search that region</div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+      <div id="panelEmpty">
+        <p class="panel__empty-title">No region selected</p>
+        <p class="panel__empty-text">Drag the globe and click a glowing marker — or use the chips above — to pull everyone based there.</p>
+      </div>
+      <div id="panelResults" hidden>
+        <div class="panel__summary">
+          <span class="panel__region" id="panelRegion"></span>
+          <span class="panel__count" id="panelCount"></span>
+        </div>
+        <ul class="panel__list" id="panelList"></ul>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script is:inline>
+
+  // ---------- Data ----------
+  const people = [
+    { id: 1,  name: "Ethan Brooks",     city: "Chennai",      branch: "Finance",     job: "Financial Analyst",        address: "221 Lexington Ave, New York, NY 10016, USA",         region: "na" },
+    { id: 2,  name: "Maria Chen",       city: "Madurai", branch: "Engineering", job: "Senior Software Engineer", address: "88 Folsom St, San Francisco, CA 94105, USA",          region: "na" },
+    { id: 3,  name: "James Okafor",     city: "Salem",       branch: "Operations",  job: "Operations Manager",       address: "410 N Wells St, Chicago, IL 60654, USA",               region: "na" },
+    { id: 4,  name: "Sophie Tremblay",  city: "Virudhunagar",       branch: "Marketing",   job: "Marketing Lead",           address: "77 Adelaide St W, Toronto, ON M5H 1P2, Canada",        region: "na" },
+    { id: 5,  name: "Daniel Reyes",     city: "Sivakasi",        branch: "Product",     job: "Product Manager",          address: "1200 S Congress Ave, Austin, TX 78704, USA",           region: "na" },
+    { id: 6,  name: "Luana Ferreira",   city: "Kovilpatti",     branch: "Sales",       job: "Regional Sales Director",  address: "Av. Paulista 1000, São Paulo, SP 01310-100, Brazil",   region: "sa" },
+    { id: 7,  name: "Mateo Fernández",  city: "Buenos Aires",  branch: "Support",     job: "Customer Support Lead",    address: "Av. Corrientes 750, Buenos Aires C1043, Argentina",    region: "sa" },
+    { id: 8,  name: "Oliver Whitfield", city: "London",        branch: "Legal",       job: "Legal Counsel",            address: "30 Cannon St, London EC4M 6XH, UK",                    region: "eu" },
+    { id: 9,  name: "Camille Dubois",   city: "Paris",         branch: "Design",      job: "Design Director",          address: "12 Rue de Rivoli, 75004 Paris, France",                region: "eu" },
+    { id: 10, name: "Lukas Weber",      city: "Berlin",        branch: "Engineering", job: "Platform Engineer",        address: "Torstraße 45, 10119 Berlin, Germany",                  region: "eu" },
+    { id: 11, name: "Elena Ruiz",       city: "Madrid",        branch: "HR",          job: "HR Business Partner",      address: "Calle de Alcalá 90, 28009 Madrid, Spain",              region: "eu" },
+    { id: 12, name: "Freya Jansen",     city: "Amsterdam",     branch: "Finance",     job: "Finance Controller",       address: "Herengracht 182, 1016 BR Amsterdam, Netherlands",      region: "eu" },
+    { id: 13, name: "Amara Hassan",     city: "Cairo",         branch: "Operations",  job: "Logistics Coordinator",    address: "15 Talaat Harb St, Cairo 11511, Egypt",                region: "af" },
+    { id: 14, name: "Chidi Okonkwo",    city: "Lagos",         branch: "Sales",       job: "Business Development Rep", address: "5 Adeola Odeku St, Victoria Island, Lagos, Nigeria",   region: "af" },
+    { id: 15, name: "Grace Wanjiru",    city: "Nairobi",       branch: "Marketing",   job: "Content Strategist",       address: "Kimathi St, Nairobi 00100, Kenya",                     region: "af" },
+    { id: 16, name: "Haruto Sato",      city: "Tokyo",         branch: "Engineering", job: "Engineering Manager",      address: "1-1 Marunouchi, Chiyoda City, Tokyo 100-0005, Japan",  region: "as" },
+    { id: 17, name: "Priya Nair",       city: "Mumbai",        branch: "Product",     job: "Product Analyst",          address: "Bandra Kurla Complex, Mumbai 400051, India",           region: "as" },
+    { id: 18, name: "Marcus Lim",       city: "Singapore",     branch: "Finance",     job: "Treasury Analyst",         address: "1 Raffles Place, Singapore 048616",                    region: "as" },
+    { id: 19, name: "Ji-woo Kang",      city: "Seoul",         branch: "Design",      job: "UX Researcher",            address: "153 Teheran-ro, Gangnam-gu, Seoul 06131, South Korea", region: "as" },
+    { id: 20, name: "Isla Robertson",   city: "Sydney",        branch: "Support",     job: "Support Team Lead",        address: "200 George St, Sydney NSW 2000, Australia",            region: "oc" }
+  ];
+
+  const regions = [
+    { code: "na", label: "North America", lat: 45,  lon: -100, blob: { x: 227, y: 128, rx: 95, ry: 65 } },
+    { code: "sa", label: "South America", lat: -15, lon: -60,  blob: { x: 341, y: 298, rx: 60, ry: 100 } },
+    { code: "eu", label: "Europe",        lat: 50,  lon: 15,   blob: { x: 554, y: 114, rx: 60, ry: 45 } },
+    { code: "af", label: "Africa",        lat: 5,   lon: 20,   blob: { x: 569, y: 242, rx: 70, ry: 100 } },
+    { code: "as", label: "Asia",          lat: 35,  lon: 100,  blob: { x: 796, y: 156, rx: 130, ry: 90 } },
+    { code: "oc", label: "Oceania",       lat: -25, lon: 135,  blob: { x: 896, y: 327, rx: 55, ry: 40 } }
+  ];
+
+  // ---------- Chips (quick-select list, mirrors marker clicks) ----------
+  const chipsEl = document.getElementById("chips");
+  regions.forEach((r) => {
+    const chip = document.createElement("button");
+    chip.className = "chip";
+    chip.type = "button";
+    chip.textContent = r.label;
+    chip.dataset.region = r.code;
+    chip.addEventListener("click", () => selectRegion(r.code, true));
+    chipsEl.appendChild(chip);
+  });
+
+  // ---------- Sidebar rendering ----------
+  const panelEmpty = document.getElementById("panelEmpty");
+  const panelResults = document.getElementById("panelResults");
+  const panelRegion = document.getElementById("panelRegion");
+  const panelCount = document.getElementById("panelCount");
+  const panelList = document.getElementById("panelList");
+  const searchInput = document.getElementById("searchInput");
+
+  let currentRegion = null;
+
+  function fieldRow(label, value) {
+    return `<div class="entry__row"><span class="entry__label">${label}:</span><span class="entry__value">${value}</span></div>`;
+  }
+
+  function renderList(list, headerLabel) {
+    if (!list.length && !headerLabel) {
+      panelEmpty.hidden = false;
+      panelResults.hidden = true;
+      return;
+    }
+    panelEmpty.hidden = true;
+    panelResults.hidden = false;
+    panelRegion.textContent = headerLabel;
+    panelCount.textContent = `${list.length} ${list.length === 1 ? "person" : "people"}`;
+    panelList.innerHTML = list.map((p) => `
+      <li class="entry">
+        <button class="entry__toggle" type="button">
+          <span class="entry__name">${p.name}</span>
+          <span class="entry__city">${p.city}</span>
+        </button>
+        <div class="entry__details">
+          ${fieldRow("Name", p.name)}
+          ${fieldRow("City", p.city)}
+          ${fieldRow("Branch", p.branch)}
+          ${fieldRow("Job title", p.job)}
+          ${fieldRow("Address", p.address)}
+        </div>
+      </li>`).join("");
+    panelList.querySelectorAll(".entry__toggle").forEach((btn) => {
+      btn.addEventListener("click", () => btn.parentElement.classList.toggle("entry--open"));
+    });
+  }
+
+  function refresh() {
+    const q = searchInput.value.trim().toLowerCase();
+    if (q) {
+      const matches = people.filter((p) =>
+        [p.name, p.city, p.branch, p.job].some((f) => f.toLowerCase().includes(q))
+      );
+      renderList(matches, "Search results");
+      return;
+    }
+    if (currentRegion) {
+      const label = regions.find((r) => r.code === currentRegion).label;
+      renderList(people.filter((p) => p.region === currentRegion), label);
+    } else {
+      renderList([], null);
+    }
+  }
+
+  searchInput.addEventListener("input", refresh);
+
+  function selectRegion(code, fromChip) {
+    currentRegion = code;
+    searchInput.value = "";
+    document.querySelectorAll(".chip").forEach((c) => c.classList.toggle("active", c.dataset.region === code));
+    rotateToRegion(code);
+    refresh();
+  }
+
+  // ---------- Three.js globe ----------
+  const stage = document.getElementById("globeStage");
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 6.4);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  stage.appendChild(renderer.domElement);
+
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener("resize", resize);
+
+  scene.add(new THREE.AmbientLight(0x9fb8ae, 0.9));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.9);
+  sun.position.set(4, 3, 5);
+  scene.add(sun);
+
+  // Procedural equirectangular texture (ocean + continent blobs)
+  function buildTexture() {
+    const W = 1024, H = 512;
+    const c = document.createElement("canvas");
+    c.width = W; c.height = H;
+    const ctx = c.getContext("2d");
+    const oceanGrad = ctx.createLinearGradient(0, 0, 0, H);
+    oceanGrad.addColorStop(0, "#0c2a2c");
+    oceanGrad.addColorStop(1, "#081a1e");
+    ctx.fillStyle = oceanGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = "#2c6e57";
+    ctx.strokeStyle = "rgba(61, 220, 151, 0.35)";
+    ctx.lineWidth = 2;
+    regions.forEach((r) => {
+      const { x, y, rx, ry } = r.blob;
+      ctx.beginPath();
+      ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      // wrap-around draw for seam continuity
+      ctx.beginPath();
+      ctx.ellipse(x - W, y, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(x + W, y, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    const tex = new THREE.CanvasTexture(c);
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  const globeGroup = new THREE.Group();
+  globeGroup.rotation.x = -0.15;
+  scene.add(globeGroup);
+
+  const globeGeo = new THREE.SphereGeometry(2, 64, 64);
+  const globeMat = new THREE.MeshPhongMaterial({ map: buildTexture(), shininess: 6 });
+  const globeMesh = new THREE.Mesh(globeGeo, globeMat);
+  globeGroup.add(globeMesh);
+
+  const atmoGeo = new THREE.SphereGeometry(2.07, 48, 48);
+  const atmoMat = new THREE.MeshBasicMaterial({ color: 0x3ddc97, transparent: true, opacity: 0.08, side: THREE.BackSide });
+  globeGroup.add(new THREE.Mesh(atmoGeo, atmoMat));
+
+  function latLonToVec3(lat, lon, r) {
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lon + 180) * (Math.PI / 180);
+    return new THREE.Vector3(
+      -r * Math.sin(phi) * Math.cos(theta),
+      r * Math.cos(phi),
+      r * Math.sin(phi) * Math.sin(theta)
+    );
+  }
+
+  const markerGeo = new THREE.SphereGeometry(0.065, 16, 16);
+  const markers = [];
+  regions.forEach((r) => {
+    const pos = latLonToVec3(r.lat, r.lon, 2.05);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x3ddc97 });
+    const marker = new THREE.Mesh(markerGeo, mat);
+    marker.position.copy(pos);
+    marker.userData.region = r.code;
+    globeGroup.add(marker);
+    markers.push(marker);
+
+    const glowGeo = new THREE.SphereGeometry(0.12, 12, 12);
+    const glowMat = new THREE.MeshBasicMaterial({ color: 0x3ddc97, transparent: true, opacity: 0.25 });
+    const glow = new THREE.Mesh(glowGeo, glowMat);
+    glow.position.copy(pos);
+    globeGroup.add(glow);
+  });
+
+  // ---------- Interaction: drag to rotate + click to select ----------
+  let isDragging = false, dragDistance = 0, lastX = 0, lastY = 0;
+  let autoRotate = true, autoResumeTimer = null;
+  let targetRotY = null;
+
+  function pointerDown(x, y) {
+    isDragging = true; dragDistance = 0; lastX = x; lastY = y;
+    autoRotate = false;
+    targetRotY = null;
+    stage.classList.add("dragging");
+    if (autoResumeTimer) clearTimeout(autoResumeTimer);
+  }
+  function pointerMove(x, y) {
+    if (!isDragging) return;
+    const dx = x - lastX, dy = y - lastY;
+    dragDistance += Math.abs(dx) + Math.abs(dy);
+    globeGroup.rotation.y += dx * 0.005;
+    globeGroup.rotation.x = Math.max(-0.9, Math.min(0.9, globeGroup.rotation.x + dy * 0.005));
+    lastX = x; lastY = y;
+  }
+  function pointerUp(x, y, isTouchEnd) {
+    isDragging = false;
+    stage.classList.remove("dragging");
+    if (dragDistance < 6) tryPick(x, y);
+    autoResumeTimer = setTimeout(() => { autoRotate = true; }, 3500);
+  }
+
+  const raycaster = new THREE.Raycaster();
+  const mouseNdc = new THREE.Vector2();
+  function tryPick(clientX, clientY) {
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouseNdc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    mouseNdc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(mouseNdc, camera);
+    const hits = raycaster.intersectObjects(markers);
+    if (hits.length) {
+      selectRegion(hits[0].object.userData.region, false);
+    }
+  }
+
+  const dom = renderer.domElement;
+  dom.addEventListener("mousedown", (e) => pointerDown(e.clientX, e.clientY));
+  window.addEventListener("mousemove", (e) => pointerMove(e.clientX, e.clientY));
+  window.addEventListener("mouseup", (e) => pointerUp(e.clientX, e.clientY));
+  dom.addEventListener("touchstart", (e) => { const t = e.touches[0]; pointerDown(t.clientX, t.clientY); }, { passive: true });
+  dom.addEventListener("touchmove", (e) => { const t = e.touches[0]; pointerMove(t.clientX, t.clientY); }, { passive: true });
+  dom.addEventListener("touchend", (e) => { const t = e.changedTouches[0]; pointerUp(t.clientX, t.clientY, true); });
+
+  function rotateToRegion(code) {
+    const marker = markers.find((m) => m.userData.region === code);
+    if (!marker) return;
+    targetRotY = Math.atan2(-marker.position.x, marker.position.z);
+    autoRotate = false;
+    if (autoResumeTimer) clearTimeout(autoResumeTimer);
+    autoResumeTimer = setTimeout(() => { autoRotate = true; }, 3500);
+  }
+
+  function highlightActive(code) {
+    markers.forEach((m) => {
+      m.material.color.set(m.userData.region === code ? 0xffffff : 0x3ddc97);
+    });
+  }
+
+  const originalSelectRegion = selectRegion;
+  selectRegion = function (code, fromChip) {
+    originalSelectRegion(code, fromChip);
+    highlightActive(code);
+  };
+
+  // ---------- Animation loop ----------
+  function animate() {
+    requestAnimationFrame(animate);
+    if (targetRotY !== null) {
+      const diff = targetRotY - globeGroup.rotation.y;
+      globeGroup.rotation.y += diff * 0.08;
+      if (Math.abs(diff) < 0.002) targetRotY = null;
+    } else if (autoRotate) {
+      globeGroup.rotation.y += 0.0018;
+    }
+    renderer.render(scene, camera);
+  }
+
+  resize();
+  animate();
+
+</script>
+
+<style is:global>
+
+  :root {
+    --bg: #070b0f;
+    --panel-bg: #10161d;
+    --panel-border: #232f3a;
+    --ink: #eaf1ee;
+    --ink-dim: #90a19a;
+    --accent: #3ddc97;
+    --accent-dim: rgba(61, 220, 151, 0.18);
+  }
+  * { box-sizing: border-box; }
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.5) 1px, transparent 0),
+      radial-gradient(1px 1px at 70% 65%, rgba(255,255,255,.35) 1px, transparent 0),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,.3) 1px, transparent 0),
+      radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,.4) 1px, transparent 0),
+      radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,.25) 1px, transparent 0);
+    background-size: 220px 220px, 260px 260px, 200px 200px, 300px 300px, 180px 180px;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--panel-border);
+    background: rgba(16, 22, 29, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 5;
+  }
+  .brand { display: flex; align-items: baseline; gap: 8px; flex-shrink: 0; }
+  .brand__mark { color: var(--accent); font-size: 1.3rem; }
+  .brand__name { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .brand__tag { color: var(--ink-dim); font-size: 0.78rem; }
+
+  .search {
+    flex: 1;
+    max-width: 420px;
+    position: relative;
+  }
+  .search input {
+    width: 100%;
+    background: #0c1218;
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    padding: 9px 16px;
+    color: var(--ink);
+    font-size: 0.88rem;
+    outline: none;
+  }
+  .search input:focus { border-color: var(--accent); }
+  .search input::placeholder { color: var(--ink-dim); }
+
+  .chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    border: 1px solid var(--panel-border);
+    background: #0c1218;
+    color: var(--ink-dim);
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .chip:hover { color: var(--ink); border-color: #3a4a58; }
+  .chip.active { color: #06231a; background: var(--accent); border-color: var(--accent); font-weight: 600; }
+
+  .main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    min-height: 0;
+  }
+  @media (max-width: 860px) {
+    .main { grid-template-columns: 1fr; }
+    .globe-stage { min-height: 320px; }
+  }
+
+  .globe-stage {
+    position: relative;
+    min-width: 0;
+  }
+  .globe-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+  .globe-stage.dragging canvas { cursor: grabbing; }
+
+  .globe-hint {
+    position: absolute;
+    left: 20px;
+    bottom: 18px;
+    color: var(--ink-dim);
+    font-size: 0.8rem;
+    background: rgba(7, 11, 15, 0.6);
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    pointer-events: none;
+  }
+
+  .sidebar {
+    border-left: 1px solid var(--panel-border);
+    background: rgba(16, 22, 29, 0.55);
+    padding: 20px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .panel__empty-title { font-weight: 600; margin: 30px 0 6px; }
+  .panel__empty-text { color: var(--ink-dim); font-size: 0.88rem; line-height: 1.5; margin: 0; }
+
+  .panel__summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .panel__region { font-weight: 700; font-size: 1.02rem; }
+  .panel__count { color: var(--accent); font-size: 0.82rem; font-weight: 600; }
+
+  .panel__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+
+  .entry { border: 1px solid var(--panel-border); border-radius: 10px; overflow: hidden; background: #0c1218; }
+  .entry__toggle {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    background: none; border: none; color: var(--ink); padding: 12px 14px; cursor: pointer;
+    font-size: 0.9rem; text-align: left;
+  }
+  .entry__name { font-weight: 600; }
+  .entry__city { color: var(--ink-dim); font-size: 0.8rem; }
+  .entry__details { display: none; padding: 0 14px 14px; flex-direction: column; gap: 6px; }
+  .entry--open .entry__details { display: flex; }
+  .entry__row { display: flex; justify-content: space-between; gap: 14px; font-size: 0.83rem; padding: 6px 0; border-top: 1px solid var(--panel-border); }
+  .entry__label { color: var(--ink-dim); flex-shrink: 0; }
+  .entry__value { text-align: right; color: var(--ink); }
+
+</style>
