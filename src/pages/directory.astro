@@ -1,169 +1,514 @@
 ---
 const people = [
-  { id: 1, name: "Arun Kumar", district: "Chennai", city: "Chennai", category: "Engineer", company: "ABC Technologies", phone: "+91 90000 10001", email: "arun@example.com", description: "Software engineer working in Chennai." },
-  { id: 2, name: "Priya Raj", district: "Chennai", city: "Chennai", category: "Teacher", company: "Chennai Public School", phone: "+91 90000 10002", email: "priya@example.com", description: "School teacher and education volunteer." },
-  { id: 3, name: "Mohan Raj", district: "Coimbatore", city: "Coimbatore", category: "Business", company: "Mohan Textiles", phone: "+91 90000 10003", email: "mohan@example.com", description: "Textile business owner." },
-  { id: 4, name: "Divya S", district: "Madurai", city: "Madurai", category: "Doctor", company: "Madurai Medical Centre", phone: "+91 90000 10004", email: "divya@example.com", description: "Medical professional based in Madurai." },
-  { id: 5, name: "Suresh Kumar", district: "Tirunelveli", city: "Tirunelveli", category: "Farmer", company: "Green Farm", phone: "+91 90000 10005", email: "suresh@example.com", description: "Organic farmer from Tirunelveli." },
-  { id: 6, name: "Meena Joseph", district: "Thoothukudi", city: "Thoothukudi", category: "Nurse", company: "Thoothukudi Hospital", phone: "+91 90000 10006", email: "meena@example.com", description: "Healthcare professional." },
-  { id: 7, name: "Vijay Anand", district: "Tiruppur", city: "Tiruppur", category: "Entrepreneur", company: "Vijay Garments", phone: "+91 90000 10007", email: "vijay@example.com", description: "Garment industry entrepreneur." },
-  { id: 8, name: "Anitha Devi", district: "Salem", city: "Salem", category: "Designer", company: "Creative Studio", phone: "+91 90000 10008", email: "anitha@example.com", description: "Graphic and fashion designer." },
-  { id: 9, name: "Karthik M", district: "Erode", city: "Erode", category: "Business", company: "Erode Traders", phone: "+91 90000 10009", email: "karthik@example.com", description: "Local business owner." },
-  { id: 10, name: "John Peter", district: "Kanyakumari", city: "Nagercoil", category: "Teacher", company: "Nagercoil School", phone: "+91 90000 10010", email: "john@example.com", description: "Teacher from Nagercoil." },
-  { id: 11, name: "Lakshmi Devi", district: "Thanjavur", city: "Thanjavur", category: "Artist", company: "Thanjavur Arts", phone: "+91 90000 10011", email: "lakshmi@example.com", description: "Traditional art specialist." },
-  { id: 12, name: "Ravi Chandran", district: "Tiruchirappalli", city: "Tiruchirappalli", category: "Engineer", company: "Tech Solutions", phone: "+91 90000 10012", email: "ravi@example.com", description: "Technology professional." },
-  { id: 13, name: "Bala Murugan", district: "Dindigul", city: "Dindigul", category: "Business", company: "Bala Foods", phone: "+91 90000 10013", email: "bala@example.com", description: "Food business owner." },
-  { id: 14, name: "Revathi P", district: "Virudhunagar", city: "Virudhunagar", category: "Teacher", company: "Government School", phone: "+91 90000 10014", email: "revathi@example.com", description: "School teacher." },
-  { id: 15, name: "Manoj Kumar", district: "Vellore", city: "Vellore", category: "Doctor", company: "Vellore Medical Centre", phone: "+91 90000 10015", email: "manoj@example.com", description: "Healthcare professional." },
-  { id: 16, name: "Nandhini R", district: "Kancheepuram", city: "Kanchipuram", category: "Designer", company: "Silk Design Studio", phone: "+91 90000 10016", email: "nandhini@example.com", description: "Traditional textile designer." },
-  { id: 17, name: "Sathish Kumar", district: "Tiruvallur", city: "Tiruvallur", category: "Engineer", company: "Industrial Works", phone: "+91 90000 10017", email: "sathish@example.com", description: "Industrial engineer." },
-  { id: 18, name: "Deepa Mary", district: "Tenkasi", city: "Tenkasi", category: "Teacher", company: "Tenkasi School", phone: "+91 90000 10018", email: "deepa@example.com", description: "Teacher and community volunteer." },
-  { id: 19, name: "Gokul Raj", district: "Karur", city: "Karur", category: "Business", company: "Karur Traders", phone: "+91 90000 10019", email: "gokul@example.com", description: "Textile business owner." },
-  { id: 20, name: "Sarah Wilson", district: "Nilgiris", city: "Ooty", category: "Tourism", company: "Ooty Travels", phone: "+91 90000 10020", email: "sarah@example.com", description: "Tourism professional from Ooty." }
+  {
+    id: 1,
+    name: "Arun Kumar",
+    country: "India",
+    district: "Chennai",
+    city: "Chennai",
+    category: "Engineer",
+    company: "ABC Technologies",
+    phone: "+91 90000 10001",
+    email: "arun@example.com",
+    description: "Software engineer working in Chennai."
+  },
+  {
+    id: 2,
+    name: "Priya Raj",
+    country: "India",
+    district: "Chennai",
+    city: "Chennai",
+    category: "Teacher",
+    company: "Chennai Public School",
+    phone: "+91 90000 10002",
+    email: "priya@example.com",
+    description: "Teacher working in Chennai."
+  },
+  {
+    id: 3,
+    name: "Mohan Raj",
+    country: "India",
+    district: "Coimbatore",
+    city: "Coimbatore",
+    category: "Business",
+    company: "Mohan Textiles",
+    phone: "+91 90000 10003",
+    email: "mohan@example.com",
+    description: "Business owner from Coimbatore."
+  },
+  {
+    id: 4,
+    name: "Divya S",
+    country: "India",
+    district: "Madurai",
+    city: "Madurai",
+    category: "Doctor",
+    company: "Madurai Medical Centre",
+    phone: "+91 90000 10004",
+    email: "divya@example.com",
+    description: "Doctor working in Madurai."
+  },
+  {
+    id: 5,
+    name: "Suresh Kumar",
+    country: "India",
+    district: "Tirunelveli",
+    city: "Tirunelveli",
+    category: "Farmer",
+    company: "Green Farm",
+    phone: "+91 90000 10005",
+    email: "suresh@example.com",
+    description: "Farmer from Tirunelveli."
+  },
+  {
+    id: 6,
+    name: "Meena Joseph",
+    country: "India",
+    district: "Thoothukudi",
+    city: "Thoothukudi",
+    category: "Nurse",
+    company: "Thoothukudi Hospital",
+    phone: "+91 90000 10006",
+    email: "meena@example.com",
+    description: "Nurse working in Thoothukudi."
+  },
+  {
+    id: 7,
+    name: "Vijay Anand",
+    country: "India",
+    district: "Tiruppur",
+    city: "Tiruppur",
+    category: "Entrepreneur",
+    company: "Vijay Garments",
+    phone: "+91 90000 10007",
+    email: "vijay@example.com",
+    description: "Entrepreneur from Tiruppur."
+  },
+  {
+    id: 8,
+    name: "Anitha Devi",
+    country: "India",
+    district: "Salem",
+    city: "Salem",
+    category: "Designer",
+    company: "Creative Studio",
+    phone: "+91 90000 10008",
+    email: "anitha@example.com",
+    description: "Designer working in Salem."
+  },
+  {
+    id: 9,
+    name: "Karthik M",
+    country: "India",
+    district: "Erode",
+    city: "Erode",
+    category: "Business",
+    company: "Erode Traders",
+    phone: "+91 90000 10009",
+    email: "karthik@example.com",
+    description: "Business professional from Erode."
+  },
+  {
+    id: 10,
+    name: "John Peter",
+    country: "India",
+    district: "Kanyakumari",
+    city: "Nagercoil",
+    category: "Teacher",
+    company: "Nagercoil School",
+    phone: "+91 90000 10010",
+    email: "john@example.com",
+    description: "Teacher working in Nagercoil."
+  },
+  {
+    id: 11,
+    name: "Lakshmi Devi",
+    country: "India",
+    district: "Thanjavur",
+    city: "Thanjavur",
+    category: "Artist",
+    company: "Thanjavur Arts",
+    phone: "+91 90000 10011",
+    email: "lakshmi@example.com",
+    description: "Artist from Thanjavur."
+  },
+  {
+    id: 12,
+    name: "Ravi Chandran",
+    country: "India",
+    district: "Tiruchirappalli",
+    city: "Tiruchirappalli",
+    category: "Engineer",
+    company: "Tech Solutions",
+    phone: "+91 90000 10012",
+    email: "ravi@example.com",
+    description: "Engineer from Tiruchirappalli."
+  },
+  {
+    id: 13,
+    name: "Bala Murugan",
+    country: "India",
+    district: "Dindigul",
+    city: "Dindigul",
+    category: "Business",
+    company: "Bala Foods",
+    phone: "+91 90000 10013",
+    email: "bala@example.com",
+    description: "Business owner from Dindigul."
+  },
+  {
+    id: 14,
+    name: "Revathi P",
+    country: "India",
+    district: "Virudhunagar",
+    city: "Virudhunagar",
+    category: "Teacher",
+    company: "Government School",
+    phone: "+91 90000 10014",
+    email: "revathi@example.com",
+    description: "Teacher from Virudhunagar."
+  },
+  {
+    id: 15,
+    name: "Manoj Kumar",
+    country: "India",
+    district: "Vellore",
+    city: "Vellore",
+    category: "Doctor",
+    company: "Vellore Medical Centre",
+    phone: "+91 90000 10015",
+    email: "manoj@example.com",
+    description: "Doctor working in Vellore."
+  },
+  {
+    id: 16,
+    name: "Nandhini R",
+    country: "India",
+    district: "Kancheepuram",
+    city: "Kanchipuram",
+    category: "Designer",
+    company: "Silk Design Studio",
+    phone: "+91 90000 10016",
+    email: "nandhini@example.com",
+    description: "Designer from Kanchipuram."
+  },
+  {
+    id: 17,
+    name: "Sathish Kumar",
+    country: "India",
+    district: "Tiruvallur",
+    city: "Tiruvallur",
+    category: "Engineer",
+    company: "Industrial Works",
+    phone: "+91 90000 10017",
+    email: "sathish@example.com",
+    description: "Engineer from Tiruvallur."
+  },
+  {
+    id: 18,
+    name: "Deepa Mary",
+    country: "India",
+    district: "Tenkasi",
+    city: "Tenkasi",
+    category: "Teacher",
+    company: "Tenkasi School",
+    phone: "+91 90000 10018",
+    email: "deepa@example.com",
+    description: "Teacher from Tenkasi."
+  },
+  {
+    id: 19,
+    name: "Gokul Raj",
+    country: "India",
+    district: "Karur",
+    city: "Karur",
+    category: "Business",
+    company: "Karur Traders",
+    phone: "+91 90000 10019",
+    email: "gokul@example.com",
+    description: "Business professional from Karur."
+  },
+  {
+    id: 20,
+    name: "Sarah Wilson",
+    country: "India",
+    district: "Nilgiris",
+    city: "Ooty",
+    category: "Tourism",
+    company: "Ooty Travels",
+    phone: "+91 90000 10020",
+    email: "sarah@example.com",
+    description: "Tourism professional from Ooty."
+  }
 ];
 
-const cities = [
-  "Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem",
-  "Tirunelveli", "Thoothukudi", "Tiruppur", "Erode", "Vellore",
-  "Dindigul", "Thanjavur", "Nagercoil", "Kanchipuram", "Ooty",
-  "Tenkasi", "Karur", "Virudhunagar", "Cuddalore", "Namakkal"
-];
+const cities = [...new Set(people.map((p) => p.city))].sort();
 
 const categories = [...new Set(people.map((p) => p.category))].sort();
 ---
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Outfit:wght@500;600;700&display=swap"
-/>
+<div class="world-directory">
 
-<div class="tnd">
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
 
-  <!-- ================= LEFT RAIL ================= -->
-  <aside class="tnd-side">
+    <div class="brand">
+      <div class="brand-icon">🌍</div>
 
-    <header class="tnd-head">
-      <h1 class="tnd-title">Tamil Nadu Directory</h1>
-      <p class="tnd-stats">
-        <span><b>38</b> districts</span>
-        <span><b>{people.length}</b> people</span>
-      </p>
-    </header>
-
-    <div class="tnd-controls">
-      <label class="tnd-search">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
-          <path d="M20 20l-3.5-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
-        <input id="personSearch" type="search" placeholder="Search name, city or work" aria-label="Search people" />
-      </label>
-
-      <select id="citySelect" class="tnd-select" aria-label="Filter by city">
-        <option value="">All cities</option>
-        {cities.map((city) => <option value={city}>{city}</option>)}
-      </select>
-
-      <div class="tnd-chips" id="chips" role="group" aria-label="Filter by profession">
-        <button type="button" class="tnd-chip is-on" data-category="">All</button>
-        {categories.map((c) => <button type="button" class="tnd-chip" data-category={c}>{c}</button>)}
+      <div>
+        <h1>World Directory</h1>
+        <p>Global People Network</p>
       </div>
     </div>
 
-    <div class="tnd-listhead">
-      <h2 id="selectedDistrict">All Tamil Nadu</h2>
-      <p><span id="resultCount">{people.length}</span> people found</p>
+    <div class="stats">
+      <div class="stat">
+        <strong>195</strong>
+        <span>Countries</span>
+      </div>
+
+      <div class="stat">
+        <strong>{people.length}</strong>
+        <span>People</span>
+      </div>
     </div>
 
-    <div id="peopleList" class="tnd-list">
-      {
-        people.map((person) => (
-          <button
-            type="button"
-            class="tnd-row"
-            data-id={person.id}
-            data-name={person.name}
-            data-district={person.district}
-            data-city={person.city}
-            data-category={person.category}
-            data-search={[person.name, person.district, person.city, person.category, person.company, person.phone, person.email, person.description].join(" ").toLowerCase()}
-          >
-            <span class="tnd-avatar">{person.name.charAt(0)}</span>
-            <span class="tnd-rowinfo">
-              <strong>{person.name}</strong>
-              <span class="tnd-tag">{person.category}</span>
-              <span class="tnd-desc">{person.description}</span>
-              <span class="tnd-facts">
-                <span><i>Company</i>{person.company}</span>
-                <span><i>City</i>{person.city}</span>
-                <span><i>District</i>{person.district}</span>
-                <span><i>Phone</i>{person.phone}</span>
-                <span class="tnd-wide"><i>Email</i>{person.email}</span>
-              </span>
+    <!-- SEARCH -->
+    <div class="search-box">
+      <span>⌕</span>
+      <input
+        id="personSearch"
+        type="search"
+        placeholder="Search people..."
+      />
+    </div>
+
+    <!-- CITY -->
+    <select id="citySelect" class="city-select">
+      <option value="">All Cities</option>
+
+      {cities.map((city) => (
+        <option value={city}>{city}</option>
+      ))}
+    </select>
+
+    <!-- CATEGORY -->
+    <div class="filter-title">Category</div>
+
+    <div id="chips" class="chips">
+      <button class="chip active" data-category="">
+        All
+      </button>
+
+      {categories.map((category) => (
+        <button
+          class="chip"
+          data-category={category}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- LIST HEADER -->
+    <div class="list-header">
+
+      <div>
+        <span id="selectedCountry">All Countries</span>
+        <small id="selectedDistrict"></small>
+      </div>
+
+      <strong id="resultCount">{people.length}</strong>
+
+    </div>
+
+    <!-- PEOPLE -->
+    <div id="peopleList" class="people-list">
+
+      {people.map((person) => (
+        <button
+          class="person-row"
+          data-id={person.id}
+          data-country={person.country}
+          data-district={person.district}
+          data-city={person.city}
+          data-category={person.category}
+          data-search={`${person.name} ${person.company} ${person.city} ${person.district} ${person.category}`}
+        >
+
+          <div class="avatar">
+            {person.name.charAt(0)}
+          </div>
+
+          <div class="person-info">
+            <strong>{person.name}</strong>
+
+            <span>
+              {person.category}
+              <span class="dot">•</span>
+              {person.city}
             </span>
-          </button>
-        ))
-      }
+          </div>
 
-      <div id="emptyState" class="tnd-empty tnd-hidden">
-        <strong>No one matches</strong>
-        <p>Try another district, clear the search, or choose “All”.</p>
-      </div>
+          <span class="arrow">›</span>
+
+        </button>
+      ))}
+
+    </div>
+
+    <div id="emptyState" class="empty-state">
+      <div class="empty-icon">⌕</div>
+
+      <strong>No one matches</strong>
+
+      <p>
+        Try another district, clear the search, or choose "All".
+      </p>
     </div>
 
   </aside>
 
-  <!-- ================= MAP STAGE ================= -->
-  <main class="tnd-stage">
 
-    <div class="tnd-topbar">
-      <div class="tnd-pill" id="hoverName">Hover a district</div>
-      <button id="resetMap" type="button" class="tnd-reset">Show all Tamil Nadu</button>
-    </div>
+  <!-- ================= MAP ================= -->
 
-    <div id="map" class="tnd-map">
-      <div id="mapLoading" class="tnd-loading">Loading Tamil Nadu map…</div>
-    </div>
+  <main class="map-stage">
 
-    <div class="tnd-legend">
-      <span class="tnd-swatch s0"></span>None
-      <span class="tnd-swatch s1"></span>1 person
-      <span class="tnd-swatch s2"></span>2 or more
-      <span id="mapHint" class="tnd-hint">Click a district to filter the list</span>
-    </div>
+    <div class="map-topbar">
 
-    <!-- Details card floats over the map -->
-    <section id="personDetails" class="tnd-card tnd-hidden" aria-label="Person details">
+      <div>
+        <div id="mapTitle" class="map-title">
+          World Map
+        </div>
 
-      <button id="closeDetails" class="tnd-close" type="button" aria-label="Close details">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" />
-        </svg>
-      </button>
-
-      <div class="tnd-card-top">
-        <div id="detailAvatar" class="tnd-detail-avatar">A</div>
-        <div>
-          <h3 id="detailName">Person</h3>
-          <span id="detailCategory" class="tnd-detail-tag">Category</span>
+        <div id="hoverName" class="hover-name">
+          Click India to explore Tamil Nadu
         </div>
       </div>
 
-      <p id="detailDescription" class="tnd-detail-about"></p>
+      <div class="map-actions">
 
-      <dl class="tnd-detail-list">
-        <div><dt>District</dt><dd id="detailDistrict"></dd></div>
-        <div><dt>City</dt><dd id="detailCity"></dd></div>
-        <div><dt>Company</dt><dd id="detailCompany"></dd></div>
-        <div><dt>Phone</dt><dd id="detailPhone"></dd></div>
-        <div><dt>Email</dt><dd id="detailEmail"></dd></div>
-      </dl>
+        <button id="backWorld" class="map-btn hidden">
+          ← World
+        </button>
 
-      <div class="tnd-actions">
-        <a id="detailCall" class="tnd-btn tnd-btn-main" href="#">Call</a>
-        <a id="detailMail" class="tnd-btn" href="#">Email</a>
+        <button id="resetMap" class="map-btn">
+          Reset
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div id="map" class="map">
+
+      <div id="mapLoading" class="map-loading">
+        <div class="spinner"></div>
+        Loading map...
+      </div>
+
+      <svg
+        id="mapSvg"
+        viewBox="0 0 1200 650"
+        preserveAspectRatio="xMidYMid meet"
+      ></svg>
+
+    </div>
+
+
+    <!-- LEGEND -->
+    <div class="legend">
+
+      <span>
+        <i class="legend-box none"></i>
+        No people
+      </span>
+
+      <span>
+        <i class="legend-box one"></i>
+        1 person
+      </span>
+
+      <span>
+        <i class="legend-box many"></i>
+        2 or more
+      </span>
+
+    </div>
+
+
+    <div id="mapHint" class="map-hint">
+      Click India to explore Tamil Nadu districts
+    </div>
+
+
+    <!-- ================= PERSON DETAILS ================= -->
+
+    <section id="personDetails" class="details-card hidden">
+
+      <button id="closeDetails" class="close-details">
+        ×
+      </button>
+
+      <div class="details-avatar" id="detailAvatar">
+        A
+      </div>
+
+      <div class="details-main">
+
+        <h2 id="detailName">
+          Person Name
+        </h2>
+
+        <p id="detailCategory">
+          Category
+        </p>
+
+        <div class="detail-line">
+          <span>🏢</span>
+          <span id="detailCompany">Company</span>
+        </div>
+
+        <div class="detail-line">
+          <span>📍</span>
+          <span id="detailLocation">Location</span>
+        </div>
+
+        <div class="detail-line">
+          <span>📞</span>
+          <span id="detailPhone">Phone</span>
+        </div>
+
+        <div class="detail-line">
+          <span>✉</span>
+          <span id="detailEmail">Email</span>
+        </div>
+
+        <p id="detailDescription" class="detail-description">
+          Description
+        </p>
+
+        <div class="detail-actions">
+
+          <a
+            id="callBtn"
+            href="#"
+            class="action-btn call"
+          >
+            Call
+          </a>
+
+          <a
+            id="emailBtn"
+            href="#"
+            class="action-btn email"
+          >
+            Email
+          </a>
+
+        </div>
+
       </div>
 
     </section>
@@ -174,1064 +519,2399 @@ const categories = [...new Set(people.map((p) => p.category))].sort();
 
 
 <script define:vars={{ people }}>
-
-  /* ---------- ELEMENTS ---------- */
-
-  const map = document.getElementById("map");
+  const mapSvg = document.getElementById("mapSvg");
   const mapLoading = document.getElementById("mapLoading");
-  const hoverName = document.getElementById("hoverName");
-  const selectedDistrict = document.getElementById("selectedDistrict");
-  const peopleList = document.getElementById("peopleList");
-  const resultCount = document.getElementById("resultCount");
-  const emptyState = document.getElementById("emptyState");
-  const searchInput = document.getElementById("personSearch");
-  const citySelect = document.getElementById("citySelect");
-  const resetButton = document.getElementById("resetMap");
-  const chips = document.getElementById("chips");
 
-  const card = document.getElementById("personDetails");
-  const closeButton = document.getElementById("closeDetails");
+  const personSearch = document.getElementById("personSearch");
+  const citySelect = document.getElementById("citySelect");
+
+  const peopleList = document.getElementById("peopleList");
+  const emptyState = document.getElementById("emptyState");
+
+  const resultCount = document.getElementById("resultCount");
+  const selectedCountry = document.getElementById("selectedCountry");
+  const selectedDistrict = document.getElementById("selectedDistrict");
+
+  const hoverName = document.getElementById("hoverName");
+  const mapTitle = document.getElementById("mapTitle");
+  const mapHint = document.getElementById("mapHint");
+
+  const resetMap = document.getElementById("resetMap");
+  const backWorld = document.getElementById("backWorld");
+
+  const details = document.getElementById("personDetails");
+  const closeDetails = document.getElementById("closeDetails");
 
   const detailAvatar = document.getElementById("detailAvatar");
   const detailName = document.getElementById("detailName");
   const detailCategory = document.getElementById("detailCategory");
-  const detailDistrict = document.getElementById("detailDistrict");
-  const detailCity = document.getElementById("detailCity");
   const detailCompany = document.getElementById("detailCompany");
+  const detailLocation = document.getElementById("detailLocation");
   const detailPhone = document.getElementById("detailPhone");
   const detailEmail = document.getElementById("detailEmail");
   const detailDescription = document.getElementById("detailDescription");
-  const detailCall = document.getElementById("detailCall");
-  const detailMail = document.getElementById("detailMail");
+  const callBtn = document.getElementById("callBtn");
+  const emailBtn = document.getElementById("emailBtn");
 
-  /* ---------- MAP COLOURS (inline, so no stylesheet can break the map) ---------- */
+  const chips = document.querySelectorAll(".chip");
 
-  const C = {
-    none: "#e7efe9",
-    one: "#a9d9bf",
-    many: "#5cb88a",
+  const WORLD_URL =
+    "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
+
+  const TAMIL_NADU_URL =
+    "https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@2884453/geojson/states/tamil-nadu.geojson";
+
+  const COLORS = {
+    empty: "#e5eee9",
+    one: "#9ed7bb",
+    many: "#4caf82",
     hover: "#f8c766",
     active: "#f59e0b",
     stroke: "#ffffff",
     dot: "#0f4c3a"
   };
 
-  /* ---------- STATE ---------- */
+  let worldGeoJSON = null;
+  let tamilNaduGeoJSON = null;
 
-  let geojson = null;
+  let currentMode = "world";
+
+  let currentCountry = "";
   let currentDistrict = "";
   let currentCategory = "";
   let currentPersonId = "";
 
-  /* ---------- HELPERS ---------- */
+  let worldLoaded = false;
+  let tamilNaduLoaded = false;
 
-  function normalizeDistrict(value) {
-    if (!value) return "";
 
-    let name = String(value).toLowerCase().trim();
-    name = name.replace(/\bdistrict\b/g, "").trim();
+  /* =========================================================
+     NORMALIZE
+  ========================================================= */
 
-    const aliases = {
-      "trichy": "tiruchirappalli",
-      "tiruchirapalli": "tiruchirappalli",
-      "tiruchirappalli": "tiruchirappalli",
-      "thiruvallur": "tiruvallur",
-      "tiruvallur": "tiruvallur",
-      "kanchipuram": "kancheepuram",
-      "kancheepuram": "kancheepuram",
-      "nilgiris": "nilgiris",
-      "the nilgiris": "nilgiris",
-      "kanniyakumari": "kanyakumari",
-      "kanyakumari": "kanyakumari",
-      "sivagangai": "sivaganga",
-      "sivaganga": "sivaganga",
-      "villupuram": "viluppuram",
-      "viluppuram": "viluppuram",
-      "thoothukudi": "thoothukudi"
-    };
-
-    return aliases[name] || name;
+  function normalize(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]/g, "");
   }
 
-  function getDistrictName(feature) {
-    const p = feature.properties || {};
+
+  function normalizeDistrict(value) {
+    const v = normalize(value);
+
+    const aliases = {
+      kancheepuram: "kanchipuram",
+      kanchipuram: "kanchipuram",
+
+      tiruchirappalli: "tiruchirappalli",
+      trichy: "tiruchirappalli",
+
+      thoothukudi: "thoothukudi",
+      tuticorin: "thoothukudi",
+
+      tirunelveli: "tirunelveli",
+
+      tiruvallur: "tiruvallur",
+      thiruvallur: "tiruvallur",
+
+      tiruppur: "tiruppur",
+
+      nilgiris: "nilgiris",
+      theNilgiris: "nilgiris"
+    };
+
+    return aliases[v] || v;
+  }
+
+
+  /* =========================================================
+     COUNTRY NAME
+  ========================================================= */
+
+  function getCountryName(feature) {
+
+    const p = feature?.properties || {};
 
     return (
-      p.district_name || p.DISTRICT || p.District || p.district ||
-      p.DTNAME || p.dtname || p.DIST_NAME || p.NAME_2 ||
-      p.NAME || p.name || p.REGNAME || ""
+      p.ADMIN ||
+      p.NAME ||
+      p.NAME_LONG ||
+      p.NAME_EN ||
+      p.name ||
+      p.SOVEREIGNT ||
+      p.BRK_NAME ||
+      p.formal_en ||
+      "Unknown"
     );
   }
 
-  function walkCoordinates(coordinates, callback) {
-    if (typeof coordinates[0] === "number") {
-      callback(coordinates);
-      return;
-    }
-    coordinates.forEach((item) => walkCoordinates(item, callback));
+
+  /* =========================================================
+     DISTRICT NAME
+  ========================================================= */
+
+  function getDistrictName(feature) {
+
+    const p = feature?.properties || {};
+
+    return (
+      p.district ||
+      p.DISTRICT ||
+      p.DISTRICT_NAME ||
+      p.DISTRICTNAME ||
+      p.dtname ||
+      p.DT_NAME ||
+      p.NAME_2 ||
+      p.NAME ||
+      p.name ||
+      p.NAME_EN ||
+      p.REGNAME ||
+      "Unknown District"
+    );
   }
+
+
+  /* =========================================================
+     PEOPLE COUNTS
+  ========================================================= */
+
+  function getCountryCount(country) {
+
+    return people.filter(
+      person =>
+        normalize(person.country) === normalize(country)
+    ).length;
+  }
+
+
+  function getDistrictCount(district) {
+
+    return people.filter(
+      person =>
+        normalizeDistrict(person.district) ===
+        normalizeDistrict(district)
+    ).length;
+  }
+
+
+  /* =========================================================
+     PEOPLE WORD
+  ========================================================= */
+
+  function peopleWord(count) {
+
+    if (count === 1) return "1 person";
+
+    return `${count} people`;
+  }
+
+
+  /* =========================================================
+     SVG HELPERS
+  ========================================================= */
+
+  function getAllCoordinates(geometry) {
+
+    const coords = [];
+
+    function walk(value) {
+
+      if (!Array.isArray(value)) return;
+
+      if (
+        value.length >= 2 &&
+        typeof value[0] === "number" &&
+        typeof value[1] === "number"
+      ) {
+        coords.push(value);
+        return;
+      }
+
+      value.forEach(walk);
+    }
+
+    walk(geometry.coordinates);
+
+    return coords;
+  }
+
 
   function getBounds(features) {
-    let minLon = Infinity, minLat = Infinity, maxLon = -Infinity, maxLat = -Infinity;
 
-    features.forEach((feature) => {
-      walkCoordinates(feature.geometry.coordinates, (c) => {
-        minLon = Math.min(minLon, c[0]);
-        maxLon = Math.max(maxLon, c[0]);
-        minLat = Math.min(minLat, c[1]);
-        maxLat = Math.max(maxLat, c[1]);
+    let minLon = Infinity;
+    let maxLon = -Infinity;
+
+    let minLat = Infinity;
+    let maxLat = -Infinity;
+
+    features.forEach(feature => {
+
+      const coords = getAllCoordinates(feature.geometry);
+
+      coords.forEach(([lon, lat]) => {
+
+        minLon = Math.min(minLon, lon);
+        maxLon = Math.max(maxLon, lon);
+
+        minLat = Math.min(minLat, lat);
+        maxLat = Math.max(maxLat, lat);
+
       });
+
     });
 
-    return { minLon, minLat, maxLon, maxLat };
+    return {
+      minLon,
+      maxLon,
+      minLat,
+      maxLat
+    };
   }
 
-  const districtCounts = {};
-  people.forEach((p) => {
-    const key = normalizeDistrict(p.district);
-    districtCounts[key] = (districtCounts[key] || 0) + 1;
-  });
 
-  function peopleWord(n) {
-    return n === 1 ? "1 person" : `${n} people`;
+  function createProjector(features) {
+
+    const bounds = getBounds(features);
+
+    const padding = 45;
+
+    const W = 1200;
+    const H = 650;
+
+    const lonRange =
+      Math.max(bounds.maxLon - bounds.minLon, 0.01);
+
+    const latRange =
+      Math.max(bounds.maxLat - bounds.minLat, 0.01);
+
+    const scaleX =
+      (W - padding * 2) / lonRange;
+
+    const scaleY =
+      (H - padding * 2) / latRange;
+
+    const scale = Math.min(scaleX, scaleY);
+
+    const mapWidth = lonRange * scale;
+    const mapHeight = latRange * scale;
+
+    const offsetX = (W - mapWidth) / 2;
+    const offsetY = (H - mapHeight) / 2;
+
+    return function project(lon, lat) {
+
+      return {
+        x:
+          offsetX +
+          (lon - bounds.minLon) * scale,
+
+        y:
+          H -
+          offsetY -
+          (lat - bounds.minLat) * scale
+      };
+    };
   }
 
-  function setHoverText(text) {
-    hoverName.textContent = text || "Hover a district";
-    hoverName.classList.toggle("is-idle", !text);
+
+  function ringToPath(ring, project) {
+
+    if (!ring || !ring.length) return "";
+
+    return ring
+      .map(([lon, lat], index) => {
+
+        const p = project(lon, lat);
+
+        return `${index === 0 ? "M" : "L"} ${p.x} ${p.y}`;
+
+      })
+      .join(" ") + " Z";
   }
 
-  /* ---------- RENDER MAP ---------- */
 
-  function renderMap() {
-    if (!geojson) return;
+  function geometryToPath(geometry, project) {
 
-    map.innerHTML = "";
+    if (!geometry) return "";
 
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
+    if (geometry.type === "Polygon") {
 
-    const bounds = getBounds(geojson.features);
-    const lonWidth = bounds.maxLon - bounds.minLon;
-    const latHeight = bounds.maxLat - bounds.minLat;
-
-    const pad = 20;
-    const scale = 900 / Math.max(lonWidth, latHeight);
-
-    const W = lonWidth * scale + pad * 2;
-    const H = latHeight * scale + pad * 2;
-
-    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-    svg.style.width = "100%";
-    svg.style.height = "100%";
-    svg.style.display = "block";
-
-    function project(coordinate) {
-      return [
-        pad + (coordinate[0] - bounds.minLon) * scale,
-        pad + (bounds.maxLat - coordinate[1]) * scale
-      ];
+      return geometry.coordinates
+        .map(ring => ringToPath(ring, project))
+        .join(" ");
     }
 
-    function ringToPath(ring) {
-      let d = "";
-      ring.forEach((coordinate, index) => {
-        const [x, y] = project(coordinate);
-        d += index === 0 ? `M ${x.toFixed(1)} ${y.toFixed(1)}` : ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
-      });
-      return d + " Z";
+    if (geometry.type === "MultiPolygon") {
+
+      return geometry.coordinates
+        .flat()
+        .map(ring => ringToPath(ring, project))
+        .join(" ");
     }
 
-    function geometryToPath(geometry) {
-      if (geometry.type === "Polygon") {
-        return geometry.coordinates.map(ringToPath).join(" ");
+    return "";
+  }
+
+
+  /* =========================================================
+     SVG ELEMENT
+  ========================================================= */
+
+  function createSvgElement(name) {
+
+    return document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      name
+    );
+  }
+
+
+  /* =========================================================
+     DRAW WORLD MAP
+  ========================================================= */
+
+  function renderWorldMap() {
+
+    if (!worldGeoJSON) return;
+
+    currentMode = "world";
+
+    mapSvg.innerHTML = "";
+
+    const features =
+      worldGeoJSON.features || [];
+
+    const project =
+      createProjector(features);
+
+
+    features.forEach(feature => {
+
+      const country =
+        getCountryName(feature);
+
+      const count =
+        getCountryCount(country);
+
+      const path =
+        createSvgElement("path");
+
+      path.setAttribute(
+        "d",
+        geometryToPath(
+          feature.geometry,
+          project
+        )
+      );
+
+      path.dataset.country = country;
+
+      path.classList.add("map-area");
+
+      if (
+        normalize(country) ===
+        normalize(currentCountry)
+      ) {
+        path.classList.add("active-area");
       }
-      if (geometry.type === "MultiPolygon") {
-        return geometry.coordinates
-          .map((polygon) => polygon.map(ringToPath).join(" "))
-          .join(" ");
+
+      if (count === 0) {
+
+        path.style.fill =
+          COLORS.empty;
+
+      } else if (count === 1) {
+
+        path.style.fill =
+          COLORS.one;
+
+      } else {
+
+        path.style.fill =
+          COLORS.many;
       }
-      return "";
-    }
 
-    const dots = [];
-
-    geojson.features.forEach((feature) => {
-      const rawName = getDistrictName(feature);
-      const district = normalizeDistrict(rawName);
-      const count = districtCounts[district] || 0;
-
-      const isSelected =
-        currentDistrict && district === normalizeDistrict(currentDistrict);
-
-      const baseFill = isSelected
-        ? C.active
-        : count >= 2 ? C.many : count === 1 ? C.one : C.none;
-
-      const path = document.createElementNS(svgNS, "path");
-      path.setAttribute("d", geometryToPath(feature.geometry));
-      path.setAttribute("fill", baseFill);
-      path.setAttribute("stroke", C.stroke);
-      path.setAttribute("stroke-width", "1.4");
-      path.setAttribute("stroke-linejoin", "round");
-      path.style.cursor = "pointer";
 
       path.addEventListener("mouseenter", () => {
-        if (!isSelected) path.setAttribute("fill", C.hover);
-        setHoverText(`${rawName}: ${count ? peopleWord(count) : "no one yet"}`);
+
+        hoverName.textContent =
+          `${country} • ${peopleWord(count)}`;
+
       });
+
 
       path.addEventListener("mouseleave", () => {
-        path.setAttribute("fill", baseFill);
-        setHoverText(currentDistrict);
+
+        hoverName.textContent =
+          "Click India to explore Tamil Nadu";
+
       });
 
-      path.addEventListener("click", (event) => {
-        event.stopPropagation();
-        selectDistrict(rawName);
+
+      path.addEventListener("click", () => {
+
+        if (
+          normalize(country) ===
+          "india"
+        ) {
+
+          openTamilNadu();
+
+          return;
+        }
+
+        selectCountry(country);
+
       });
 
-      svg.appendChild(path);
 
-      /* Small dot so tiny districts (like Chennai) are still easy to spot */
-      if (count) {
-        const b = getBounds([feature]);
-        const [cx, cy] = project([(b.minLon + b.maxLon) / 2, (b.minLat + b.maxLat) / 2]);
-        dots.push([cx, cy]);
+      mapSvg.appendChild(path);
+
+
+      /* COUNTRY DOT */
+
+      if (count > 0) {
+
+        const coords =
+          getAllCoordinates(feature.geometry);
+
+        if (coords.length) {
+
+          let lon = 0;
+          let lat = 0;
+
+          coords.forEach(([x, y]) => {
+
+            lon += x;
+            lat += y;
+
+          });
+
+          lon /= coords.length;
+          lat /= coords.length;
+
+          const p =
+            project(lon, lat);
+
+          const circle =
+            createSvgElement("circle");
+
+          circle.setAttribute(
+            "cx",
+            p.x
+          );
+
+          circle.setAttribute(
+            "cy",
+            p.y
+          );
+
+          circle.setAttribute(
+            "r",
+            count > 1 ? "6" : "4"
+          );
+
+          circle.classList.add(
+            "person-dot"
+          );
+
+          circle.addEventListener(
+            "click",
+            event => {
+
+              event.stopPropagation();
+
+              if (
+                normalize(country) ===
+                "india"
+              ) {
+                openTamilNadu();
+              }
+
+            }
+          );
+
+          mapSvg.appendChild(circle);
+        }
       }
+
     });
 
-    dots.forEach(([cx, cy]) => {
-      const dot = document.createElementNS(svgNS, "circle");
-      dot.setAttribute("cx", cx);
-      dot.setAttribute("cy", cy);
-      dot.setAttribute("r", "5");
-      dot.setAttribute("fill", C.dot);
-      dot.setAttribute("stroke", "#ffffff");
-      dot.setAttribute("stroke-width", "2");
-      dot.style.pointerEvents = "none";
-      svg.appendChild(dot);
-    });
 
-    map.appendChild(svg);
+    mapTitle.textContent =
+      "World Map";
+
+    mapHint.textContent =
+      "Click India to explore Tamil Nadu districts";
+
+    backWorld.classList.add("hidden");
+
+    mapLoading.classList.add("hidden");
   }
 
-  /* ---------- SELECT DISTRICT ---------- */
 
-  function selectDistrict(district) {
-    currentDistrict = district;
-    selectedDistrict.textContent = district;
-    document.getElementById("mapHint").textContent = `${district} selected`;
-    setHoverText(district);
+  /* =========================================================
+     DRAW TAMIL NADU
+  ========================================================= */
 
-    renderMap();
+  function renderTamilNaduMap() {
+
+    if (!tamilNaduGeoJSON) return;
+
+    currentMode = "tamilnadu";
+
+    mapSvg.innerHTML = "";
+
+    const features =
+      tamilNaduGeoJSON.features || [];
+
+    const project =
+      createProjector(features);
+
+
+    features.forEach(feature => {
+
+      const district =
+        getDistrictName(feature);
+
+      const count =
+        getDistrictCount(district);
+
+      const path =
+        createSvgElement("path");
+
+      path.setAttribute(
+        "d",
+        geometryToPath(
+          feature.geometry,
+          project
+        )
+      );
+
+      path.dataset.district =
+        district;
+
+      path.classList.add(
+        "map-area",
+        "district-area"
+      );
+
+
+      if (
+        normalizeDistrict(district) ===
+        normalizeDistrict(currentDistrict)
+      ) {
+
+        path.classList.add(
+          "active-area"
+        );
+      }
+
+
+      if (count === 0) {
+
+        path.style.fill =
+          COLORS.empty;
+
+      } else if (count === 1) {
+
+        path.style.fill =
+          COLORS.one;
+
+      } else {
+
+        path.style.fill =
+          COLORS.many;
+      }
+
+
+      path.addEventListener(
+        "mouseenter",
+        () => {
+
+          hoverName.textContent =
+            `${district} • ${peopleWord(count)}`;
+
+        }
+      );
+
+
+      path.addEventListener(
+        "mouseleave",
+        () => {
+
+          hoverName.textContent =
+            currentDistrict
+              ? `${currentDistrict} selected`
+              : "Click a district to see people";
+
+        }
+      );
+
+
+      path.addEventListener(
+        "click",
+        () => {
+
+          selectDistrict(district);
+
+        }
+      );
+
+
+      mapSvg.appendChild(path);
+
+
+      /* DISTRICT LABEL */
+
+      const coords =
+        getAllCoordinates(
+          feature.geometry
+        );
+
+      if (coords.length) {
+
+        let lon = 0;
+        let lat = 0;
+
+        coords.forEach(
+          ([x, y]) => {
+
+            lon += x;
+            lat += y;
+
+          }
+        );
+
+        lon /= coords.length;
+        lat /= coords.length;
+
+        const p =
+          project(lon, lat);
+
+        const label =
+          createSvgElement("text");
+
+        label.setAttribute(
+          "x",
+          p.x
+        );
+
+        label.setAttribute(
+          "y",
+          p.y
+        );
+
+        label.setAttribute(
+          "text-anchor",
+          "middle"
+        );
+
+        label.classList.add(
+          "district-label"
+        );
+
+        label.textContent =
+          district;
+
+        label.style.pointerEvents =
+          "none";
+
+        mapSvg.appendChild(label);
+
+
+        /* PEOPLE DOT */
+
+        if (count > 0) {
+
+          const circle =
+            createSvgElement("circle");
+
+          circle.setAttribute(
+            "cx",
+            p.x
+          );
+
+          circle.setAttribute(
+            "cy",
+            p.y + 12
+          );
+
+          circle.setAttribute(
+            "r",
+            count > 1 ? "6" : "4"
+          );
+
+          circle.classList.add(
+            "person-dot"
+          );
+
+          mapSvg.appendChild(circle);
+        }
+      }
+
+    });
+
+
+    mapTitle.textContent =
+      "Tamil Nadu";
+
+    mapHint.textContent =
+      "Click any district to show people";
+
+    backWorld.classList.remove(
+      "hidden"
+    );
+
+    mapLoading.classList.add("hidden");
+  }
+
+
+  /* =========================================================
+     OPEN TAMIL NADU
+  ========================================================= */
+
+  async function openTamilNadu() {
+
+    currentCountry = "India";
+    currentDistrict = "";
+
+    selectedCountry.textContent =
+      "India";
+
+    selectedDistrict.textContent =
+      "Tamil Nadu";
+
+    if (!tamilNaduLoaded) {
+
+      mapLoading.classList.remove(
+        "hidden"
+      );
+
+      hoverName.textContent =
+        "Loading Tamil Nadu districts...";
+
+      try {
+
+        const response =
+          await fetch(TAMIL_NADU_URL);
+
+        if (!response.ok) {
+          throw new Error(
+            "Tamil Nadu map failed"
+          );
+        }
+
+        tamilNaduGeoJSON =
+          await response.json();
+
+        tamilNaduLoaded = true;
+
+      } catch (error) {
+
+        console.error(error);
+
+        hoverName.textContent =
+          "Tamil Nadu map could not be loaded";
+
+        mapLoading.classList.add(
+          "hidden"
+        );
+
+        return;
+      }
+    }
+
+    renderTamilNaduMap();
+
     filterPeople();
   }
 
-  /* ---------- FILTER PEOPLE ---------- */
+
+  /* =========================================================
+     COUNTRY SELECT
+  ========================================================= */
+
+  function selectCountry(country) {
+
+    currentCountry =
+      country;
+
+    currentDistrict = "";
+
+    selectedCountry.textContent =
+      country;
+
+    selectedDistrict.textContent =
+      "";
+
+    filterPeople();
+
+    renderWorldMap();
+
+    hoverName.textContent =
+      `${country} selected`;
+  }
+
+
+  /* =========================================================
+     DISTRICT SELECT
+  ========================================================= */
+
+  function selectDistrict(district) {
+
+    currentDistrict =
+      district;
+
+    currentCountry =
+      "India";
+
+    selectedCountry.textContent =
+      "India";
+
+    selectedDistrict.textContent =
+      `• ${district}`;
+
+    filterPeople();
+
+    renderTamilNaduMap();
+
+    hoverName.textContent =
+      `${district} selected`;
+  }
+
+
+  /* =========================================================
+     FILTER PEOPLE
+  ========================================================= */
 
   function filterPeople() {
-    const search = searchInput.value.toLowerCase().trim();
-    const city = citySelect.value.toLowerCase().trim();
-    const category = currentCategory.toLowerCase();
 
-    let visible = 0;
+    const search =
+      personSearch.value
+        .trim()
+        .toLowerCase();
 
-    peopleList.querySelectorAll(".tnd-row").forEach((row) => {
-      const name = row.dataset.name.toLowerCase();
-      const district = row.dataset.district.toLowerCase();
-      const rowCity = row.dataset.city.toLowerCase();
-      const rowCategory = row.dataset.category.toLowerCase();
+    const city =
+      citySelect.value;
+
+    const rows =
+      peopleList.querySelectorAll(
+        ".person-row"
+      );
+
+    let visibleCount = 0;
+
+
+    rows.forEach(row => {
+
+      const rowCountry =
+        row.dataset.country || "";
+
+      const rowDistrict =
+        row.dataset.district || "";
+
+      const rowCity =
+        row.dataset.city || "";
+
+      const rowCategory =
+        row.dataset.category || "";
+
+      const rowSearch =
+        row.dataset.search
+          ?.toLowerCase() || "";
+
+
+      const countryMatch =
+        !currentCountry ||
+        normalize(rowCountry) ===
+        normalize(currentCountry);
+
 
       const districtMatch =
         !currentDistrict ||
-        normalizeDistrict(row.dataset.district) === normalizeDistrict(currentDistrict);
+        normalizeDistrict(rowDistrict) ===
+        normalizeDistrict(currentDistrict);
+
 
       const searchMatch =
         !search ||
-        row.dataset.search.includes(search) ||
-        name.includes(search) ||
-        district.includes(search);
+        rowSearch.includes(search);
 
-      const cityMatch = !city || rowCity === city;
-      const categoryMatch = !category || rowCategory === category;
 
-      const show = districtMatch && searchMatch && cityMatch && categoryMatch;
+      const cityMatch =
+        !city ||
+        rowCity === city;
 
-      row.style.display = show ? "flex" : "none";
-      if (show) visible++;
+
+      const categoryMatch =
+        !currentCategory ||
+        rowCategory === currentCategory;
+
+
+      const visible =
+        countryMatch &&
+        districtMatch &&
+        searchMatch &&
+        cityMatch &&
+        categoryMatch;
+
+
+      row.classList.toggle(
+        "hidden-row",
+        !visible
+      );
+
+
+      if (visible) {
+        visibleCount++;
+      }
+
     });
 
-    resultCount.textContent = visible;
-    emptyState.classList.toggle("tnd-hidden", visible > 0);
+
+    resultCount.textContent =
+      visibleCount;
+
+
+    emptyState.classList.toggle(
+      "show",
+      visibleCount === 0
+    );
   }
 
-  /* ---------- DETAILS CARD ---------- */
+
+  /* =========================================================
+     PERSON DETAILS
+  ========================================================= */
 
   function showPerson(id) {
-    const person = people.find((item) => String(item.id) === String(id));
+
+    const person =
+      people.find(
+        p => String(p.id) === String(id)
+      );
+
     if (!person) return;
 
-    currentPersonId = String(id);
+    currentPersonId =
+      String(id);
 
-    detailAvatar.textContent = person.name.charAt(0);
-    detailName.textContent = person.name;
-    detailCategory.textContent = person.category;
-    detailDistrict.textContent = person.district;
-    detailCity.textContent = person.city;
-    detailCompany.textContent = person.company;
-    detailPhone.textContent = person.phone;
-    detailEmail.textContent = person.email;
-    detailDescription.textContent = person.description;
 
-    detailCall.href = "tel:" + person.phone.replace(/\s+/g, "");
-    detailMail.href = "mailto:" + person.email;
+    detailAvatar.textContent =
+      person.name.charAt(0);
 
-    peopleList.querySelectorAll(".tnd-row").forEach((row) => {
-      row.classList.toggle("is-on", row.dataset.id === currentPersonId);
+
+    detailName.textContent =
+      person.name;
+
+
+    detailCategory.textContent =
+      person.category;
+
+
+    detailCompany.textContent =
+      person.company;
+
+
+    detailLocation.textContent =
+      `${person.city}, ${person.district}, ${person.country}`;
+
+
+    detailPhone.textContent =
+      person.phone;
+
+
+    detailEmail.textContent =
+      person.email;
+
+
+    detailDescription.textContent =
+      person.description;
+
+
+    callBtn.href =
+      `tel:${person.phone.replace(/\s/g, "")}`;
+
+
+    emailBtn.href =
+      `mailto:${person.email}`;
+
+
+    details.classList.remove(
+      "hidden"
+    );
+  }
+
+
+  /* =========================================================
+     PERSON CLICK
+  ========================================================= */
+
+  document
+    .querySelectorAll(".person-row")
+    .forEach(row => {
+
+      row.addEventListener(
+        "click",
+        () => {
+
+          showPerson(
+            row.dataset.id
+          );
+
+        }
+      );
+
     });
 
-    card.classList.remove("tnd-hidden");
-  }
 
-  function closeDetails() {
-    card.classList.add("tnd-hidden");
-    currentPersonId = "";
-    peopleList.querySelectorAll(".tnd-row").forEach((row) => row.classList.remove("is-on"));
-  }
+  /* =========================================================
+     CLOSE DETAILS
+  ========================================================= */
 
-  /* ---------- EVENTS ---------- */
+  closeDetails.addEventListener(
+    "click",
+    () => {
 
-  peopleList.querySelectorAll(".tnd-row").forEach((row) => {
-    row.addEventListener("click", () => showPerson(row.dataset.id));
+      details.classList.add(
+        "hidden"
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     CATEGORY
+  ========================================================= */
+
+  chips.forEach(chip => {
+
+    chip.addEventListener(
+      "click",
+      () => {
+
+        chips.forEach(
+          c =>
+            c.classList.remove(
+              "active"
+            )
+        );
+
+        chip.classList.add(
+          "active"
+        );
+
+        currentCategory =
+          chip.dataset.category || "";
+
+        filterPeople();
+
+      }
+    );
+
   });
 
-  closeButton.addEventListener("click", closeDetails);
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeDetails();
-  });
+  /* =========================================================
+     SEARCH
+  ========================================================= */
 
-  chips.querySelectorAll(".tnd-chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      currentCategory = chip.dataset.category;
-      chips.querySelectorAll(".tnd-chip").forEach((c) => c.classList.toggle("is-on", c === chip));
+  personSearch.addEventListener(
+    "input",
+    filterPeople
+  );
+
+
+  /* =========================================================
+     CITY
+  ========================================================= */
+
+  citySelect.addEventListener(
+    "change",
+    filterPeople
+  );
+
+
+  /* =========================================================
+     BACK TO WORLD
+  ========================================================= */
+
+  backWorld.addEventListener(
+    "click",
+    () => {
+
+      currentMode =
+        "world";
+
+      currentCountry = "";
+      currentDistrict = "";
+
+      selectedCountry.textContent =
+        "All Countries";
+
+      selectedDistrict.textContent =
+        "";
+
+      hoverName.textContent =
+        "Click India to explore Tamil Nadu";
+
+      renderWorldMap();
+
       filterPeople();
-    });
-  });
 
-  searchInput.addEventListener("input", filterPeople);
-  citySelect.addEventListener("change", filterPeople);
+    }
+  );
 
-  resetButton.addEventListener("click", () => {
-    currentDistrict = "";
-    currentCategory = "";
-    selectedDistrict.textContent = "All Tamil Nadu";
-    document.getElementById("mapHint").textContent = "Click a district to filter the list";
-    setHoverText("");
 
-    searchInput.value = "";
-    citySelect.value = "";
-    chips.querySelectorAll(".tnd-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.category === ""));
+  /* =========================================================
+     RESET
+  ========================================================= */
 
-    closeDetails();
-    filterPeople();
-    renderMap();
-  });
+  resetMap.addEventListener(
+    "click",
+    () => {
 
-  /* ---------- LOAD GEOJSON ---------- */
+      currentMode =
+        "world";
 
-  async function loadMap() {
+      currentCountry = "";
+      currentDistrict = "";
+      currentCategory = "";
+
+      personSearch.value = "";
+      citySelect.value = "";
+
+      chips.forEach(
+        chip =>
+          chip.classList.remove(
+            "active"
+          )
+      );
+
+      document
+        .querySelector(
+          '.chip[data-category=""]'
+        )
+        ?.classList.add("active");
+
+
+      selectedCountry.textContent =
+        "All Countries";
+
+      selectedDistrict.textContent =
+        "";
+
+      details.classList.add(
+        "hidden"
+      );
+
+      hoverName.textContent =
+        "Click India to explore Tamil Nadu";
+
+      renderWorldMap();
+
+      filterPeople();
+
+    }
+  );
+
+
+  /* =========================================================
+     LOAD WORLD
+  ========================================================= */
+
+  async function loadWorldMap() {
+
+    mapLoading.classList.remove(
+      "hidden"
+    );
+
     try {
-      const url =
-        "https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@2884453/geojson/states/tamil-nadu.geojson";
 
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const response =
+        await fetch(WORLD_URL);
 
-      geojson = await response.json();
-
-      if (!geojson.features || !geojson.features.length) {
-        throw new Error("No district features found.");
+      if (!response.ok) {
+        throw new Error(
+          "World map failed"
+        );
       }
 
-      mapLoading?.remove();
-      renderMap();
+      worldGeoJSON =
+        await response.json();
+
+      worldLoaded = true;
+
+      renderWorldMap();
+
     } catch (error) {
-      console.error("Tamil Nadu map error:", error);
 
-      if (mapLoading) {
-        mapLoading.innerHTML =
-          "<div><strong>Map could not load</strong><br /><small>Check your internet connection and refresh. Details are in the browser console (F12).</small></div>";
-      }
+      console.error(error);
+
+      hoverName.textContent =
+        "World map could not be loaded";
+
+      mapLoading.innerHTML =
+        `
+          <div class="map-error">
+            <strong>Map loading failed</strong>
+            <span>Please refresh the page.</span>
+          </div>
+        `;
+
     }
   }
 
-  /* ---------- START ---------- */
 
-  setHoverText("");
+  /* =========================================================
+     START
+  ========================================================= */
+
+  loadWorldMap();
+
   filterPeople();
-  loadMap();
-
 </script>
 
 
-<!--
-  is:inline = Astro leaves this stylesheet exactly as written (no scoping, no
-  bundling). Every class starts with "tnd-", so no older CSS can clash with it.
--->
 <style is:inline>
 
-  .tnd {
-    --ink: #10231d;
-    --soft: #5b6f66;
-    --line: #dfe8e2;
-    --paper: #ffffff;
-    --forest: #0f4c3a;
-    --mint: #e3f3ea;
-    --sea: #e2eff5;
-    --saffron: #f59e0b;
-
-    --display: "Outfit", system-ui, sans-serif;
-    --body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    width: 100%;
-    height: 100vh;
-    min-height: 640px;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--body);
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  .tnd *,
-  .tnd *::before,
-  .tnd *::after {
+  * {
     box-sizing: border-box;
   }
 
-  .tnd button,
-  .tnd input,
-  .tnd select,
-  .tnd a {
-    font-family: inherit;
-    font-size: inherit;
+
+  .world-directory {
+    width: 100%;
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: 420px 1fr;
+
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(77, 171, 135, 0.08),
+        transparent 35%
+      ),
+      #f4f8f6;
+
+    color: #10251f;
+
+    font-family:
+      "Nunito Sans",
+      Arial,
+      sans-serif;
   }
 
-  .tnd :focus-visible {
-    outline: 3px solid var(--saffron);
-    outline-offset: 2px;
+
+  /* =========================================================
+     SIDEBAR
+  ========================================================= */
+
+  .sidebar {
+    position: relative;
+    z-index: 10;
+
+    height: 100vh;
+
+    overflow-y: auto;
+
+    padding: 30px 24px;
+
+    background: #ffffff;
+
+    border-right:
+      1px solid #dfe9e4;
   }
 
-  .tnd .tnd-hidden {
-    display: none !important;
-  }
 
-  /* ---------- Left rail ---------- */
-
-  .tnd .tnd-side {
+  .brand {
     display: flex;
-    flex-direction: column;
-    min-height: 0;
-    border-right: 1px solid var(--line);
-    background: var(--paper);
+    align-items: center;
+    gap: 14px;
   }
 
-  .tnd .tnd-head {
-    padding: 26px 24px 4px;
+
+  .brand-icon {
+    width: 52px;
+    height: 52px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 16px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #0f4c3a,
+        #4caf82
+      );
+
+    color: #fff;
+
+    font-size: 25px;
+
+    box-shadow:
+      0 10px 25px
+      rgba(15, 76, 58, 0.18);
   }
 
-  .tnd .tnd-title {
+
+  .brand h1 {
     margin: 0;
-    font-family: var(--display);
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: var(--forest);
+
+    font-family: "Outfit", sans-serif;
+
+    font-size: 25px;
+
+    letter-spacing: -0.5px;
   }
 
-  .tnd .tnd-stats {
+
+  .brand p {
+    margin: 3px 0 0;
+
+    color: #789087;
+
+    font-size: 13px;
+  }
+
+
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    margin: 26px 0;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: #f3f8f5;
+
+    border:
+      1px solid #e0ebe6;
+  }
+
+
+  .stat {
+    text-align: center;
+  }
+
+
+  .stat + .stat {
+    border-left:
+      1px solid #dce7e2;
+  }
+
+
+  .stat strong {
+    display: block;
+
+    font-family: "Outfit", sans-serif;
+
+    color: #0f4c3a;
+
+    font-size: 24px;
+  }
+
+
+  .stat span {
+    color: #7b8e86;
+
+    font-size: 12px;
+  }
+
+
+  .search-box {
     display: flex;
-    gap: 16px;
-    margin: 6px 0 0;
-    color: var(--soft);
+    align-items: center;
+    gap: 10px;
+
+    height: 48px;
+
+    padding: 0 15px;
+
+    border:
+      1px solid #d8e4df;
+
+    border-radius: 14px;
+
+    background: #fff;
+  }
+
+
+  .search-box span {
+    color: #719087;
+
+    font-size: 22px;
+  }
+
+
+  .search-box input {
+    width: 100%;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: #18332b;
+
     font-size: 14px;
   }
 
-  .tnd .tnd-stats b {
-    color: var(--ink);
-    font-family: var(--display);
-    font-weight: 600;
-  }
 
-  .tnd .tnd-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px 24px 14px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .tnd .tnd-search {
-    position: relative;
-    display: block;
-  }
-
-  .tnd .tnd-search svg {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--soft);
-    pointer-events: none;
-  }
-
-  .tnd .tnd-search input {
+  .city-select {
     width: 100%;
-    height: 44px;
-    padding: 0 14px 0 42px;
-    border: 1.5px solid var(--line);
-    border-radius: 12px;
-    background: #f6faf7;
-    color: var(--ink);
+
+    height: 46px;
+
+    margin-top: 12px;
+
+    padding: 0 13px;
+
+    border:
+      1px solid #d8e4df;
+
+    border-radius: 13px;
+
+    background: #fff;
+
+    color: #314d44;
+
     outline: none;
   }
 
-  .tnd .tnd-search input:focus {
-    border-color: var(--forest);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(15, 76, 58, 0.14);
+
+  .filter-title {
+    margin:
+      23px 0 10px;
+
+    color: #6e837a;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
   }
 
-  .tnd .tnd-select {
-    width: 100%;
-    height: 42px;
-    padding: 0 12px;
-    border: 1.5px solid var(--line);
-    border-radius: 12px;
-    background: #fff;
-    color: var(--ink);
-    cursor: pointer;
-  }
 
-  .tnd .tnd-chips {
+  .chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+
+    gap: 7px;
   }
 
-  .tnd .tnd-chip {
-    padding: 4px 12px;
-    border: 1.5px solid var(--line);
-    border-radius: 999px;
+
+  .chip {
+    border:
+      1px solid #d6e4de;
+
     background: #fff;
-    color: var(--soft);
-    font-size: 13px;
-    font-weight: 600;
+
+    color: #527066;
+
+    padding:
+      7px 11px;
+
+    border-radius: 20px;
+
     cursor: pointer;
+
+    font-size: 12px;
+
+    transition: 0.2s;
   }
 
-  .tnd .tnd-chip:hover {
-    border-color: var(--forest);
-    color: var(--forest);
+
+  .chip:hover {
+    border-color: #72b898;
   }
 
-  .tnd .tnd-chip.is-on {
-    background: var(--forest);
-    border-color: var(--forest);
+
+  .chip.active {
+    background: #0f4c3a;
+
+    border-color: #0f4c3a;
+
     color: #fff;
   }
 
-  .tnd .tnd-listhead {
-    padding: 14px 24px 6px;
-  }
 
-  .tnd .tnd-listhead h2 {
-    margin: 0;
-    font-family: var(--display);
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .tnd .tnd-listhead p {
-    margin: 0;
-    color: var(--soft);
-    font-size: 13px;
-  }
-
-  .tnd .tnd-listhead p span {
-    color: var(--forest);
-    font-weight: 700;
-  }
-
-  .tnd .tnd-list {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    padding: 4px 12px 20px;
-  }
-
-  .tnd .tnd-row {
-    position: relative;
-    width: 100%;
+  .list-header {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 12px;
-    border: 0;
-    border-radius: 14px;
-    background: transparent;
-    color: var(--ink);
-    text-align: left;
-    cursor: pointer;
-  }
-
-  .tnd .tnd-row:hover {
-    background: #f3f8f5;
-  }
-
-  .tnd .tnd-row.is-on {
-    background: var(--mint);
-  }
-
-  .tnd .tnd-row.is-on::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 14px;
-    bottom: 14px;
-    width: 4px;
-    border-radius: 0 4px 4px 0;
-    background: var(--forest);
-  }
-
-  .tnd .tnd-avatar {
-    width: 46px;
-    height: 46px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--mint);
-    color: var(--forest);
-    font-family: var(--display);
-    font-size: 19px;
-    font-weight: 600;
-  }
-
-  .tnd .tnd-row.is-on .tnd-avatar {
-    background: var(--forest);
-    color: #fff;
-  }
-
-  .tnd .tnd-rowinfo {
-    display: block;
-    min-width: 0;
-  }
-
-  .tnd .tnd-rowinfo strong {
-    display: block;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.25;
-  }
-
-  .tnd .tnd-rowinfo em {
-    display: block;
-    color: var(--ink);
-    font-style: normal;
-    font-size: 13px;
-    line-height: 1.35;
-  }
-
-  .tnd .tnd-rowinfo small {
-    display: block;
-    color: var(--soft);
-    font-size: 12px;
-  }
-
-  .tnd .tnd-row {
-    align-items: flex-start;
-    border: 1px solid var(--line);
-    margin-bottom: 8px;
-  }
-
-  .tnd .tnd-row.is-on {
-    border-color: var(--forest);
-  }
-
-  .tnd .tnd-rowinfo {
-    flex: 1;
-  }
-
-  .tnd .tnd-tag {
-    display: inline-block;
-    margin-top: 3px;
-    padding: 0 10px;
-    border-radius: 999px;
-    background: #fdeccb;
-    color: #8a5a00;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .tnd .tnd-desc {
-    display: block;
-    margin-top: 6px;
-    color: var(--soft);
-    font-size: 13px;
-    line-height: 1.4;
-  }
-
-  .tnd .tnd-facts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px 12px;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--line);
-  }
-
-  .tnd .tnd-facts > span {
-    display: block;
-    min-width: 0;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.3;
-    word-break: break-word;
-  }
-
-  .tnd .tnd-facts .tnd-wide {
-    grid-column: 1 / -1;
-  }
-
-  .tnd .tnd-facts i {
-    display: block;
-    color: var(--soft);
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 400;
-  }
-
-  .tnd .tnd-empty {
-    padding: 40px 16px;
-    text-align: center;
-    color: var(--soft);
-  }
-
-  .tnd .tnd-empty strong {
-    display: block;
-    color: var(--ink);
-    font-family: var(--display);
-    font-size: 18px;
-  }
-
-  .tnd .tnd-empty p {
-    margin: 4px 0 0;
-  }
-
-  /* ---------- Map stage ---------- */
-
-  .tnd .tnd-stage {
-    position: relative;
-    min-height: 0;
-    overflow: hidden;
-    background:
-      radial-gradient(90% 80% at 75% 55%, #f0f8fb 0%, var(--sea) 100%);
-  }
-
-  .tnd .tnd-topbar {
-    position: absolute;
-    top: 18px;
-    left: 20px;
-    right: 20px;
-    z-index: 3;
-    display: flex;
     justify-content: space-between;
+
+    margin-top: 24px;
+    margin-bottom: 10px;
+
+    color: #45655a;
+
+    font-size: 13px;
+  }
+
+
+  .list-header > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+
+  .list-header small {
+    color: #81938d;
+
+    font-size: 11px;
+  }
+
+
+  .list-header strong {
+    min-width: 30px;
+
+    text-align: center;
+
+    padding: 4px 8px;
+
+    border-radius: 12px;
+
+    background: #e9f5ef;
+
+    color: #0f4c3a;
+
+    font-size: 12px;
+  }
+
+
+  .people-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+  }
+
+
+  .person-row {
+    width: 100%;
+
+    display: flex;
     align-items: center;
+
     gap: 12px;
-    pointer-events: none;
+
+    padding: 11px;
+
+    border:
+      1px solid transparent;
+
+    border-radius: 14px;
+
+    background: #f8fbfa;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.18s,
+      background 0.18s,
+      border 0.18s;
   }
 
-  .tnd .tnd-pill,
-  .tnd .tnd-reset {
-    pointer-events: auto;
-    padding: 9px 18px;
-    border-radius: 999px;
-    box-shadow: 0 8px 20px -12px rgba(15, 76, 58, 0.55);
+
+  .person-row:hover {
+    transform: translateX(3px);
+
+    background: #eef8f3;
+
+    border-color: #d6e9df;
   }
 
-  .tnd .tnd-pill {
-    background: var(--forest);
+
+  .person-row.hidden-row {
+    display: none;
+  }
+
+
+  .avatar {
+    flex: 0 0 auto;
+
+    width: 39px;
+    height: 39px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #0f4c3a,
+        #72bb98
+      );
+
     color: #fff;
-    font-family: var(--display);
-    font-size: 15px;
-    font-weight: 600;
-    white-space: nowrap;
+
+    font-family: "Outfit", sans-serif;
+
+    font-weight: 700;
+  }
+
+
+  .person-info {
+    min-width: 0;
+
+    flex: 1;
+  }
+
+
+  .person-info strong {
+    display: block;
+
     overflow: hidden;
+
+    color: #18332b;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
     text-overflow: ellipsis;
   }
 
-  .tnd .tnd-pill.is-idle {
-    background: #fff;
-    color: var(--soft);
-    font-weight: 500;
+
+  .person-info span {
+    display: block;
+
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    color: #7a8e86;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
   }
 
-  .tnd .tnd-reset {
-    flex-shrink: 0;
-    border: 0;
-    background: #fff;
-    color: var(--forest);
-    font-weight: 700;
-    cursor: pointer;
+
+  .dot {
+    display: inline !important;
+
+    margin: 0 4px;
+
+    color: #a1b2ac;
   }
 
-  .tnd .tnd-reset:hover {
-    background: var(--mint);
+
+  .arrow {
+    color: #9bad a6;
+
+    font-size: 22px;
   }
 
-  .tnd .tnd-map {
-    position: absolute;
-    inset: 0;
-    padding: 70px 24px 64px;
-    display: flex;
-  }
 
-  .tnd .tnd-loading {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .empty-state {
+    display: none;
+
+    padding: 40px 15px;
+
     text-align: center;
-    padding: 24px;
-    color: var(--soft);
+
+    color: #758a81;
   }
 
-  .tnd .tnd-legend {
+
+  .empty-state.show {
+    display: block;
+  }
+
+
+  .empty-icon {
+    margin-bottom: 10px;
+
+    font-size: 30px;
+  }
+
+
+  .empty-state strong {
+    display: block;
+
+    color: #28473d;
+  }
+
+
+  .empty-state p {
+    margin: 7px 0;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+  }
+
+
+  /* =========================================================
+     MAP
+  ========================================================= */
+
+  .map-stage {
+    position: relative;
+
+    min-width: 0;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background:
+      radial-gradient(
+        circle at center,
+        #ffffff 0,
+        #f2f8f5 55%,
+        #e9f2ee 100%
+      );
+  }
+
+
+  .map-topbar {
     position: absolute;
-    left: 20px;
-    right: 20px;
-    bottom: 16px;
-    z-index: 3;
+
+    z-index: 20;
+
+    top: 24px;
+    left: 30px;
+    right: 30px;
+
     display: flex;
+
     align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    color: var(--soft);
-    font-size: 13px;
-    pointer-events: none;
+    justify-content: space-between;
   }
 
-  .tnd .tnd-swatch {
-    width: 14px;
-    height: 14px;
-    margin-left: 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(15, 76, 58, 0.15);
+
+  .map-title {
+    font-family: "Outfit", sans-serif;
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    color: #123d30;
   }
 
-  .tnd .tnd-swatch:first-child {
-    margin-left: 0;
+
+  .hover-name {
+    margin-top: 3px;
+
+    color: #799087;
+
+    font-size: 12px;
   }
 
-  .tnd .tnd-swatch.s0 { background: #e7efe9; }
-  .tnd .tnd-swatch.s1 { background: #a9d9bf; }
-  .tnd .tnd-swatch.s2 { background: #5cb88a; }
 
-  .tnd .tnd-hint {
-    margin-left: auto;
-  }
-
-  /* ---------- Floating details card ---------- */
-
-  .tnd .tnd-card {
-    position: absolute;
-    right: 20px;
-    bottom: 48px;
-    z-index: 5;
-    width: 340px;
-    max-height: calc(100% - 130px);
-    overflow-y: auto;
-    padding: 22px;
-    border-radius: 22px;
-    background: #fff;
-    box-shadow: 0 24px 50px -22px rgba(15, 76, 58, 0.6);
-  }
-
-  .tnd .tnd-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 34px;
-    height: 34px;
+  .map-actions {
     display: flex;
+    gap: 8px;
+  }
+
+
+  .map-btn {
+    border:
+      1px solid #d4e3dd;
+
+    border-radius: 12px;
+
+    padding:
+      9px 13px;
+
+    background: rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+    color: #285247;
+
+    cursor: pointer;
+
+    box-shadow:
+      0 5px 18px
+      rgba(26, 66, 54, 0.07);
+  }
+
+
+  .map-btn:hover {
+    background: #fff;
+
+    border-color: #9dcbb5;
+  }
+
+
+  .map-btn.hidden {
+    display: none;
+  }
+
+
+  .map {
+    position: absolute;
+
+    inset: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    padding:
+      80px 35px 70px;
+  }
+
+
+  #mapSvg {
+    width: 100%;
+    height: 100%;
+
+    max-width: 1250px;
+
+    overflow: visible;
+  }
+
+
+  .map-area {
+    stroke:
+      rgba(255, 255, 255, 0.96);
+
+    stroke-width: 0.8;
+
+    vector-effect:
+      non-scaling-stroke;
+
+    cursor: pointer;
+
+    transition:
+      fill 0.18s,
+      opacity 0.18s,
+      stroke-width 0.18s;
+
+    paint-order: stroke;
+  }
+
+
+  .map-area:hover {
+    fill: #f8c766 !important;
+
+    stroke: #fff;
+
+    stroke-width: 1.7;
+  }
+
+
+  .map-area.active-area {
+    fill: #f59e0b !important;
+
+    stroke: #7b4a00;
+
+    stroke-width: 1.8;
+  }
+
+
+  .person-dot {
+    fill: #0f4c3a;
+
+    stroke: #fff;
+
+    stroke-width: 2;
+
+    pointer-events: none;
+
+    filter:
+      drop-shadow(
+        0 3px 4px
+        rgba(0,0,0,0.18)
+      );
+  }
+
+
+  .district-label {
+    fill: #31564b;
+
+    font-family:
+      "Nunito Sans",
+      Arial,
+      sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    text-shadow:
+      0 1px 2px #fff,
+      0 -1px 2px #fff,
+      1px 0 2px #fff,
+      -1px 0 2px #fff;
+  }
+
+
+  .map-loading {
+    position: absolute;
+
+    z-index: 30;
+
+    display: flex;
+    flex-direction: column;
+
     align-items: center;
     justify-content: center;
-    border: 0;
+
+    gap: 12px;
+
+    color: #527066;
+
+    font-size: 13px;
+  }
+
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+
+    border:
+      3px solid #dcebe4;
+
+    border-top-color:
+      #0f4c3a;
+
     border-radius: 50%;
-    background: #f1f6f3;
-    color: var(--ink);
+
+    animation:
+      spin 0.8s linear infinite;
+  }
+
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  .map-error {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    text-align: center;
+
+    color: #9b4d35;
+  }
+
+
+  .map-error span {
+    color: #819087;
+
+    font-size: 11px;
+  }
+
+
+  .legend {
+    position: absolute;
+
+    left: 30px;
+    bottom: 30px;
+
+    z-index: 15;
+
+    display: flex;
+
+    gap: 16px;
+
+    padding:
+      10px 13px;
+
+    border:
+      1px solid #dce7e2;
+
+    border-radius: 12px;
+
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.88
+      );
+
+    backdrop-filter:
+      blur(10px);
+
+    color: #6c8178;
+
+    font-size: 11px;
+  }
+
+
+  .legend span {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+  }
+
+
+  .legend-box {
+    width: 13px;
+    height: 13px;
+
+    display: inline-block;
+
+    border-radius: 4px;
+  }
+
+
+  .legend-box.none {
+    background: #e5eee9;
+  }
+
+
+  .legend-box.one {
+    background: #9ed7bb;
+  }
+
+
+  .legend-box.many {
+    background: #4caf82;
+  }
+
+
+  .map-hint {
+    position: absolute;
+
+    right: 30px;
+    bottom: 32px;
+
+    z-index: 15;
+
+    color: #83948d;
+
+    font-size: 11px;
+  }
+
+
+  /* =========================================================
+     DETAILS
+  ========================================================= */
+
+  .details-card {
+    position: absolute;
+
+    z-index: 40;
+
+    right: 30px;
+    top: 110px;
+
+    width: 340px;
+
+    display: flex;
+
+    gap: 14px;
+
+    padding: 20px;
+
+    border:
+      1px solid #dce8e2;
+
+    border-radius: 20px;
+
+    background:
+      rgba(
+        255,
+        255,
+        255,
+        0.96
+      );
+
+    box-shadow:
+      0 20px 55px
+      rgba(
+        20,
+        65,
+        52,
+        0.15
+      );
+
+    backdrop-filter:
+      blur(16px);
+  }
+
+
+  .details-card.hidden {
+    display: none;
+  }
+
+
+  .close-details {
+    position: absolute;
+
+    right: 10px;
+    top: 10px;
+
+    width: 30px;
+    height: 30px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #eef4f1;
+
+    color: #557068;
+
+    font-size: 20px;
+
     cursor: pointer;
   }
 
-  .tnd .tnd-close:hover {
-    background: var(--mint);
-    color: var(--forest);
-  }
 
-  .tnd .tnd-card-top {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding-right: 34px;
-  }
+  .details-avatar {
+    flex: 0 0 auto;
 
-  .tnd .tnd-detail-avatar {
-    width: 60px;
-    height: 60px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--forest);
-    color: #fff;
-    font-family: var(--display);
-    font-size: 26px;
-    font-weight: 600;
-  }
+    width: 52px;
+    height: 52px;
 
-  .tnd .tnd-card h3 {
-    margin: 0;
-    font-family: var(--display);
-    font-size: 21px;
+    display: grid;
+    place-items: center;
+
+    border-radius: 16px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #0f4c3a,
+        #4caf82
+      );
+
+    color: white;
+
+    font-family: "Outfit", sans-serif;
+
+    font-size: 22px;
+
     font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
   }
 
-  .tnd .tnd-detail-tag {
-    display: inline-block;
-    margin-top: 4px;
-    padding: 1px 10px;
-    border-radius: 999px;
-    background: #fdeccb;
-    color: #8a5a00;
+
+  .details-main {
+    min-width: 0;
+
+    padding-right: 10px;
+  }
+
+
+  .details-main h2 {
+    margin: 0;
+
+    color: #173c31;
+
+    font-family: "Outfit", sans-serif;
+
+    font-size: 19px;
+  }
+
+
+  .details-main > p {
+    margin:
+      3px 0 14px;
+
+    color: #699080;
+
     font-size: 12px;
-    font-weight: 700;
   }
 
-  .tnd .tnd-detail-about {
-    margin: 14px 0 6px;
-    color: var(--soft);
-    font-size: 14px;
-  }
 
-  .tnd .tnd-detail-list {
-    margin: 0;
-  }
-
-  .tnd .tnd-detail-list > div {
+  .detail-line {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--line);
+
+    gap: 8px;
+
+    margin: 8px 0;
+
+    color: #506b61;
+
+    font-size: 12px;
   }
 
-  .tnd .tnd-detail-list dt {
-    color: var(--soft);
-    font-size: 13px;
+
+  .detail-description {
+    margin-top: 13px !important;
+
+    color: #71857e !important;
+
+    line-height: 1.55;
+
+    font-size: 12px !important;
   }
 
-  .tnd .tnd-detail-list dd {
-    margin: 0;
-    text-align: right;
-    font-size: 14px;
-    font-weight: 700;
-    word-break: break-word;
-  }
 
-  .tnd .tnd-actions {
+  .detail-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 16px;
+
+    gap: 8px;
+
+    margin-top: 14px;
   }
 
-  .tnd .tnd-btn {
+
+  .action-btn {
     flex: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    border: 1.5px solid var(--forest);
-    border-radius: 12px;
-    color: var(--forest);
-    font-weight: 700;
+
+    padding:
+      9px 12px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
     text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
   }
 
-  .tnd .tnd-btn-main {
-    background: var(--forest);
-    color: #fff;
+
+  .action-btn.call {
+    background: #e8f5ee;
+
+    color: #0f4c3a;
   }
 
-  .tnd .tnd-btn:hover {
-    filter: brightness(1.1);
+
+  .action-btn.email {
+    background: #0f4c3a;
+
+    color: white;
   }
 
-  /* ---------- Responsive ---------- */
 
-  @media (max-width: 900px) {
-    .tnd {
-      display: flex;
-      flex-direction: column;
+  /* =========================================================
+     RESPONSIVE
+  ========================================================= */
+
+  @media (max-width: 1000px) {
+
+    .world-directory {
+      grid-template-columns:
+        340px 1fr;
+    }
+
+    .sidebar {
+      padding: 22px 17px;
+    }
+
+    .map-topbar {
+      left: 20px;
+      right: 20px;
+    }
+
+    .details-card {
+      right: 20px;
+      width: 310px;
+    }
+
+  }
+
+
+  @media (max-width: 760px) {
+
+    .world-directory {
+      display: block;
+    }
+
+    .sidebar {
       height: auto;
-    }
 
-    .tnd .tnd-stage {
-      order: 1;
-      height: 68vh;
-      min-height: 420px;
-    }
+      max-height: 55vh;
 
-    .tnd .tnd-side {
-      order: 2;
       border-right: 0;
-      border-top: 1px solid var(--line);
+
+      border-bottom:
+        1px solid #dfe9e4;
     }
 
-    .tnd .tnd-list {
-      max-height: 60vh;
+    .map-stage {
+      min-height: 65vh;
+
+      height: 65vh;
     }
 
-    .tnd .tnd-card {
-      position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
-      width: auto;
-      max-height: 70vh;
+    .map {
+      padding:
+        75px 10px 50px;
     }
 
-    .tnd .tnd-hint {
+    .map-hint {
       display: none;
     }
+
+    .legend {
+      left: 15px;
+      bottom: 15px;
+
+      gap: 8px;
+
+      font-size: 9px;
+    }
+
+    .details-card {
+      left: 15px;
+      right: 15px;
+
+      top: 90px;
+
+      width: auto;
+    }
+
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .tnd * {
-      transition: none !important;
+
+  @media (max-width: 500px) {
+
+    .brand h1 {
+      font-size: 21px;
     }
+
+    .stats {
+      margin: 18px 0;
+    }
+
+    .map-title {
+      font-size: 18px;
+    }
+
+    .hover-name {
+      font-size: 10px;
+    }
+
+    .district-label {
+      font-size: 7px;
+    }
+
   }
 
 </style>
