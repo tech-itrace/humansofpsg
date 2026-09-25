@@ -1,555 +1,669 @@
 ---
+/* =========================================================
+   PSG PEOPLE DIRECTORY
+   Radio Garden inspired geographic exploration
+========================================================= */
+
 const people = [
   {
-    id: 1,
     name: "Arun Kumar",
     country: "India",
-    district: "Chennai",
+    state: "Tamil Nadu",
     city: "Chennai",
-    category: "Engineer",
-    company: "ABC Technologies",
-    phone: "+91 90000 10001",
-    email: "arun@example.com",
-    description: "Software engineer working in Chennai."
+    district: "Chennai",
+    department: "Engineering",
+    expertise: "Software Development",
+    category: "Technology",
+    branch: "Chennai",
+    address: "Chennai, Tamil Nadu",
+    pullQuote: "Building useful technology for people.",
+    tags: ["Technology", "Software"],
+    image: "/images/arun.jpg",
+    lat: 13.0827,
+    lng: 80.2707
   },
   {
-    id: 2,
     name: "Priya Raj",
     country: "India",
-    district: "Chennai",
-    city: "Chennai",
-    category: "Teacher",
-    company: "Chennai Public School",
-    phone: "+91 90000 10002",
-    email: "priya@example.com",
-    description: "Teacher working in Chennai."
-  },
-  {
-    id: 3,
-    name: "Mohan Raj",
-    country: "India",
-    district: "Coimbatore",
+    state: "Tamil Nadu",
     city: "Coimbatore",
+    district: "Coimbatore",
+    department: "Management",
+    expertise: "Business Management",
     category: "Business",
-    company: "Mohan Textiles",
-    phone: "+91 90000 10003",
-    email: "mohan@example.com",
-    description: "Business owner from Coimbatore."
+    branch: "Coimbatore",
+    address: "Coimbatore, Tamil Nadu",
+    pullQuote: "People make every journey meaningful.",
+    tags: ["Business", "Management"],
+    image: "/images/priya.jpg",
+    lat: 11.0168,
+    lng: 76.9558
   },
   {
-    id: 4,
-    name: "Divya S",
+    name: "Karthik S",
     country: "India",
-    district: "Madurai",
+    state: "Tamil Nadu",
     city: "Madurai",
-    category: "Doctor",
-    company: "Madurai Medical Centre",
-    phone: "+91 90000 10004",
-    email: "divya@example.com",
-    description: "Doctor working in Madurai."
+    district: "Madurai",
+    department: "Commerce",
+    expertise: "Finance",
+    category: "Finance",
+    branch: "Madurai",
+    address: "Madurai, Tamil Nadu",
+    pullQuote: "Every number tells a story.",
+    tags: ["Finance", "Commerce"],
+    image: "/images/karthik.jpg",
+    lat: 9.9252,
+    lng: 78.1198
   },
   {
-    id: 5,
-    name: "Suresh Kumar",
+    name: "Meena Devi",
     country: "India",
-    district: "Tirunelveli",
-    city: "Tirunelveli",
-    category: "Farmer",
-    company: "Green Farm",
-    phone: "+91 90000 10005",
-    email: "suresh@example.com",
-    description: "Farmer from Tirunelveli."
+    state: "Tamil Nadu",
+    city: "Salem",
+    district: "Salem",
+    department: "Arts",
+    expertise: "Content Creation",
+    category: "Creative",
+    branch: "Salem",
+    address: "Salem, Tamil Nadu",
+    pullQuote: "Creativity connects people.",
+    tags: ["Creative", "Content"],
+    image: "/images/meena.jpg",
+    lat: 11.6643,
+    lng: 78.146
   },
   {
-    id: 6,
-    name: "Meena Joseph",
-    country: "India",
-    district: "Thoothukudi",
-    city: "Thoothukudi",
-    category: "Nurse",
-    company: "Thoothukudi Hospital",
-    phone: "+91 90000 10006",
-    email: "meena@example.com",
-    description: "Nurse working in Thoothukudi."
-  },
-  {
-    id: 7,
     name: "Vijay Anand",
     country: "India",
-    district: "Tiruppur",
-    city: "Tiruppur",
-    category: "Entrepreneur",
-    company: "Vijay Garments",
-    phone: "+91 90000 10007",
-    email: "vijay@example.com",
-    description: "Entrepreneur from Tiruppur."
-  },
-  {
-    id: 8,
-    name: "Anitha Devi",
-    country: "India",
-    district: "Salem",
-    city: "Salem",
-    category: "Designer",
-    company: "Creative Studio",
-    phone: "+91 90000 10008",
-    email: "anitha@example.com",
-    description: "Designer working in Salem."
-  },
-  {
-    id: 9,
-    name: "Karthik M",
-    country: "India",
-    district: "Erode",
-    city: "Erode",
-    category: "Business",
-    company: "Erode Traders",
-    phone: "+91 90000 10009",
-    email: "karthik@example.com",
-    description: "Business professional from Erode."
-  },
-  {
-    id: 10,
-    name: "John Peter",
-    country: "India",
-    district: "Kanyakumari",
-    city: "Nagercoil",
-    category: "Teacher",
-    company: "Nagercoil School",
-    phone: "+91 90000 10010",
-    email: "john@example.com",
-    description: "Teacher working in Nagercoil."
-  },
-  {
-    id: 11,
-    name: "Lakshmi Devi",
-    country: "India",
-    district: "Thanjavur",
-    city: "Thanjavur",
-    category: "Artist",
-    company: "Thanjavur Arts",
-    phone: "+91 90000 10011",
-    email: "lakshmi@example.com",
-    description: "Artist from Thanjavur."
-  },
-  {
-    id: 12,
-    name: "Ravi Chandran",
-    country: "India",
-    district: "Tiruchirappalli",
+    state: "Tamil Nadu",
     city: "Tiruchirappalli",
-    category: "Engineer",
-    company: "Tech Solutions",
-    phone: "+91 90000 10012",
-    email: "ravi@example.com",
-    description: "Engineer from Tiruchirappalli."
+    district: "Tiruchirappalli",
+    department: "Engineering",
+    expertise: "Mechanical Engineering",
+    category: "Engineering",
+    branch: "Trichy",
+    address: "Tiruchirappalli, Tamil Nadu",
+    pullQuote: "Ideas become real when we build them.",
+    tags: ["Engineering"],
+    image: "/images/vijay.jpg",
+    lat: 10.7905,
+    lng: 78.7047
   },
   {
-    id: 13,
-    name: "Bala Murugan",
+    name: "Divya R",
     country: "India",
-    district: "Dindigul",
-    city: "Dindigul",
+    state: "Tamil Nadu",
+    city: "Tirunelveli",
+    district: "Tirunelveli",
+    department: "Science",
+    expertise: "Research",
+    category: "Research",
+    branch: "Tirunelveli",
+    address: "Tirunelveli, Tamil Nadu",
+    pullQuote: "Curiosity is the beginning of discovery.",
+    tags: ["Science", "Research"],
+    image: "/images/divya.jpg",
+    lat: 8.7139,
+    lng: 77.7567
+  },
+  {
+    name: "Suresh Kumar",
+    country: "India",
+    state: "Tamil Nadu",
+    city: "Thoothukudi",
+    district: "Thoothukudi",
+    department: "Commerce",
+    expertise: "Entrepreneurship",
     category: "Business",
-    company: "Bala Foods",
-    phone: "+91 90000 10013",
-    email: "bala@example.com",
-    description: "Business owner from Dindigul."
+    branch: "Thoothukudi",
+    address: "Thoothukudi, Tamil Nadu",
+    pullQuote: "Small beginnings can create big journeys.",
+    tags: ["Business"],
+    image: "/images/suresh.jpg",
+    lat: 8.7642,
+    lng: 78.1348
   },
   {
-    id: 14,
-    name: "Revathi P",
+    name: "Anitha M",
     country: "India",
-    district: "Virudhunagar",
-    city: "Virudhunagar",
-    category: "Teacher",
-    company: "Government School",
-    phone: "+91 90000 10014",
-    email: "revathi@example.com",
-    description: "Teacher from Virudhunagar."
+    state: "Tamil Nadu",
+    city: "Erode",
+    district: "Erode",
+    department: "Management",
+    expertise: "Human Resources",
+    category: "People",
+    branch: "Erode",
+    address: "Erode, Tamil Nadu",
+    pullQuote: "Every person has a story worth hearing.",
+    tags: ["People", "HR"],
+    image: "/images/anitha.jpg",
+    lat: 11.341,
+    lng: 77.7172
   },
   {
-    id: 15,
-    name: "Manoj Kumar",
+    name: "Rahul P",
     country: "India",
-    district: "Vellore",
+    state: "Tamil Nadu",
     city: "Vellore",
-    category: "Doctor",
-    company: "Vellore Medical Centre",
-    phone: "+91 90000 10015",
-    email: "manoj@example.com",
-    description: "Doctor working in Vellore."
+    district: "Vellore",
+    department: "Computer Science",
+    expertise: "Artificial Intelligence",
+    category: "Technology",
+    branch: "Vellore",
+    address: "Vellore, Tamil Nadu",
+    pullQuote: "Technology should solve real problems.",
+    tags: ["AI", "Technology"],
+    image: "/images/rahul.jpg",
+    lat: 12.9165,
+    lng: 79.1325
   },
   {
-    id: 16,
-    name: "Nandhini R",
+    name: "Nandhini K",
     country: "India",
-    district: "Kancheepuram",
+    state: "Tamil Nadu",
     city: "Kanchipuram",
-    category: "Designer",
-    company: "Silk Design Studio",
-    phone: "+91 90000 10016",
-    email: "nandhini@example.com",
-    description: "Designer from Kanchipuram."
+    district: "Kanchipuram",
+    department: "Design",
+    expertise: "UI/UX Design",
+    category: "Creative",
+    branch: "Kanchipuram",
+    address: "Kanchipuram, Tamil Nadu",
+    pullQuote: "Good design makes things feel simple.",
+    tags: ["Design", "Creative"],
+    image: "/images/nandhini.jpg",
+    lat: 12.8342,
+    lng: 79.7036
   },
   {
-    id: 17,
-    name: "Sathish Kumar",
+    name: "Mohan Raj",
     country: "India",
-    district: "Tiruvallur",
-    city: "Tiruvallur",
-    category: "Engineer",
-    company: "Industrial Works",
-    phone: "+91 90000 10017",
-    email: "sathish@example.com",
-    description: "Engineer from Tiruvallur."
+    state: "Tamil Nadu",
+    city: "Dindigul",
+    district: "Dindigul",
+    department: "Engineering",
+    expertise: "Civil Engineering",
+    category: "Engineering",
+    branch: "Dindigul",
+    address: "Dindigul, Tamil Nadu",
+    pullQuote: "Strong foundations create lasting futures.",
+    tags: ["Engineering", "Civil"],
+    image: "/images/mohan.jpg",
+    lat: 10.3673,
+    lng: 77.9803
   },
   {
-    id: 18,
-    name: "Deepa Mary",
+    name: "Lakshmi S",
     country: "India",
-    district: "Tenkasi",
-    city: "Tenkasi",
-    category: "Teacher",
-    company: "Tenkasi School",
-    phone: "+91 90000 10018",
-    email: "deepa@example.com",
-    description: "Teacher from Tenkasi."
+    state: "Tamil Nadu",
+    city: "Thanjavur",
+    district: "Thanjavur",
+    department: "Arts",
+    expertise: "Literature",
+    category: "Creative",
+    branch: "Thanjavur",
+    address: "Thanjavur, Tamil Nadu",
+    pullQuote: "Stories keep our memories alive.",
+    tags: ["Literature", "Arts"],
+    image: "/images/lakshmi.jpg",
+    lat: 10.7867,
+    lng: 79.1378
   },
   {
-    id: 19,
-    name: "Gokul Raj",
+    name: "Prakash V",
     country: "India",
-    district: "Karur",
-    city: "Karur",
+    state: "Tamil Nadu",
+    city: "Namakkal",
+    district: "Namakkal",
+    department: "Commerce",
+    expertise: "Marketing",
     category: "Business",
-    company: "Karur Traders",
-    phone: "+91 90000 10019",
-    email: "gokul@example.com",
-    description: "Business professional from Karur."
+    branch: "Namakkal",
+    address: "Namakkal, Tamil Nadu",
+    pullQuote: "Good communication creates opportunities.",
+    tags: ["Marketing"],
+    image: "/images/prakash.jpg",
+    lat: 11.2189,
+    lng: 78.1674
   },
   {
-    id: 20,
-    name: "Sarah Wilson",
+    name: "Deepa J",
     country: "India",
-    district: "Nilgiris",
-    city: "Ooty",
-    category: "Tourism",
-    company: "Ooty Travels",
-    phone: "+91 90000 10020",
-    email: "sarah@example.com",
-    description: "Tourism professional from Ooty."
+    state: "Tamil Nadu",
+    city: "Karur",
+    district: "Karur",
+    department: "Science",
+    expertise: "Biotechnology",
+    category: "Research",
+    branch: "Karur",
+    address: "Karur, Tamil Nadu",
+    pullQuote: "Science begins with asking why.",
+    tags: ["Science", "Research"],
+    image: "/images/deepa.jpg",
+    lat: 10.9601,
+    lng: 78.0766
+  },
+  {
+    name: "Saravanan P",
+    country: "India",
+    state: "Tamil Nadu",
+    city: "Cuddalore",
+    district: "Cuddalore",
+    department: "Engineering",
+    expertise: "Electrical Engineering",
+    category: "Engineering",
+    branch: "Cuddalore",
+    address: "Cuddalore, Tamil Nadu",
+    pullQuote: "Energy powers every possibility.",
+    tags: ["Engineering", "Electrical"],
+    image: "/images/saravanan.jpg",
+    lat: 11.748,
+    lng: 79.7714
+  },
+  {
+    name: "Aishwarya R",
+    country: "India",
+    state: "Tamil Nadu",
+    city: "Villupuram",
+    district: "Villupuram",
+    department: "Computer Science",
+    expertise: "Web Development",
+    category: "Technology",
+    branch: "Villupuram",
+    address: "Villupuram, Tamil Nadu",
+    pullQuote: "The web brings people closer.",
+    tags: ["Web", "Technology"],
+    image: "/images/aishwarya.jpg",
+    lat: 11.9401,
+    lng: 79.4861
+  },
+  {
+    name: "Manoj T",
+    country: "India",
+    state: "Tamil Nadu",
+    city: "Tiruppur",
+    district: "Tiruppur",
+    department: "Management",
+    expertise: "Operations",
+    category: "Business",
+    branch: "Tiruppur",
+    address: "Tiruppur, Tamil Nadu",
+    pullQuote: "Great work happens when people work together.",
+    tags: ["Business", "Operations"],
+    image: "/images/manoj.jpg",
+    lat: 11.1085,
+    lng: 77.3411
+  },
+  {
+    name: "Revathi S",
+    country: "India",
+    state: "Tamil Nadu",
+    city: "Kanyakumari",
+    district: "Kanyakumari",
+    department: "Arts",
+    expertise: "Photography",
+    category: "Creative",
+    branch: "Kanyakumari",
+    address: "Kanyakumari, Tamil Nadu",
+    pullQuote: "A photograph can preserve a feeling forever.",
+    tags: ["Photography", "Creative"],
+    image: "/images/revathi.jpg",
+    lat: 8.0883,
+    lng: 77.5385
+  },
+  {
+    name: "Dinesh K",
+    country: "India",
+    state: "Tamil Nadu",
+    city: "Tiruvallur",
+    district: "Tiruvallur",
+    department: "Computer Science",
+    expertise: "Cloud Computing",
+    category: "Technology",
+    branch: "Tiruvallur",
+    address: "Tiruvallur, Tamil Nadu",
+    pullQuote: "The future belongs to those who keep learning.",
+    tags: ["Cloud", "Technology"],
+    image: "/images/dinesh.jpg",
+    lat: 13.1439,
+    lng: 79.908
+  },
+  {
+    name: "Harini M",
+    country: "India",
+    state: "Tamil Nadu",
+    city: "Virudhunagar",
+    district: "Virudhunagar",
+    department: "Management",
+    expertise: "Leadership",
+    category: "People",
+    branch: "Virudhunagar",
+    address: "Virudhunagar, Tamil Nadu",
+    pullQuote: "Leadership starts with listening.",
+    tags: ["Leadership", "People"],
+    image: "/images/harini.jpg",
+    lat: 9.568,
+    lng: 77.9624
   }
 ];
 
-const cities = [...new Set(people.map((p) => p.city))].sort();
-const categories = [...new Set(people.map((p) => p.category))].sort();
+const cities = [...new Set(people.map(p => p.city))].sort();
+const departments = [...new Set(people.map(p => p.department))].sort();
+const expertise = [...new Set(people.map(p => p.expertise))].sort();
+const categories = [...new Set(people.map(p => p.category))].sort();
 ---
 
-<div class="world-directory">
+<div class="directory-page">
 
-  <aside class="sidebar">
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
 
-    <div class="brand">
-      <div class="brand-icon">🌍</div>
+  <header class="directory-header">
 
-      <div>
-        <h1>World Directory</h1>
-        <p>Global People Network</p>
-      </div>
-    </div>
+    <div>
+      <p class="eyebrow">HUMANS OF PSG</p>
 
-    <div class="stats">
-      <div class="stat">
-        <strong>195</strong>
-        <span>Countries</span>
-      </div>
+      <h1>
+        Global People Network
+      </h1>
 
-      <div class="stat">
-        <strong>{people.length}</strong>
-        <span>People</span>
-      </div>
-    </div>
-
-    <div class="search-box">
-      <span>⌕</span>
-
-      <input
-        id="personSearch"
-        type="search"
-        placeholder="Search people..."
-      />
-    </div>
-
-    <select id="citySelect" class="city-select">
-      <option value="">All Cities</option>
-
-      {cities.map((city) => (
-        <option value={city}>{city}</option>
-      ))}
-    </select>
-
-    <div class="filter-title">
-      Category
-    </div>
-
-    <div id="chips" class="chips">
-
-      <button
-        class="chip active"
-        data-category=""
-      >
-        All
-      </button>
-
-      {categories.map((category) => (
-        <button
-          class="chip"
-          data-category={category}
-        >
-          {category}
-        </button>
-      ))}
-
-    </div>
-
-    <div class="list-header">
-
-      <div>
-        <span id="selectedCountry">
-          All Countries
-        </span>
-
-        <small id="selectedDistrict"></small>
-      </div>
-
-      <strong id="resultCount">
-        {people.length}
-      </strong>
-
-    </div>
-
-    <div id="peopleList" class="people-list">
-
-      {people.map((person) => (
-        <button
-          class="person-row"
-          data-id={person.id}
-          data-country={person.country}
-          data-district={person.district}
-          data-city={person.city}
-          data-category={person.category}
-          data-search={`${person.name} ${person.company} ${person.city} ${person.district} ${person.category}`}
-        >
-
-          <div class="avatar">
-            {person.name.charAt(0)}
-          </div>
-
-          <div class="person-info">
-
-            <strong>
-              {person.name}
-            </strong>
-
-            <span>
-              {person.category}
-              <i>•</i>
-              {person.city}
-            </span>
-
-          </div>
-
-          <span class="arrow">
-            ›
-          </span>
-
-        </button>
-      ))}
-
-    </div>
-
-    <div
-      id="emptyState"
-      class="empty-state"
-    >
-      <div class="empty-icon">
-        ⌕
-      </div>
-
-      <strong>
-        No one matches
-      </strong>
-
-      <p>
-        Try another district, clear the search, or choose "All".
+      <p class="subtitle">
+        Explore PSGians by location.
       </p>
     </div>
 
-  </aside>
+    <div class="header-count">
+      <strong>{people.length}</strong>
+      <span>People</span>
+    </div>
+
+  </header>
 
 
-  <main class="map-stage">
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
 
-    <div class="map-topbar">
+  <main class="directory-layout">
 
-      <div>
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
 
-        <div
-          id="mapTitle"
-          class="map-title"
-        >
-          World Map
+    <aside class="directory-sidebar">
+
+      <div class="search-box">
+
+        <span>⌕</span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search PSGians..."
+        />
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label>City</label>
+
+        <select id="citySelect">
+
+          <option value="">
+            All cities
+          </option>
+
+          {cities.map(city => (
+            <option value={city}>
+              {city}
+            </option>
+          ))}
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label>Department</label>
+
+        <select id="departmentSelect">
+
+          <option value="">
+            All departments
+          </option>
+
+          {departments.map(department => (
+            <option value={department}>
+              {department}
+            </option>
+          ))}
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label>Expertise</label>
+
+        <select id="expertiseSelect">
+
+          <option value="">
+            All expertise
+          </option>
+
+          {expertise.map(item => (
+            <option value={item}>
+              {item}
+            </option>
+          ))}
+
+        </select>
+
+      </div>
+
+
+      <div class="category-section">
+
+        <div class="section-title">
+          Categories
         </div>
 
         <div
-          id="hoverName"
-          class="hover-name"
+          id="categoryChips"
+          class="category-chips"
         >
-          Click India to explore
+
+          <button
+            class="category-chip active"
+            data-category=""
+            type="button"
+          >
+            All
+          </button>
+
+          {categories.map(category => (
+
+            <button
+              class="category-chip"
+              data-category={category}
+              type="button"
+            >
+              {category}
+            </button>
+
+          ))}
+
         </div>
 
       </div>
 
-      <div class="map-actions">
-
-        <button
-          id="backWorld"
-          class="map-btn hidden"
-        >
-          ← World
-        </button>
-
-        <button
-          id="resetMap"
-          class="map-btn"
-        >
-          Reset
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div id="map" class="map">
-
-      <div
-        id="mapLoading"
-        class="map-loading"
-      >
-        <div class="spinner"></div>
-        Loading map...
-      </div>
-
-      <svg
-        id="mapSvg"
-        viewBox="0 0 1200 650"
-        preserveAspectRatio="xMidYMid meet"
-      ></svg>
-
-    </div>
-
-
-    <div class="legend">
-
-      <span>
-        <i class="legend-box none"></i>
-        No people
-      </span>
-
-      <span>
-        <i class="legend-box one"></i>
-        1 person
-      </span>
-
-      <span>
-        <i class="legend-box many"></i>
-        2 or more
-      </span>
-
-    </div>
-
-
-    <div
-      id="mapHint"
-      class="map-hint"
-    >
-      Click India to explore
-    </div>
-
-
-    <section
-      id="personDetails"
-      class="details-card hidden"
-    >
 
       <button
-        id="closeDetails"
-        class="close-details"
+        id="resetButton"
+        class="reset-button"
+        type="button"
       >
-        ×
+        Reset filters
       </button>
 
-      <div
-        id="detailAvatar"
-        class="details-avatar"
-      >
-        A
+
+      <div class="result-count">
+
+        <strong id="resultCount">
+          {people.length}
+        </strong>
+
+        people found
+
       </div>
 
-      <div class="details-main">
 
-        <h2 id="detailName">
-          Person
-        </h2>
+      <div
+        id="peopleList"
+        class="people-list"
+      ></div>
 
-        <p id="detailCategory">
-          Category
-        </p>
+    </aside>
 
-        <div class="detail-line">
-          <span>🏢</span>
-          <span id="detailCompany"></span>
+
+    <!-- =================================================
+         MAP SECTION
+    ================================================== -->
+
+    <section class="map-section">
+
+      <div class="map-topbar">
+
+        <div>
+
+          <p class="map-eyebrow">
+            EXPLORE BY LOCATION
+          </p>
+
+          <h2 id="mapTitle">
+            World
+          </h2>
+
         </div>
 
-        <div class="detail-line">
-          <span>📍</span>
-          <span id="detailLocation"></span>
+
+        <button
+          id="backButton"
+          class="back-button hidden"
+          type="button"
+        >
+          ← Back
+        </button>
+
+      </div>
+
+
+      <!-- =================================================
+           GLOBE
+      ================================================== -->
+
+      <div
+        id="globeContainer"
+        class="globe-container"
+      >
+
+        <!-- LOADING -->
+        <div
+          id="globeLoading"
+          class="globe-loading"
+        >
+          <span class="loading-spinner"></span>
+          <span id="loadingText">
+            Loading globe...
+          </span>
         </div>
 
-        <div class="detail-line">
-          <span>📞</span>
-          <span id="detailPhone"></span>
+
+        <div class="globe-crosshair">
+          <span></span>
         </div>
 
-        <div class="detail-line">
-          <span>✉</span>
-          <span id="detailEmail"></span>
+
+        <div
+          id="locationLabel"
+          class="location-label"
+        >
+          Explore the world
         </div>
 
-        <p
-          id="detailDescription"
-          class="detail-description"
-        ></p>
 
-        <div class="detail-actions">
+        <div
+          id="locationCount"
+          class="location-count"
+        >
+          {people.length} PSGians
+        </div>
 
-          <a
-            id="callBtn"
-            href="#"
-            class="action-btn call"
-          >
-            Call
-          </a>
+      </div>
 
-          <a
-            id="emailBtn"
-            href="#"
-            class="action-btn email"
-          >
-            Email
-          </a>
+
+      <div class="map-hint">
+        Drag to rotate · Scroll to zoom · Click a location
+      </div>
+
+
+      <!-- =================================================
+           PERSON DETAIL
+      ================================================== -->
+
+      <div
+        id="personDetails"
+        class="person-details hidden"
+      >
+
+        <button
+          id="closeDetails"
+          class="close-details"
+          type="button"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+
+        <img
+          id="detailImage"
+          src=""
+          alt=""
+        />
+
+
+        <div>
+
+          <p
+            id="detailCategory"
+            class="detail-category"
+          ></p>
+
+          <h3 id="detailName"></h3>
+
+          <p
+            id="detailQuote"
+            class="detail-quote"
+          ></p>
+
+
+          <div class="detail-meta">
+
+            <span id="detailCity"></span>
+
+            <span id="detailDepartment"></span>
+
+            <span id="detailExpertise"></span>
+
+          </div>
 
         </div>
 
@@ -559,1265 +673,193 @@ const categories = [...new Set(people.map((p) => p.category))].sort();
 
   </main>
 
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="directory-footer">
+
+    <span>
+      © 2026 by HOP
+    </span>
+
+    <span>
+      Build in India by PSGians
+    </span>
+
+  </footer>
+
 </div>
 
 
-<script define:vars={{ people }}>
+<script define:vars={{
+  people,
+  cities,
+  departments,
+  expertise,
+  categories
+}}>
 
-  const mapSvg =
-    document.getElementById("mapSvg");
-
-  const mapLoading =
-    document.getElementById("mapLoading");
-
-  const personSearch =
-    document.getElementById("personSearch");
-
-  const citySelect =
-    document.getElementById("citySelect");
-
-  const peopleList =
-    document.getElementById("peopleList");
-
-  const emptyState =
-    document.getElementById("emptyState");
-
-  const resultCount =
-    document.getElementById("resultCount");
-
-  const selectedCountry =
-    document.getElementById("selectedCountry");
-
-  const selectedDistrict =
-    document.getElementById("selectedDistrict");
-
-  const hoverName =
-    document.getElementById("hoverName");
-
-  const mapTitle =
-    document.getElementById("mapTitle");
-
-  const mapHint =
-    document.getElementById("mapHint");
-
-  const resetMap =
-    document.getElementById("resetMap");
-
-  const backWorld =
-    document.getElementById("backWorld");
-
-  const details =
-    document.getElementById("personDetails");
-
-  const closeDetails =
-    document.getElementById("closeDetails");
-
-  const detailAvatar =
-    document.getElementById("detailAvatar");
-
-  const detailName =
-    document.getElementById("detailName");
-
-  const detailCategory =
-    document.getElementById("detailCategory");
-
-  const detailCompany =
-    document.getElementById("detailCompany");
-
-  const detailLocation =
-    document.getElementById("detailLocation");
-
-  const detailPhone =
-    document.getElementById("detailPhone");
-
-  const detailEmail =
-    document.getElementById("detailEmail");
-
-  const detailDescription =
-    document.getElementById("detailDescription");
-
-  const callBtn =
-    document.getElementById("callBtn");
-
-  const emailBtn =
-    document.getElementById("emailBtn");
-
-  const chips =
-    document.querySelectorAll(".chip");
-
-
-  const WORLD_URL =
-    "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
-
-
-  /*
-    IMPORTANT:
-
-    This is NOT a separate Tamil Nadu map.
-
-    The Tamil Nadu districts are loaded as an
-    overlay and drawn inside the same world SVG.
-  */
-
-  const TN_URL =
-    "https://raw.githubusercontent.com/udit-001/india-maps-data/master/geojson/states/tamil-nadu.geojson";
-
-
-  const COLORS = {
-    empty: "#e6eee9",
-    one: "#9ed7bb",
-    many: "#4caf82",
-    hover: "#f8c766",
-    active: "#f59e0b",
-    stroke: "#ffffff",
-    dot: "#0f4c3a"
-  };
-
-
-  let worldGeoJSON = null;
-
-  let tamilNaduGeoJSON = null;
-
-  let currentCountry = "";
-
-  let currentDistrict = "";
-
-  let currentCategory = "";
-
-  let mapMode = "world";
-
-
-  /*
-    worldView
-    ----------
-    true = complete world
-
-    false = same SVG zoomed into India
-  */
-
-  let indiaZoom = false;
+  import Globe from "globe.gl";
 
 
   /* =====================================================
-     NORMALIZE
+     ELEMENTS
+  ===================================================== */
+
+  const container =
+    document.getElementById(
+      "globeContainer"
+    );
+
+  const globeLoading =
+    document.getElementById(
+      "globeLoading"
+    );
+
+  const loadingText =
+    document.getElementById(
+      "loadingText"
+    );
+
+  const mapTitle =
+    document.getElementById(
+      "mapTitle"
+    );
+
+  const backButton =
+    document.getElementById(
+      "backButton"
+    );
+
+  const locationLabel =
+    document.getElementById(
+      "locationLabel"
+    );
+
+  const locationCount =
+    document.getElementById(
+      "locationCount"
+    );
+
+  const searchInput =
+    document.getElementById(
+      "searchInput"
+    );
+
+  const citySelect =
+    document.getElementById(
+      "citySelect"
+    );
+
+  const departmentSelect =
+    document.getElementById(
+      "departmentSelect"
+    );
+
+  const expertiseSelect =
+    document.getElementById(
+      "expertiseSelect"
+    );
+
+  const categoryChips =
+    document.getElementById(
+      "categoryChips"
+    );
+
+  const resetButton =
+    document.getElementById(
+      "resetButton"
+    );
+
+  const resultCount =
+    document.getElementById(
+      "resultCount"
+    );
+
+  const peopleList =
+    document.getElementById(
+      "peopleList"
+    );
+
+
+  /* =====================================================
+     DETAIL ELEMENTS
+  ===================================================== */
+
+  const personDetails =
+    document.getElementById(
+      "personDetails"
+    );
+
+  const closeDetails =
+    document.getElementById(
+      "closeDetails"
+    );
+
+  const detailImage =
+    document.getElementById(
+      "detailImage"
+    );
+
+  const detailCategory =
+    document.getElementById(
+      "detailCategory"
+    );
+
+  const detailName =
+    document.getElementById(
+      "detailName"
+    );
+
+  const detailQuote =
+    document.getElementById(
+      "detailQuote"
+    );
+
+  const detailCity =
+    document.getElementById(
+      "detailCity"
+    );
+
+  const detailDepartment =
+    document.getElementById(
+      "detailDepartment"
+    );
+
+  const detailExpertise =
+    document.getElementById(
+      "detailExpertise"
+    );
+
+
+  /* =====================================================
+     STATE
+  ===================================================== */
+
+  let mode = "world";
+
+  let selectedState = "";
+
+  let selectedDistrict = "";
+
+  let selectedCategory = "";
+
+
+  let visiblePeople = [...people];
+
+
+  /* =====================================================
+     HELPERS
   ===================================================== */
 
   function normalize(value) {
 
     return String(value || "")
-      .trim()
       .toLowerCase()
-      .replace(/&/g, "and")
+      .trim()
       .replace(/[^a-z0-9]/g, "");
-  }
-
-
-  function normalizeDistrict(value) {
-
-    const valueNormalized =
-      normalize(value);
-
-    const aliases = {
-
-      kancheepuram: "kanchipuram",
-
-      kanchipuram: "kanchipuram",
-
-      tiruchirappalli:
-        "tiruchirappalli",
-
-      trichy:
-        "tiruchirappalli",
-
-      thoothukudi:
-        "thoothukudi",
-
-      tuticorin:
-        "thoothukudi",
-
-      tirunelveli:
-        "tirunelveli",
-
-      tiruvallur:
-        "tiruvallur",
-
-      thiruvallur:
-        "tiruvallur",
-
-      nilgiris:
-        "nilgiris"
-
-    };
-
-    return (
-      aliases[valueNormalized] ||
-      valueNormalized
-    );
-  }
-
-
-  /* =====================================================
-     COUNTRY NAME
-  ===================================================== */
-
-  function getCountryName(feature) {
-
-    const p =
-      feature?.properties || {};
-
-    return (
-      p.ADMIN ||
-      p.NAME ||
-      p.NAME_LONG ||
-      p.NAME_EN ||
-      p.name ||
-      p.SOVEREIGNT ||
-      p.BRK_NAME ||
-      "Unknown"
-    );
-  }
-
-
-  /* =====================================================
-     DISTRICT NAME
-  ===================================================== */
-
-  function getDistrictName(feature) {
-
-    const p =
-      feature?.properties || {};
-
-    return (
-      p.district_name ||
-      p.DISTRICT ||
-      p.DISTRICT_NAME ||
-      p.DISTRICTNAME ||
-      p.REGNAME ||
-      p.NAME_2 ||
-      p.NAME ||
-      p.name ||
-      p.NAME_EN ||
-      "Unknown District"
-    );
-  }
-
-
-  /* =====================================================
-     COUNT
-  ===================================================== */
-
-  function countryCount(country) {
-
-    return people.filter(
-      person =>
-        normalize(person.country) ===
-        normalize(country)
-    ).length;
-  }
-
-
-  function districtCount(district) {
-
-    return people.filter(
-      person =>
-        normalizeDistrict(
-          person.district
-        ) ===
-        normalizeDistrict(
-          district
-        )
-    ).length;
-  }
-
-
-  /* =====================================================
-     COORDINATES
-  ===================================================== */
-
-  function getCoordinates(geometry) {
-
-    const result = [];
-
-    function walk(value) {
-
-      if (!Array.isArray(value)) {
-        return;
-      }
-
-      if (
-        value.length >= 2 &&
-        typeof value[0] === "number" &&
-        typeof value[1] === "number"
-      ) {
-
-        result.push(value);
-
-        return;
-      }
-
-      value.forEach(walk);
-    }
-
-    if (geometry) {
-      walk(geometry.coordinates);
-    }
-
-    return result;
-  }
-
-
-  /* =====================================================
-     BOUNDS
-  ===================================================== */
-
-  function getBounds(features) {
-
-    let minLon = Infinity;
-    let maxLon = -Infinity;
-
-    let minLat = Infinity;
-    let maxLat = -Infinity;
-
-    features.forEach(feature => {
-
-      const coords =
-        getCoordinates(
-          feature.geometry
-        );
-
-      coords.forEach(
-        ([lon, lat]) => {
-
-          minLon =
-            Math.min(
-              minLon,
-              lon
-            );
-
-          maxLon =
-            Math.max(
-              maxLon,
-              lon
-            );
-
-          minLat =
-            Math.min(
-              minLat,
-              lat
-            );
-
-          maxLat =
-            Math.max(
-              maxLat,
-              lat
-            );
-
-        }
-      );
-
-    });
-
-    return {
-      minLon,
-      maxLon,
-      minLat,
-      maxLat
-    };
-  }
-
-
-  /* =====================================================
-     PROJECTOR
-  ===================================================== */
-
-  function createProjector(
-    features,
-    forcedBounds = null
-  ) {
-
-    const bounds =
-      forcedBounds ||
-      getBounds(features);
-
-    const W = 1200;
-
-    const H = 650;
-
-    const padding = 35;
-
-    const lonRange =
-      Math.max(
-        bounds.maxLon -
-        bounds.minLon,
-        0.001
-      );
-
-    const latRange =
-      Math.max(
-        bounds.maxLat -
-        bounds.minLat,
-        0.001
-      );
-
-    const scaleX =
-      (W - padding * 2) /
-      lonRange;
-
-    const scaleY =
-      (H - padding * 2) /
-      latRange;
-
-    const scale =
-      Math.min(
-        scaleX,
-        scaleY
-      );
-
-    const width =
-      lonRange * scale;
-
-    const height =
-      latRange * scale;
-
-    const offsetX =
-      (W - width) / 2;
-
-    const offsetY =
-      (H - height) / 2;
-
-
-    return function project(
-      lon,
-      lat
-    ) {
-
-      return {
-
-        x:
-          offsetX +
-          (lon - bounds.minLon) *
-          scale,
-
-        y:
-          H -
-          offsetY -
-          (lat - bounds.minLat) *
-          scale
-
-      };
-
-    };
-  }
-
-
-  /* =====================================================
-     PATH
-  ===================================================== */
-
-  function ringPath(
-    ring,
-    project
-  ) {
-
-    if (
-      !ring ||
-      !ring.length
-    ) {
-      return "";
-    }
-
-    return (
-      ring
-        .map(
-          ([lon, lat], index) => {
-
-            const p =
-              project(
-                lon,
-                lat
-              );
-
-            return `${
-              index === 0
-                ? "M"
-                : "L"
-            } ${p.x} ${p.y}`;
-
-          }
-        )
-        .join(" ")
-      + " Z"
-    );
-  }
-
-
-  function geometryPath(
-    geometry,
-    project
-  ) {
-
-    if (!geometry) {
-      return "";
-    }
-
-
-    if (
-      geometry.type ===
-      "Polygon"
-    ) {
-
-      return geometry.coordinates
-        .map(
-          ring =>
-            ringPath(
-              ring,
-              project
-            )
-        )
-        .join(" ");
-
-    }
-
-
-    if (
-      geometry.type ===
-      "MultiPolygon"
-    ) {
-
-      return geometry.coordinates
-        .flat()
-        .map(
-          ring =>
-            ringPath(
-              ring,
-              project
-            )
-        )
-        .join(" ");
-
-    }
-
-
-    return "";
-  }
-
-
-  /* =====================================================
-     SVG
-  ===================================================== */
-
-  function svg(name) {
-
-    return document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      name
-    );
-  }
-
-
-  /* =====================================================
-     WORLD MAP
-  ===================================================== */
-
-  function renderWorld() {
-
-    if (!worldGeoJSON) {
-      return;
-    }
-
-    mapMode =
-      "world";
-
-    indiaZoom =
-      false;
-
-    mapSvg.innerHTML = "";
-
-    const features =
-      worldGeoJSON.features || [];
-
-    const project =
-      createProjector(features);
-
-
-    features.forEach(
-      feature => {
-
-        const country =
-          getCountryName(feature);
-
-        const count =
-          countryCount(country);
-
-
-        const path =
-          svg("path");
-
-        path.setAttribute(
-          "d",
-          geometryPath(
-            feature.geometry,
-            project
-          )
-        );
-
-        path.classList.add(
-          "map-area"
-        );
-
-
-        if (
-          normalize(country) ===
-          normalize(
-            currentCountry
-          )
-        ) {
-
-          path.classList.add(
-            "active-area"
-          );
-        }
-
-
-        if (count === 0) {
-
-          path.style.fill =
-            COLORS.empty;
-
-        } else if (count === 1) {
-
-          path.style.fill =
-            COLORS.one;
-
-        } else {
-
-          path.style.fill =
-            COLORS.many;
-
-        }
-
-
-        path.addEventListener(
-          "mouseenter",
-          () => {
-
-            hoverName.textContent =
-              `${country} • ${count} ${
-                count === 1
-                  ? "person"
-                  : "people"
-              }`;
-
-          }
-        );
-
-
-        path.addEventListener(
-          "mouseleave",
-          () => {
-
-            hoverName.textContent =
-              "Click India to explore";
-
-          }
-        );
-
-
-        path.addEventListener(
-          "click",
-          async () => {
-
-            if (
-              normalize(country) ===
-              "india"
-            ) {
-
-              await zoomIntoIndia();
-
-            } else {
-
-              selectCountry(
-                country
-              );
-
-            }
-
-          }
-        );
-
-
-        mapSvg.appendChild(path);
-
-
-        /*
-          People dot
-        */
-
-        if (count > 0) {
-
-          const coords =
-            getCoordinates(
-              feature.geometry
-            );
-
-          if (coords.length) {
-
-            let lon = 0;
-
-            let lat = 0;
-
-            coords.forEach(
-              ([x, y]) => {
-
-                lon += x;
-
-                lat += y;
-
-              }
-            );
-
-            lon /=
-              coords.length;
-
-            lat /=
-              coords.length;
-
-
-            const p =
-              project(
-                lon,
-                lat
-              );
-
-
-            const circle =
-              svg("circle");
-
-            circle.setAttribute(
-              "cx",
-              p.x
-            );
-
-            circle.setAttribute(
-              "cy",
-              p.y
-            );
-
-            circle.setAttribute(
-              "r",
-              count > 1
-                ? "6"
-                : "4"
-            );
-
-            circle.classList.add(
-              "person-dot"
-            );
-
-
-            circle.addEventListener(
-              "click",
-              event => {
-
-                event.stopPropagation();
-
-                if (
-                  normalize(country) ===
-                  "india"
-                ) {
-
-                  zoomIntoIndia();
-
-                }
-
-              }
-            );
-
-
-            mapSvg.appendChild(
-              circle
-            );
-
-          }
-
-        }
-
-      }
-    );
-
-
-    mapTitle.textContent =
-      "World Map";
-
-    mapHint.textContent =
-      "Click India to explore Tamil Nadu";
-
-    backWorld.classList.add(
-      "hidden"
-    );
-
-    mapLoading.classList.add(
-      "hidden"
-    );
-  }
-
-
-  /* =====================================================
-     LOAD TAMIL NADU DATA
-     WITHOUT CHANGING THE MAP PAGE
-  ===================================================== */
-
-  async function loadTamilNadu() {
-
-    if (tamilNaduGeoJSON) {
-      return true;
-    }
-
-
-    try {
-
-      const response =
-        await fetch(
-          TN_URL
-        );
-
-
-      if (!response.ok) {
-
-        throw new Error(
-          "Tamil Nadu GeoJSON failed"
-        );
-
-      }
-
-
-      tamilNaduGeoJSON =
-        await response.json();
-
-
-      return true;
-
-    } catch (error) {
-
-      console.error(
-        "Tamil Nadu GeoJSON error:",
-        error
-      );
-
-      return false;
-
-    }
-  }
-
-
-  /* =====================================================
-     INDIA ZOOM
-  ===================================================== */
-
-  async function zoomIntoIndia() {
-
-    currentCountry =
-      "India";
-
-    currentDistrict =
-      "";
-
-    selectedCountry.textContent =
-      "India";
-
-    selectedDistrict.textContent =
-      "Tamil Nadu";
-
-
-    mapLoading.classList.remove(
-      "hidden"
-    );
-
-
-    const loaded =
-      await loadTamilNadu();
-
-
-    if (!loaded) {
-
-      mapLoading.classList.add(
-        "hidden"
-      );
-
-      hoverName.textContent =
-        "Tamil Nadu district data could not be loaded";
-
-      return;
-    }
-
-
-    /*
-      IMPORTANT:
-
-      We are NOT replacing the World page.
-
-      We draw Tamil Nadu district
-      boundaries inside the SAME SVG.
-    */
-
-    indiaZoom = true;
-
-    mapMode =
-      "india";
-
-
-    mapSvg.innerHTML = "";
-
-
-    /*
-      Use Tamil Nadu bounds.
-
-      This makes the existing world
-      map canvas zoom into Tamil Nadu.
-    */
-
-    const tnFeatures =
-      tamilNaduGeoJSON.features || [];
-
-
-    const tnBounds =
-      getBounds(
-        tnFeatures
-      );
-
-
-    const project =
-      createProjector(
-        tnFeatures,
-        tnBounds
-      );
-
-
-    /*
-      Draw Tamil Nadu districts
-      inside the same world SVG.
-    */
-
-    tnFeatures.forEach(
-      feature => {
-
-        const district =
-          getDistrictName(
-            feature
-          );
-
-        const count =
-          districtCount(
-            district
-          );
-
-
-        const path =
-          svg("path");
-
-
-        path.setAttribute(
-          "d",
-          geometryPath(
-            feature.geometry,
-            project
-          )
-        );
-
-
-        path.classList.add(
-          "map-area",
-          "district-area"
-        );
-
-
-        if (
-          normalizeDistrict(
-            district
-          ) ===
-          normalizeDistrict(
-            currentDistrict
-          )
-        ) {
-
-          path.classList.add(
-            "active-area"
-          );
-
-        }
-
-
-        if (count === 0) {
-
-          path.style.fill =
-            COLORS.empty;
-
-        } else if (count === 1) {
-
-          path.style.fill =
-            COLORS.one;
-
-        } else {
-
-          path.style.fill =
-            COLORS.many;
-
-        }
-
-
-        path.addEventListener(
-          "mouseenter",
-          () => {
-
-            hoverName.textContent =
-              `${district} • ${count} ${
-                count === 1
-                  ? "person"
-                  : "people"
-              }`;
-
-          }
-        );
-
-
-        path.addEventListener(
-          "mouseleave",
-          () => {
-
-            hoverName.textContent =
-              currentDistrict
-                ? `${currentDistrict} selected`
-                : "Click a Tamil Nadu district";
-
-          }
-        );
-
-
-        path.addEventListener(
-          "click",
-          () => {
-
-            selectDistrict(
-              district
-            );
-
-          }
-        );
-
-
-        mapSvg.appendChild(
-          path
-        );
-
-
-        /*
-          District label
-        */
-
-        const coords =
-          getCoordinates(
-            feature.geometry
-          );
-
-
-        if (coords.length) {
-
-          let lon = 0;
-
-          let lat = 0;
-
-
-          coords.forEach(
-            ([x, y]) => {
-
-              lon += x;
-
-              lat += y;
-
-            }
-          );
-
-
-          lon /=
-            coords.length;
-
-          lat /=
-            coords.length;
-
-
-          const p =
-            project(
-              lon,
-              lat
-            );
-
-
-          const label =
-            svg("text");
-
-
-          label.setAttribute(
-            "x",
-            p.x
-          );
-
-
-          label.setAttribute(
-            "y",
-            p.y
-          );
-
-
-          label.setAttribute(
-            "text-anchor",
-            "middle"
-          );
-
-
-          label.classList.add(
-            "district-label"
-          );
-
-
-          label.textContent =
-            district;
-
-
-          mapSvg.appendChild(
-            label
-          );
-
-
-          /*
-            Person dot
-          */
-
-          if (count > 0) {
-
-            const dot =
-              svg("circle");
-
-
-            dot.setAttribute(
-              "cx",
-              p.x
-            );
-
-
-            dot.setAttribute(
-              "cy",
-              p.y + 12
-            );
-
-
-            dot.setAttribute(
-              "r",
-              count > 1
-                ? "6"
-                : "4"
-            );
-
-
-            dot.classList.add(
-              "person-dot"
-            );
-
-
-            mapSvg.appendChild(
-              dot
-            );
-
-          }
-
-        }
-
-      }
-    );
-
-
-    mapTitle.textContent =
-      "India • Tamil Nadu";
-
-    mapHint.textContent =
-      "Click a Tamil Nadu district to show people";
-
-    backWorld.classList.remove(
-      "hidden"
-    );
-
-
-    mapLoading.classList.add(
-      "hidden"
-    );
-
-
-    filterPeople();
-  }
-
-
-  /* =====================================================
-     COUNTRY SELECT
-  ===================================================== */
-
-  function selectCountry(
-    country
-  ) {
-
-    currentCountry =
-      country;
-
-    currentDistrict =
-      "";
-
-
-    selectedCountry.textContent =
-      country;
-
-    selectedDistrict.textContent =
-      "";
-
-
-    filterPeople();
-
-
-    hoverName.textContent =
-      `${country} selected`;
-
-  }
-
-
-  /* =====================================================
-     DISTRICT SELECT
-  ===================================================== */
-
-  function selectDistrict(
-    district
-  ) {
-
-    currentCountry =
-      "India";
-
-    currentDistrict =
-      district;
-
-
-    selectedCountry.textContent =
-      "India";
-
-
-    selectedDistrict.textContent =
-      `• ${district}`;
-
-
-    filterPeople();
-
-
-    /*
-      Re-render same zoomed map
-      so selected district becomes orange.
-    */
-
-    zoomIntoIndia();
 
   }
 
@@ -1826,222 +868,254 @@ const categories = [...new Set(people.map((p) => p.category))].sort();
      FILTER PEOPLE
   ===================================================== */
 
-  function filterPeople() {
+  function getFilteredPeople() {
 
     const search =
-      personSearch.value
-        .trim()
-        .toLowerCase();
-
+      normalize(
+        searchInput.value
+      );
 
     const city =
-      citySelect.value;
+      normalize(
+        citySelect.value
+      );
 
+    const department =
+      normalize(
+        departmentSelect.value
+      );
 
-    const rows =
-      peopleList.querySelectorAll(
-        ".person-row"
+    const selectedExpertise =
+      normalize(
+        expertiseSelect.value
       );
 
 
-    let count =
-      0;
+    return people.filter(person => {
 
-
-    rows.forEach(
-      row => {
-
-        const country =
-          row.dataset.country || "";
-
-        const district =
-          row.dataset.district || "";
-
-        const rowCity =
-          row.dataset.city || "";
-
-        const category =
-          row.dataset.category || "";
-
-        const searchText =
-          row.dataset.search
-            ?.toLowerCase() || "";
-
-
-        const countryMatch =
-          !currentCountry ||
-          normalize(
-            country
-          ) ===
-          normalize(
-            currentCountry
-          );
-
-
-        const districtMatch =
-          !currentDistrict ||
-          normalizeDistrict(
-            district
-          ) ===
-          normalizeDistrict(
-            currentDistrict
-          );
-
-
-        const searchMatch =
-          !search ||
-          searchText.includes(
-            search
-          );
-
-
-        const cityMatch =
-          !city ||
-          rowCity === city;
-
-
-        const categoryMatch =
-          !currentCategory ||
-          category ===
-          currentCategory;
-
-
-        const visible =
-          countryMatch &&
-          districtMatch &&
-          searchMatch &&
-          cityMatch &&
-          categoryMatch;
-
-
-        row.classList.toggle(
-          "hidden-row",
-          !visible
+      const text =
+        normalize(
+          [
+            person.name,
+            person.country,
+            person.state,
+            person.city,
+            person.district,
+            person.department,
+            person.expertise,
+            person.category,
+            person.branch,
+            person.address,
+            person.pullQuote,
+            ...(person.tags || [])
+          ].join(" ")
         );
 
 
-        if (visible) {
-          count++;
-        }
+      return (
 
-      }
-    );
+        (!search ||
+          text.includes(search))
 
+        &&
 
-    resultCount.textContent =
-      count;
+        (!city ||
+          normalize(person.city) === city)
 
+        &&
 
-    emptyState.classList.toggle(
-      "show",
-      count === 0
-    );
+        (!department ||
+          normalize(person.department) === department)
+
+        &&
+
+        (!selectedExpertise ||
+          normalize(person.expertise) === selectedExpertise)
+
+        &&
+
+        (!selectedCategory ||
+          normalize(person.category) ===
+          normalize(selectedCategory))
+
+        &&
+
+        (!selectedState ||
+          normalize(person.state) ===
+          normalize(selectedState))
+
+        &&
+
+        (!selectedDistrict ||
+          normalize(person.district) ===
+          normalize(selectedDistrict))
+
+      );
+
+    });
+
   }
 
 
   /* =====================================================
-     PERSON DETAILS
+     RENDER PEOPLE
   ===================================================== */
 
-  function showPerson(id) {
+  function renderPeople() {
 
-    const person =
-      people.find(
-        p =>
-          String(p.id) ===
-          String(id)
+    visiblePeople =
+      getFilteredPeople();
+
+
+    resultCount.textContent =
+      visiblePeople.length;
+
+
+    peopleList.innerHTML =
+      "";
+
+
+    visiblePeople.forEach(person => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        "person-card";
+
+
+      button.type =
+        "button";
+
+
+      button.innerHTML = `
+
+        <div class="person-avatar">
+
+          ${
+            person.image
+
+              ? `
+                <img
+                  src="${person.image}"
+                  alt="${person.name}"
+                  loading="lazy"
+                />
+              `
+
+              : `
+                <span>
+                  ${person.name.charAt(0)}
+                </span>
+              `
+          }
+
+        </div>
+
+
+        <div class="person-card-info">
+
+          <strong>
+            ${person.name}
+          </strong>
+
+          <span>
+            ${person.city}
+          </span>
+
+          <small>
+            ${person.department}
+          </small>
+
+        </div>
+
+      `;
+
+
+      button.addEventListener(
+        "click",
+        () => showPerson(person)
       );
 
 
-    if (!person) {
-      return;
-    }
+      peopleList.appendChild(
+        button
+      );
+
+    });
 
 
-    detailAvatar.textContent =
-      person.name.charAt(0);
+    updateGlobePoints();
 
+  }
+
+
+  /* =====================================================
+     SHOW PERSON
+  ===================================================== */
+
+  function showPerson(person) {
 
     detailName.textContent =
       person.name;
 
-
     detailCategory.textContent =
       person.category;
 
+    detailQuote.textContent =
+      person.pullQuote;
 
-    detailCompany.textContent =
-      person.company;
+    detailCity.textContent =
+      `📍 ${person.city}`;
 
+    detailDepartment.textContent =
+      `• ${person.department}`;
 
-    detailLocation.textContent =
-      `${person.city}, ${person.district}, ${person.country}`;
-
-
-    detailPhone.textContent =
-      person.phone;
-
-
-    detailEmail.textContent =
-      person.email;
+    detailExpertise.textContent =
+      `• ${person.expertise}`;
 
 
-    detailDescription.textContent =
-      person.description;
+    if (person.image) {
+
+      detailImage.src =
+        person.image;
+
+      detailImage.alt =
+        person.name;
+
+      detailImage.style.display =
+        "block";
+
+    } else {
+
+      detailImage.style.display =
+        "none";
+
+    }
 
 
-    callBtn.href =
-      `tel:${person.phone.replace(
-        /\s/g,
-        ""
-      )}`;
-
-
-    emailBtn.href =
-      `mailto:${person.email}`;
-
-
-    details.classList.remove(
+    personDetails.classList.remove(
       "hidden"
     );
-  }
 
 
-  /* =====================================================
-     PERSON CLICK
-  ===================================================== */
-
-  document
-    .querySelectorAll(
-      ".person-row"
-    )
-    .forEach(
-      row => {
-
-        row.addEventListener(
-          "click",
-          () => {
-
-            showPerson(
-              row.dataset.id
-            );
-
-          }
-        );
-
-      }
+    focusLocation(
+      person.lat,
+      person.lng,
+      4
     );
 
+  }
 
-  /* =====================================================
-     CLOSE DETAILS
-  ===================================================== */
 
   closeDetails.addEventListener(
     "click",
     () => {
 
-      details.classList.add(
+      personDetails.classList.add(
         "hidden"
       );
 
@@ -2050,38 +1124,351 @@ const categories = [...new Set(people.map((p) => p.category))].sort();
 
 
   /* =====================================================
-     CATEGORY
+     GLOBE
   ===================================================== */
 
-  chips.forEach(
-    chip => {
+  const globe =
+    Globe()(container)
 
-      chip.addEventListener(
-        "click",
-        () => {
+      .backgroundColor(
+        "#101914"
+      )
 
-          chips.forEach(
-            c =>
-              c.classList.remove(
-                "active"
-              )
-          );
+      .globeImageUrl(
+        "https://unpkg.com/three-globe/example/img/earth-night.jpg"
+      )
+
+      .bumpImageUrl(
+        "https://unpkg.com/three-globe/example/img/earth-topology.png"
+      )
+
+      .showAtmosphere(
+        true
+      )
+
+      .atmosphereColor(
+        "#8da99a"
+      )
+
+      .atmosphereAltitude(
+        0.15
+      );
 
 
-          chip.classList.add(
-            "active"
-          );
+  /* =====================================================
+     POINT SETTINGS
+  ===================================================== */
 
+  globe
 
-          currentCategory =
-            chip.dataset.category ||
-            "";
+    .pointLat(
+      d => d.lat
+    )
 
+    .pointLng(
+      d => d.lng
+    )
 
-          filterPeople();
+    .pointColor(
+      () => "#86c997"
+    )
+
+    .pointRadius(
+      d => {
+
+        if (d.cluster) {
+          return 0.5;
+        }
+
+        return 0.35;
+
+      }
+    )
+
+    .pointAltitude(
+      0.01
+    )
+
+    .pointLabel(
+      d => {
+
+        if (d.cluster) {
+
+          return `
+            <div class="globe-tooltip">
+              <strong>${d.city}</strong>
+              <br />
+              ${d.count} PSGians
+            </div>
+          `;
 
         }
-      );
+
+
+        return `
+          <div class="globe-tooltip">
+            <strong>${d.name}</strong>
+            <br />
+            ${d.city}
+          </div>
+        `;
+
+      }
+    )
+
+    .onPointClick(
+      d => {
+
+        if (d.cluster) {
+
+          focusLocation(
+            d.lat,
+            d.lng,
+            4
+          );
+
+
+          if (mode === "world") {
+
+            selectedState =
+              "Tamil Nadu";
+
+            mode =
+              "india";
+
+            mapTitle.textContent =
+              "India";
+
+            backButton.classList.remove(
+              "hidden"
+            );
+
+            locationLabel.textContent =
+              "Tamil Nadu";
+
+          }
+
+          return;
+
+        }
+
+
+        showPerson(d);
+
+      }
+    );
+
+
+  /* =====================================================
+     LOCATION DATA
+  ===================================================== */
+
+  function createPoints() {
+
+    return visiblePeople.map(
+      person => ({
+        ...person,
+        cluster: false
+      })
+    );
+
+  }
+
+
+  function updateGlobePoints() {
+
+    globe.pointsData(
+      createPoints()
+    );
+
+
+    locationCount.textContent =
+      `${visiblePeople.length} PSGians`;
+
+  }
+
+
+  /* =====================================================
+     FOCUS GLOBE
+  ===================================================== */
+
+  function focusLocation(
+    lat,
+    lng,
+    altitude
+  ) {
+
+    globe.pointOfView(
+      {
+        lat,
+        lng,
+        altitude
+      },
+      1200
+    );
+
+  }
+
+
+  /* =====================================================
+     WORLD → INDIA
+  ===================================================== */
+
+  function enterIndia() {
+
+    mode =
+      "india";
+
+    selectedState =
+      "Tamil Nadu";
+
+    selectedDistrict =
+      "";
+
+
+    mapTitle.textContent =
+      "India";
+
+
+    locationLabel.textContent =
+      "India · Tamil Nadu";
+
+
+    locationCount.textContent =
+      `${visiblePeople.length} PSGians`;
+
+
+    backButton.classList.remove(
+      "hidden"
+    );
+
+
+    focusLocation(
+      20.5937,
+      78.9629,
+      1.7
+    );
+
+  }
+
+
+  /* =====================================================
+     INDIA → TAMIL NADU
+  ===================================================== */
+
+  function enterTamilNadu() {
+
+    mode =
+      "tamilNadu";
+
+    selectedState =
+      "Tamil Nadu";
+
+    selectedDistrict =
+      "";
+
+
+    mapTitle.textContent =
+      "Tamil Nadu";
+
+
+    locationLabel.textContent =
+      "Tamil Nadu · Explore districts";
+
+
+    backButton.classList.remove(
+      "hidden"
+    );
+
+
+    focusLocation(
+      11.1271,
+      78.6569,
+      0.75
+    );
+
+
+    renderPeople();
+
+  }
+
+
+  /* =====================================================
+     BACK
+  ===================================================== */
+
+  backButton.addEventListener(
+    "click",
+    () => {
+
+      if (
+        mode === "tamilNadu"
+      ) {
+
+        mode =
+          "india";
+
+        selectedDistrict =
+          "";
+
+        mapTitle.textContent =
+          "India";
+
+        locationLabel.textContent =
+          "India · Tamil Nadu";
+
+
+        focusLocation(
+          20.5937,
+          78.9629,
+          1.7
+        );
+
+
+        renderPeople();
+
+        return;
+
+      }
+
+
+      if (
+        mode === "india"
+      ) {
+
+        mode =
+          "world";
+
+        selectedState =
+          "";
+
+        selectedDistrict =
+          "";
+
+
+        mapTitle.textContent =
+          "World";
+
+
+        locationLabel.textContent =
+          "Explore the world";
+
+
+        backButton.classList.add(
+          "hidden"
+        );
+
+
+        focusLocation(
+          20,
+          0,
+          2.4
+        );
+
+
+        renderPeople();
+
+      }
 
     }
   );
@@ -2091,56 +1478,70 @@ const categories = [...new Set(people.map((p) => p.category))].sort();
      SEARCH
   ===================================================== */
 
-  personSearch.addEventListener(
+  searchInput.addEventListener(
     "input",
-    filterPeople
+    renderPeople
   );
 
-
-  /* =====================================================
-     CITY
-  ===================================================== */
 
   citySelect.addEventListener(
     "change",
-    filterPeople
+    renderPeople
+  );
+
+
+  departmentSelect.addEventListener(
+    "change",
+    renderPeople
+  );
+
+
+  expertiseSelect.addEventListener(
+    "change",
+    renderPeople
   );
 
 
   /* =====================================================
-     BACK TO WORLD
+     CATEGORY
   ===================================================== */
 
-  backWorld.addEventListener(
+  categoryChips.addEventListener(
     "click",
-    () => {
+    event => {
 
-      currentCountry =
-        "";
-
-      currentDistrict =
-        "";
-
-      indiaZoom =
-        false;
+      const button =
+        event.target.closest(
+          "[data-category]"
+        );
 
 
-      selectedCountry.textContent =
-        "All Countries";
+      if (!button) {
+        return;
+      }
 
 
-      selectedDistrict.textContent =
-        "";
+      selectedCategory =
+        button.dataset.category;
 
 
-      hoverName.textContent =
-        "Click India to explore";
+      categoryChips
+        .querySelectorAll(
+          ".category-chip"
+        )
+        .forEach(
+          chip => {
+
+            chip.classList.toggle(
+              "active",
+              chip === button
+            );
+
+          }
+        );
 
 
-      renderWorld();
-
-
-      filterPeople();
+      renderPeople();
 
     }
   );
@@ -2150,1175 +1551,852 @@ const categories = [...new Set(people.map((p) => p.category))].sort();
      RESET
   ===================================================== */
 
-  resetMap.addEventListener(
+  resetButton.addEventListener(
     "click",
     () => {
 
-      currentCountry =
+      searchInput.value =
         "";
-
-      currentDistrict =
-        "";
-
-      currentCategory =
-        "";
-
-
-      personSearch.value =
-        "";
-
 
       citySelect.value =
         "";
 
+      departmentSelect.value =
+        "";
 
-      chips.forEach(
-        chip =>
-          chip.classList.remove(
-            "active"
-          )
-      );
-
-
-      document
-        .querySelector(
-          '.chip[data-category=""]'
-        )
-        ?.classList.add(
-          "active"
-        );
-
-
-      selectedCountry.textContent =
-        "All Countries";
-
-
-      selectedDistrict.textContent =
+      expertiseSelect.value =
         "";
 
 
-      details.classList.add(
+      selectedCategory =
+        "";
+
+      selectedState =
+        "";
+
+      selectedDistrict =
+        "";
+
+
+      categoryChips
+        .querySelectorAll(
+          ".category-chip"
+        )
+        .forEach(
+          (chip, index) => {
+
+            chip.classList.toggle(
+              "active",
+              index === 0
+            );
+
+          }
+        );
+
+
+      mode =
+        "world";
+
+
+      mapTitle.textContent =
+        "World";
+
+
+      locationLabel.textContent =
+        "Explore the world";
+
+
+      backButton.classList.add(
         "hidden"
       );
 
 
-      renderWorld();
+      personDetails.classList.add(
+        "hidden"
+      );
 
 
-      filterPeople();
+      focusLocation(
+        20,
+        0,
+        2.4
+      );
+
+
+      renderPeople();
 
     }
   );
 
 
   /* =====================================================
-     LOAD WORLD
+     MAP INTERACTION
   ===================================================== */
 
-  async function loadWorld() {
+  container.addEventListener(
+    "dblclick",
+    event => {
 
-    try {
-
-      const response =
-        await fetch(
-          WORLD_URL
-        );
-
-
-      if (!response.ok) {
-        throw new Error(
-          "World GeoJSON failed"
-        );
-      }
-
-
-      worldGeoJSON =
-        await response.json();
-
-
-      renderWorld();
-
-
-      filterPeople();
-
-
-    } catch (error) {
-
-      console.error(
-        error
-      );
-
-
-      mapLoading.innerHTML = `
-        <div class="map-error">
-          <strong>Map loading failed</strong>
-          <span>Please refresh the page.</span>
-        </div>
-      `;
+      event.preventDefault();
 
     }
+  );
 
-  }
+
+  /* =====================================================
+     INITIAL LOADING
+  ===================================================== */
+
+  // IMPORTANT:
+  // Do NOT hide the loading element immediately.
+
+  globeLoading.classList.remove(
+    "hidden"
+  );
 
 
-  loadWorld();
+  loadingText.textContent =
+    "Loading globe...";
+
+
+  // Initial camera
+
+  globe.pointOfView(
+    {
+      lat: 20,
+      lng: 0,
+      altitude: 2.4
+    }
+  );
+
+
+  // Render people
+
+  renderPeople();
+
+
+  /*
+   * Give Globe.gl time to create the
+   * WebGL canvas and load the Earth texture.
+   */
+
+  setTimeout(
+    () => {
+
+      if (
+        globeLoading &&
+        !globeLoading.classList.contains("hidden")
+      ) {
+
+        loadingText.textContent =
+          "Loading map...";
+
+      }
+
+    },
+    500
+  );
+
+
+  /*
+   * Hide loader after initialization.
+   */
+
+  setTimeout(
+    () => {
+
+      globeLoading.classList.add(
+        "hidden"
+      );
+
+    },
+    1800
+  );
 
 </script>
 
 
-<style is:inline>
+<style>
+
+  /* =====================================================
+     GLOBAL
+  ===================================================== */
+
+  :global(html) {
+    background: #101914;
+  }
+
+
+  :global(body) {
+    margin: 0;
+    background: #101914;
+  }
+
 
   * {
     box-sizing: border-box;
   }
 
 
-  .world-directory {
-    width: 100%;
+  /* =====================================================
+     PAGE
+  ===================================================== */
+
+  .directory-page {
     min-height: 100vh;
-
-    display: grid;
-    grid-template-columns: 420px 1fr;
-
-    background:
-      radial-gradient(
-        circle at top right,
-        rgba(76, 175, 130, 0.08),
-        transparent 35%
-      ),
-      #f4f8f6;
-
-    color: #10251f;
-
-    font-family:
-      "Nunito Sans",
-      Arial,
-      sans-serif;
+    background: #101914;
+    color: #eef4ef;
   }
 
 
-  /* SIDEBAR */
+  /* =====================================================
+     HEADER
+  ===================================================== */
 
-  .sidebar {
-    position: relative;
-    z-index: 10;
-
-    height: 100vh;
-
-    overflow-y: auto;
-
-    padding: 30px 24px;
-
-    background: #ffffff;
-
-    border-right:
-      1px solid #dfe9e4;
-  }
-
-
-  .brand {
+  .directory-header {
+    padding: 34px 5vw 24px;
     display: flex;
-    align-items: center;
-
-    gap: 14px;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
 
 
-  .brand-icon {
-    width: 52px;
-    height: 52px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 16px;
-
-    background:
-      linear-gradient(
-        135deg,
-        #0f4c3a,
-        #4caf82
-      );
-
-    color: #fff;
-
-    font-size: 25px;
+  .eyebrow,
+  .map-eyebrow {
+    margin: 0 0 7px;
+    color: #91a198;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
   }
 
 
-  .brand h1 {
+  .directory-header h1 {
     margin: 0;
-
-    font-family:
-      "Outfit",
-      Arial,
-      sans-serif;
-
-    font-size: 25px;
+    font-size: clamp(28px, 4vw, 50px);
+    font-weight: 500;
+    letter-spacing: -0.04em;
   }
 
 
-  .brand p {
-    margin: 3px 0 0;
-
-    color: #789087;
-
-    font-size: 13px;
+  .subtitle {
+    margin: 10px 0 0;
+    color: #899890;
+    font-size: 14px;
   }
 
 
-  .stats {
+  .header-count {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+
+  .header-count strong {
+    font-size: 34px;
+  }
+
+
+  .header-count span {
+    color: #7e8b82;
+    font-size: 11px;
+  }
+
+
+  /* =====================================================
+     LAYOUT
+  ===================================================== */
+
+  .directory-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    margin: 26px 0;
-
-    padding: 16px;
-
-    border-radius: 16px;
-
-    background: #f3f8f5;
-
-    border:
-      1px solid #e0ebe6;
+    grid-template-columns: 300px minmax(0, 1fr);
+    min-height: calc(100vh - 130px);
   }
 
 
-  .stat {
-    text-align: center;
-  }
+  /* =====================================================
+     SIDEBAR
+  ===================================================== */
 
-
-  .stat + .stat {
-    border-left:
-      1px solid #dce7e2;
-  }
-
-
-  .stat strong {
-    display: block;
-
-    color: #0f4c3a;
-
-    font-size: 24px;
-  }
-
-
-  .stat span {
-    color: #7b8e86;
-
-    font-size: 12px;
+  .directory-sidebar {
+    padding: 25px;
+    background: rgba(255,255,255,0.025);
+    border-right: 1px solid rgba(255,255,255,0.07);
   }
 
 
   .search-box {
+    height: 44px;
     display: flex;
     align-items: center;
+    gap: 9px;
+    padding: 0 13px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 9px;
+    background: rgba(255,255,255,0.04);
+  }
 
-    gap: 10px;
 
-    height: 48px;
-
-    padding: 0 15px;
-
-    border:
-      1px solid #d8e4df;
-
-    border-radius: 14px;
-
-    background: #fff;
+  .search-box span {
+    color: #91a098;
+    font-size: 20px;
   }
 
 
   .search-box input {
     width: 100%;
-
     border: 0;
     outline: 0;
-
     background: transparent;
-
-    font-size: 14px;
+    color: #eef4ef;
+    font-size: 13px;
   }
 
 
-  .city-select {
-    width: 100%;
-
-    height: 46px;
-
-    margin-top: 12px;
-
-    padding: 0 13px;
-
-    border:
-      1px solid #d8e4df;
-
-    border-radius: 13px;
-
-    background: #fff;
-
-    color: #314d44;
+  .search-box input::placeholder {
+    color: #758279;
   }
 
 
-  .filter-title {
-    margin:
-      23px 0 10px;
+  .filter-group {
+    margin-top: 18px;
+  }
 
-    color: #6e837a;
 
-    font-size: 12px;
-
-    font-weight: 800;
-
+  .filter-group label,
+  .section-title {
+    display: block;
+    margin-bottom: 7px;
+    color: #7e8b83;
+    font-size: 10px;
+    font-weight: 700;
     text-transform: uppercase;
-
-    letter-spacing: 1px;
+    letter-spacing: 0.12em;
   }
 
 
-  .chips {
+  .filter-group select {
+    width: 100%;
+    height: 41px;
+    padding: 0 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    outline: 0;
+    background: #18221d;
+    color: #dce6df;
+  }
+
+
+  .category-section {
+    margin-top: 22px;
+  }
+
+
+  .category-chips {
     display: flex;
     flex-wrap: wrap;
-
-    gap: 7px;
-  }
-
-
-  .chip {
-    border:
-      1px solid #d6e4de;
-
-    background: #fff;
-
-    color: #527066;
-
-    padding:
-      7px 11px;
-
-    border-radius: 20px;
-
-    cursor: pointer;
-
-    font-size: 12px;
-  }
-
-
-  .chip.active {
-    background: #0f4c3a;
-
-    border-color: #0f4c3a;
-
-    color: #fff;
-  }
-
-
-  .list-header {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-top: 24px;
-    margin-bottom: 10px;
-
-    color: #45655a;
-
-    font-size: 13px;
-  }
-
-
-  .list-header > div {
-    display: flex;
-    flex-direction: column;
-
-    gap: 2px;
-  }
-
-
-  .list-header small {
-    color: #81938d;
-
-    font-size: 11px;
-  }
-
-
-  .list-header strong {
-    min-width: 30px;
-
-    padding: 4px 8px;
-
-    border-radius: 12px;
-
-    background: #e9f5ef;
-
-    color: #0f4c3a;
-
-    text-align: center;
-
-    font-size: 12px;
-  }
-
-
-  .people-list {
-    display: flex;
-    flex-direction: column;
-
-    gap: 7px;
-  }
-
-
-  .person-row {
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 11px;
-
-    border:
-      1px solid transparent;
-
-    border-radius: 14px;
-
-    background: #f8fbfa;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    transition:
-      0.18s;
-  }
-
-
-  .person-row:hover {
-    transform:
-      translateX(3px);
-
-    background: #eef8f3;
-
-    border-color: #d6e9df;
-  }
-
-
-  .person-row.hidden-row {
-    display: none;
-  }
-
-
-  .avatar {
-    flex: 0 0 auto;
-
-    width: 39px;
-    height: 39px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 12px;
-
-    background:
-      linear-gradient(
-        135deg,
-        #0f4c3a,
-        #72bb98
-      );
-
-    color: #fff;
-
-    font-weight: 700;
-  }
-
-
-  .person-info {
-    min-width: 0;
-    flex: 1;
-  }
-
-
-  .person-info strong {
-    display: block;
-
-    overflow: hidden;
-
-    color: #18332b;
-
-    font-size: 13px;
-
-    white-space: nowrap;
-
-    text-overflow: ellipsis;
-  }
-
-
-  .person-info span {
-    display: block;
-
-    margin-top: 3px;
-
-    overflow: hidden;
-
-    color: #7a8e86;
-
-    font-size: 11px;
-
-    white-space: nowrap;
-
-    text-overflow: ellipsis;
-  }
-
-
-  .person-info i {
-    font-style: normal;
-
-    margin:
-      0 4px;
-  }
-
-
-  .arrow {
-    color: #9bad a6;
-
-    font-size: 22px;
-  }
-
-
-  .empty-state {
-    display: none;
-
-    padding: 40px 15px;
-
-    text-align: center;
-
-    color: #758a81;
-  }
-
-
-  .empty-state.show {
-    display: block;
-  }
-
-
-  .empty-icon {
-    margin-bottom: 10px;
-
-    font-size: 30px;
-  }
-
-
-  .empty-state strong {
-    display: block;
-
-    color: #28473d;
-  }
-
-
-  .empty-state p {
-    font-size: 12px;
-
-    line-height: 1.6;
-  }
-
-
-  /* MAP */
-
-  .map-stage {
-    position: relative;
-
-    min-width: 0;
-
-    min-height: 100vh;
-
-    overflow: hidden;
-
-    background:
-      radial-gradient(
-        circle at center,
-        #ffffff,
-        #f2f8f5 55%,
-        #e9f2ee
-      );
-  }
-
-
-  .map-topbar {
-    position: absolute;
-
-    z-index: 20;
-
-    top: 24px;
-    left: 30px;
-    right: 30px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-  }
-
-
-  .map-title {
-    font-size: 23px;
-
-    font-weight: 700;
-
-    color: #123d30;
-  }
-
-
-  .hover-name {
-    margin-top: 3px;
-
-    color: #799087;
-
-    font-size: 12px;
-  }
-
-
-  .map-actions {
-    display: flex;
-
-    gap: 8px;
-  }
-
-
-  .map-btn {
-    border:
-      1px solid #d4e3dd;
-
-    border-radius: 12px;
-
-    padding:
-      9px 13px;
-
-    background:
-      rgba(
-        255,
-        255,
-        255,
-        0.92
-      );
-
-    color: #285247;
-
-    cursor: pointer;
-  }
-
-
-  .map-btn.hidden {
-    display: none;
-  }
-
-
-  .map {
-    position: absolute;
-
-    inset: 0;
-
-    display: grid;
-
-    place-items: center;
-
-    padding:
-      75px 30px 65px;
-  }
-
-
-  #mapSvg {
-    width: 100%;
-    height: 100%;
-
-    max-width: 1250px;
-
-    overflow: visible;
-  }
-
-
-  .map-area {
-    stroke:
-      rgba(
-        255,
-        255,
-        255,
-        0.95
-      );
-
-    stroke-width: 0.8;
-
-    vector-effect:
-      non-scaling-stroke;
-
-    cursor: pointer;
-
-    transition:
-      fill 0.2s,
-      stroke-width 0.2s;
-  }
-
-
-  .map-area:hover {
-    fill:
-      #f8c766 !important;
-
-    stroke:
-      #ffffff;
-
-    stroke-width: 1.8;
-  }
-
-
-  .map-area.active-area {
-    fill:
-      #f59e0b !important;
-
-    stroke:
-      #7b4a00;
-
-    stroke-width: 1.8;
-  }
-
-
-  .district-area {
-    stroke:
-      rgba(
-        255,
-        255,
-        255,
-        0.98
-      );
-
-    stroke-width: 1.2;
-  }
-
-
-  .district-label {
-    fill: #31564b;
-
-    font-family:
-      Arial,
-      sans-serif;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    text-shadow:
-      0 1px 2px #fff,
-      0 -1px 2px #fff,
-      1px 0 2px #fff,
-      -1px 0 2px #fff;
-
-    pointer-events: none;
-  }
-
-
-  .person-dot {
-    fill:
-      #0f4c3a;
-
-    stroke:
-      #fff;
-
-    stroke-width: 2;
-
-    pointer-events: none;
-  }
-
-
-  .map-loading {
-    position: absolute;
-
-    z-index: 30;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 12px;
-
-    color: #527066;
-
-    font-size: 13px;
-  }
-
-
-  .spinner {
-    width: 32px;
-    height: 32px;
-
-    border:
-      3px solid #dcebe4;
-
-    border-top-color:
-      #0f4c3a;
-
-    border-radius: 50%;
-
-    animation:
-      spin 0.8s linear infinite;
-  }
-
-
-  @keyframes spin {
-    to {
-      transform:
-        rotate(360deg);
-    }
-  }
-
-
-  .map-error {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-
-    text-align: center;
-
-    color: #9b4d35;
-  }
-
-
-  .legend {
-    position: absolute;
-
-    left: 30px;
-    bottom: 30px;
-
-    z-index: 15;
-
-    display: flex;
-
-    gap: 16px;
-
-    padding:
-      10px 13px;
-
-    border:
-      1px solid #dce7e2;
-
-    border-radius: 12px;
-
-    background:
-      rgba(
-        255,
-        255,
-        255,
-        0.9
-      );
-
-    color: #6c8178;
-
-    font-size: 11px;
-  }
-
-
-  .legend span {
-    display: flex;
-
-    align-items: center;
-
     gap: 6px;
   }
 
 
-  .legend-box {
-    width: 13px;
-    height: 13px;
-
-    display: inline-block;
-
-    border-radius: 4px;
-  }
-
-
-  .legend-box.none {
-    background:
-      #e6eee9;
-  }
-
-
-  .legend-box.one {
-    background:
-      #9ed7bb;
-  }
-
-
-  .legend-box.many {
-    background:
-      #4caf82;
-  }
-
-
-  .map-hint {
-    position: absolute;
-
-    right: 30px;
-    bottom: 32px;
-
-    z-index: 15;
-
-    color: #83948d;
-
+  .category-chip {
+    padding: 7px 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    background: transparent;
+    color: #8c9991;
+    cursor: pointer;
     font-size: 11px;
   }
 
 
-  /* DETAILS */
-
-  .details-card {
-    position: absolute;
-
-    z-index: 40;
-
-    top: 105px;
-    right: 30px;
-
-    width: 350px;
-
-    display: flex;
-
-    gap: 14px;
-
-    padding: 20px;
-
-    border:
-      1px solid #dce8e2;
-
-    border-radius: 20px;
-
-    background:
-      rgba(
-        255,
-        255,
-        255,
-        0.97
-      );
-
-    box-shadow:
-      0 20px 55px
-      rgba(
-        20,
-        65,
-        52,
-        0.15
-      );
+  .category-chip.active {
+    background: #80bd91;
+    border-color: #80bd91;
+    color: #102016;
   }
 
 
-  .details-card.hidden {
-    display: none;
+  .reset-button {
+    width: 100%;
+    height: 40px;
+    margin-top: 22px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    background: transparent;
+    color: #9aa69f;
+    cursor: pointer;
+  }
+
+
+  .result-count {
+    margin-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: #77857c;
+    font-size: 11px;
+  }
+
+
+  .result-count strong {
+    color: #c8d5cc;
+  }
+
+
+  .people-list {
+    max-height: 390px;
+    margin-top: 8px;
+    overflow-y: auto;
+  }
+
+
+  .person-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: transparent;
+    color: #dfe8e2;
+    text-align: left;
+    cursor: pointer;
+  }
+
+
+  .person-card:hover {
+    background: rgba(255,255,255,0.025);
+  }
+
+
+  .person-avatar {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #29362e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #91c19e;
+    font-weight: 700;
+  }
+
+
+  .person-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
+  .person-card-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .person-card-info strong {
+    font-size: 12px;
+  }
+
+
+  .person-card-info span,
+  .person-card-info small {
+    margin-top: 2px;
+    color: #77847b;
+    font-size: 10px;
+  }
+
+
+  /* =====================================================
+     MAP
+  ===================================================== */
+
+  .map-section {
+    position: relative;
+    min-width: 0;
+    padding: 25px 30px 40px;
+  }
+
+
+  .map-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  .map-topbar h2 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 500;
+  }
+
+
+  .back-button {
+    padding: 8px 13px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    color: #aebbb2;
+    cursor: pointer;
+  }
+
+
+  .back-button:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+
+  .hidden {
+    display: none !important;
+  }
+
+
+  /* =====================================================
+     GLOBE CONTAINER
+  ===================================================== */
+
+  .globe-container {
+    position: relative;
+    width: 100%;
+    height: min(72vh, 720px);
+    min-height: 500px;
+    margin-top: 12px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #101914;
+  }
+
+
+  .globe-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+  }
+
+
+  /* =====================================================
+     GLOBE LOADING
+  ===================================================== */
+
+  .globe-loading {
+    position: absolute;
+
+    z-index: 50;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px 17px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    border-radius: 999px;
+
+    background: rgba(8,14,10,0.94);
+
+    color: #b9c7be;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    box-shadow:
+      0 10px 35px rgba(0,0,0,0.35);
+
+    pointer-events: none;
+  }
+
+
+  .loading-spinner {
+    width: 14px;
+    height: 14px;
+
+    flex: 0 0 14px;
+
+    border: 2px solid rgba(255,255,255,0.18);
+
+    border-top-color: #80bd91;
+
+    border-radius: 50%;
+
+    animation:
+      globe-loading-spin
+      0.8s
+      linear
+      infinite;
+  }
+
+
+  @keyframes globe-loading-spin {
+
+    to {
+      transform: rotate(360deg);
+    }
+
+  }
+
+
+  /* =====================================================
+     CROSSHAIR
+  ===================================================== */
+
+  .globe-crosshair {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    top: 50%;
+    width: 42px;
+    height: 42px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0.28;
+  }
+
+
+  .globe-crosshair::before,
+  .globe-crosshair::after {
+    content: "";
+    position: absolute;
+    background: #9bc9a5;
+  }
+
+
+  .globe-crosshair::before {
+    left: 20px;
+    top: 0;
+    width: 1px;
+    height: 42px;
+  }
+
+
+  .globe-crosshair::after {
+    top: 20px;
+    left: 0;
+    width: 42px;
+    height: 1px;
+  }
+
+
+  /* =====================================================
+     LOCATION LABEL
+  ===================================================== */
+
+  .location-label {
+    position: absolute;
+    z-index: 5;
+    left: 22px;
+    bottom: 22px;
+    padding: 9px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(10,17,13,0.82);
+    color: #b9c7be;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+
+  .location-count {
+    position: absolute;
+    z-index: 5;
+    right: 22px;
+    bottom: 22px;
+    padding: 9px 13px;
+    border-radius: 999px;
+    background: rgba(10,17,13,0.82);
+    color: #84c493;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+
+  .map-hint {
+    margin-top: 10px;
+    color: #65736b;
+    font-size: 11px;
+  }
+
+
+  /* =====================================================
+     DETAIL
+  ===================================================== */
+
+  .person-details {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 13px;
+    background: rgba(255,255,255,0.04);
+  }
+
+
+  .person-details > img {
+    width: 100px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 9px;
+  }
+
+
+  .detail-category {
+    margin: 0 0 5px;
+    color: #80bd91;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+
+  .person-details h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+
+  .detail-quote {
+    max-width: 600px;
+    margin: 10px 0;
+    color: #8d9b92;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+
+  .detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: #79877e;
+    font-size: 10px;
   }
 
 
   .close-details {
     position: absolute;
-
-    top: 9px;
-    right: 9px;
-
-    width: 30px;
-    height: 30px;
-
+    right: 10px;
+    top: 7px;
     border: 0;
-
-    border-radius: 50%;
-
-    background: #eef4f1;
-
-    color: #557068;
-
-    font-size: 20px;
-
+    background: transparent;
+    color: #7c8a81;
+    font-size: 22px;
     cursor: pointer;
   }
 
 
-  .details-avatar {
-    flex: 0 0 auto;
+  /* =====================================================
+     TOOLTIP
+  ===================================================== */
 
-    width: 52px;
-    height: 52px;
-
-    display: grid;
-
-    place-items: center;
-
-    border-radius: 16px;
-
-    background:
-      linear-gradient(
-        135deg,
-        #0f4c3a,
-        #4caf82
-      );
-
-    color: #fff;
-
-    font-size: 22px;
-
-    font-weight: 700;
+  :global(.globe-tooltip) {
+    padding: 8px 10px;
+    border-radius: 7px;
+    background: rgba(8,14,10,0.94);
+    color: #dfe9e2;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
   }
 
 
-  .details-main {
-    min-width: 0;
+  /* =====================================================
+     FOOTER
+  ===================================================== */
 
-    padding-right: 10px;
-  }
-
-
-  .details-main h2 {
-    margin: 0;
-
-    color: #173c31;
-
-    font-size: 19px;
-  }
-
-
-  .details-main > p {
-    margin:
-      3px 0 14px;
-
-    color: #699080;
-
-    font-size: 12px;
-  }
-
-
-  .detail-line {
+  .directory-footer {
     display: flex;
-
-    gap: 8px;
-
-    margin: 8px 0;
-
-    color: #506b61;
-
-    font-size: 12px;
+    justify-content: space-between;
+    padding: 20px 5vw;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    color: #657169;
+    font-size: 10px;
   }
 
 
-  .detail-description {
-    margin-top: 13px !important;
-
-    color: #71857e !important;
-
-    line-height: 1.55;
-
-    font-size: 12px !important;
-  }
-
-
-  .detail-actions {
-    display: flex;
-
-    gap: 8px;
-
-    margin-top: 14px;
-  }
-
-
-  .action-btn {
-    flex: 1;
-
-    padding:
-      9px 12px;
-
-    border-radius: 10px;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    font-size: 12px;
-
-    font-weight: 700;
-  }
-
-
-  .action-btn.call {
-    background:
-      #e8f5ee;
-
-    color:
-      #0f4c3a;
-  }
-
-
-  .action-btn.email {
-    background:
-      #0f4c3a;
-
-    color:
-      #fff;
-  }
-
+  /* =====================================================
+     MOBILE
+  ===================================================== */
 
   @media (max-width: 900px) {
 
-    .world-directory {
-      grid-template-columns:
-        340px 1fr;
+    .directory-layout {
+      grid-template-columns: 1fr;
     }
 
-    .sidebar {
-      padding:
-        22px 17px;
+
+    .directory-sidebar {
+      border-right: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
 
-    .details-card {
-      width: 310px;
+
+    .people-list {
+      max-height: 260px;
+    }
+
+
+    .globe-container {
+      min-height: 430px;
+      height: 55vh;
     }
 
   }
 
 
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
 
-    .world-directory {
-      display: block;
+    .directory-header {
+      padding: 25px 18px;
     }
 
-    .sidebar {
-      height: auto;
 
-      max-height: 55vh;
-
-      border-right: 0;
-
-      border-bottom:
-        1px solid #dfe9e4;
+    .directory-header h1 {
+      font-size: 30px;
     }
 
-    .map-stage {
-      min-height: 65vh;
 
-      height: 65vh;
+    .directory-sidebar {
+      padding: 20px;
     }
 
-    .map {
-      padding:
-        70px 10px 50px;
+
+    .map-section {
+      padding: 20px 12px 30px;
     }
 
-    .map-hint {
-      display: none;
+
+    .globe-container {
+      min-height: 380px;
+      height: 55vh;
+      border-radius: 12px;
     }
 
-    .details-card {
-      left: 15px;
-      right: 15px;
 
-      width: auto;
+    .person-details {
+      flex-direction: column;
+    }
+
+
+    .directory-footer {
+      flex-direction: column;
+      gap: 7px;
     }
 
   }
