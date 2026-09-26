@@ -701,9 +701,6 @@ const categories = [...new Set(people.map(p => p.category))].sort();
   categories
 }}>
 
-  import Globe from "globe.gl";
-
-
   /* =====================================================
      ELEMENTS
   ===================================================== */
@@ -848,6 +845,8 @@ const categories = [...new Set(people.map(p => p.category))].sort();
 
 
   let visiblePeople = [...people];
+
+  let globe = null;
 
 
   /* =====================================================
@@ -1127,32 +1126,34 @@ const categories = [...new Set(people.map(p => p.category))].sort();
      GLOBE
   ===================================================== */
 
-  const globe =
-    Globe()(container)
+  function buildGlobe(Globe) {
 
-      .backgroundColor(
-        "#101914"
-      )
+    globe =
+      Globe()(container)
 
-      .globeImageUrl(
-        "https://unpkg.com/three-globe/example/img/earth-night.jpg"
-      )
+        .backgroundColor(
+          "#101914"
+        )
 
-      .bumpImageUrl(
-        "https://unpkg.com/three-globe/example/img/earth-topology.png"
-      )
+        .globeImageUrl(
+          "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+        )
 
-      .showAtmosphere(
-        true
-      )
+        .bumpImageUrl(
+          "https://unpkg.com/three-globe/example/img/earth-topology.png"
+        )
 
-      .atmosphereColor(
-        "#8da99a"
-      )
+        .showAtmosphere(
+          true
+        )
 
-      .atmosphereAltitude(
-        0.15
-      );
+        .atmosphereColor(
+          "#8da99a"
+        )
+
+        .atmosphereAltitude(
+          0.15
+        );
 
 
   /* =====================================================
@@ -1253,10 +1254,207 @@ const categories = [...new Set(people.map(p => p.category))].sort();
         }
 
 
+        // Clicking a person point opens that person's details.
         showPerson(d);
 
       }
+    )
+
+    // Clicking ANY area of the globe finds the nearest PSGian
+    // location and shows that area's people in the left panel.
+    .onGlobeClick(
+      coords => {
+
+        if (!coords) return;
+
+        // Any click on the actual globe surface selects that area.
+        // The closest PSGian city is then shown in the left panel.
+        showMapArea(
+          Number(coords.lat),
+          Number(coords.lng)
+        );
+
+      }
     );
+
+  }
+
+
+  /* =====================================================
+     MAP AREA CLICK
+  ===================================================== */
+
+  function distanceKm(
+    lat1,
+    lng1,
+    lat2,
+    lng2
+  ) {
+
+    const toRad =
+      value => value * Math.PI / 180;
+
+    const earthRadius = 6371;
+
+    const dLat =
+      toRad(lat2 - lat1);
+
+    const dLng =
+      toRad(lng2 - lng1);
+
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(lat1)) *
+      Math.cos(toRad(lat2)) *
+      Math.sin(dLng / 2) ** 2;
+
+    return (
+      2 *
+      earthRadius *
+      Math.atan2(
+        Math.sqrt(a),
+        Math.sqrt(1 - a)
+      )
+    );
+
+  }
+
+
+  function showMapArea(
+    lat,
+    lng
+  ) {
+
+    if (!people.length) {
+      return;
+    }
+
+
+    // Find the nearest real location represented by our directory data.
+    const nearest =
+      people.reduce(
+        (closest, person) => {
+
+          const distance =
+            distanceKm(
+              lat,
+              lng,
+              Number(person.lat),
+              Number(person.lng)
+            );
+
+          if (!closest || distance < closest.distance) {
+            return {
+              person,
+              distance
+            };
+          }
+
+          return closest;
+
+        },
+        null
+      );
+
+
+    if (!nearest || !nearest.person) {
+      return;
+    }
+
+
+    const areaPerson =
+      nearest.person;
+
+    const areaCity =
+      normalize(areaPerson.city);
+
+
+    // Clear text/category filters so the complete area's data is visible.
+    searchInput.value = "";
+    departmentSelect.value = "";
+    expertiseSelect.value = "";
+    selectedCategory = "";
+    selectedState = "";
+    selectedDistrict = "";
+
+    categoryChips
+      .querySelectorAll(
+        ".category-chip"
+      )
+      .forEach(
+        chip => {
+          chip.classList.toggle(
+            "active",
+            chip.dataset.category === ""
+          );
+        }
+      );
+
+
+    // Select the nearest city in the left-side city filter.
+    const cityOption =
+      Array.from(
+        citySelect.options
+      ).find(
+        option =>
+          normalize(option.value) === areaCity
+      );
+
+    citySelect.value =
+      cityOption
+        ? cityOption.value
+        : areaPerson.city;
+
+
+    visiblePeople =
+      people.filter(
+        person =>
+          normalize(person.city) === areaCity
+      );
+
+
+    mode =
+      areaPerson.state === "Tamil Nadu"
+        ? "tamilNadu"
+        : "india";
+
+    selectedState =
+      areaPerson.state || "";
+
+
+    mapTitle.textContent =
+      areaPerson.city;
+
+    locationLabel.textContent =
+      `${areaPerson.city} · ${areaPerson.state || areaPerson.country}`;
+
+    backButton.classList.remove(
+      "hidden"
+    );
+
+
+    // Animate the globe into a close-up of the clicked area.
+    // We use the nearest directory location so the selected area and
+    // the people shown in the left panel stay in sync.
+    focusLocation(
+      Number(areaPerson.lat),
+      Number(areaPerson.lng),
+      0.55,
+      1800
+    );
+
+
+    // Re-render the left panel with ONLY this area's people.
+    renderPeople();
+
+
+    // Bring the newly filtered area data into view on the left.
+    peopleList.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
+
+  }
 
 
   /* =====================================================
@@ -1277,6 +1475,8 @@ const categories = [...new Set(people.map(p => p.category))].sort();
 
   function updateGlobePoints() {
 
+    if (!globe) return;
+
     globe.pointsData(
       createPoints()
     );
@@ -1295,8 +1495,11 @@ const categories = [...new Set(people.map(p => p.category))].sort();
   function focusLocation(
     lat,
     lng,
-    altitude
+    altitude,
+    duration = 1200
   ) {
+
+    if (!globe) return;
 
     globe.pointOfView(
       {
@@ -1304,7 +1507,7 @@ const categories = [...new Set(people.map(p => p.category))].sort();
         lng,
         altitude
       },
-      1200
+      duration
     );
 
   }
@@ -1644,74 +1847,101 @@ const categories = [...new Set(people.map(p => p.category))].sort();
 
 
   /* =====================================================
-     INITIAL LOADING
+     INITIALIZE GLOBE AFTER CDN LOAD
   ===================================================== */
 
-  // IMPORTANT:
-  // Do NOT hide the loading element immediately.
+  function startGlobe() {
 
-  globeLoading.classList.remove(
-    "hidden"
-  );
+    globeLoading.classList.remove("hidden");
+    loadingText.textContent = "Loading globe...";
 
+    const existing = window.Globe;
 
-  loadingText.textContent =
-    "Loading globe...";
-
-
-  // Initial camera
-
-  globe.pointOfView(
-    {
-      lat: 20,
-      lng: 0,
-      altitude: 2.4
+    if (existing) {
+      buildGlobe(existing);
+      finishGlobeLoading();
+      return;
     }
-  );
 
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/globe.gl@2.43.0/dist/globe.gl.min.js";
+    script.async = true;
 
-  // Render people
-
-  renderPeople();
-
-
-  /*
-   * Give Globe.gl time to create the
-   * WebGL canvas and load the Earth texture.
-   */
-
-  setTimeout(
-    () => {
-
-      if (
-        globeLoading &&
-        !globeLoading.classList.contains("hidden")
-      ) {
-
-        loadingText.textContent =
-          "Loading map...";
-
+    script.onload = () => {
+      if (!window.Globe) {
+        showGlobeError();
+        return;
       }
 
-    },
-    500
-  );
+      buildGlobe(window.Globe);
+      finishGlobeLoading();
+    };
+
+    script.onerror = () => {
+      // Fallback CDN
+      const fallback = document.createElement("script");
+      fallback.src = "https://cdn.jsdelivr.net/npm/globe.gl@2.43.0/dist/globe.gl.min.js";
+      fallback.async = true;
+
+      fallback.onload = () => {
+        if (!window.Globe) {
+          showGlobeError();
+          return;
+        }
+
+        buildGlobe(window.Globe);
+        finishGlobeLoading();
+      };
+
+      fallback.onerror = showGlobeError;
+      document.head.appendChild(fallback);
+    };
+
+    document.head.appendChild(script);
+  }
 
 
-  /*
-   * Hide loader after initialization.
-   */
+  function finishGlobeLoading() {
 
-  setTimeout(
-    () => {
+    globe.pointOfView(
+      {
+        lat: 20,
+        lng: 0,
+        altitude: 2.4
+      },
+      0
+    );
 
-      globeLoading.classList.add(
-        "hidden"
-      );
+    renderPeople();
 
-    },
-    1800
-  );
+    const resizeGlobe = () => {
+      if (!globe) return;
+
+      globe.width(container.clientWidth);
+      globe.height(container.clientHeight);
+    };
+
+    window.addEventListener("resize", resizeGlobe);
+
+    requestAnimationFrame(() => {
+      resizeGlobe();
+    });
+
+    setTimeout(() => {
+      globeLoading.classList.add("hidden");
+    }, 500);
+  }
+
+
+  function showGlobeError() {
+
+    loadingText.textContent = "Map could not load";
+
+    console.error("Globe.gl could not be loaded from the CDN.");
+  }
+
+
+  startGlobe();
 
 </script>
 
@@ -1952,7 +2182,10 @@ const categories = [...new Set(people.map(p => p.category))].sort();
   }
 
 
-  .person-card {
+  :global(.person-card) {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
     width: 100%;
     display: flex;
     align-items: center;
@@ -1967,12 +2200,12 @@ const categories = [...new Set(people.map(p => p.category))].sort();
   }
 
 
-  .person-card:hover {
+  :global(.person-card:hover) {
     background: rgba(255,255,255,0.025);
   }
 
 
-  .person-avatar {
+  :global(.person-avatar) {
     width: 40px;
     height: 40px;
     flex: 0 0 40px;
@@ -1987,27 +2220,27 @@ const categories = [...new Set(people.map(p => p.category))].sort();
   }
 
 
-  .person-avatar img {
+  :global(.person-avatar img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
 
-  .person-card-info {
+  :global(.person-card-info) {
     min-width: 0;
     display: flex;
     flex-direction: column;
   }
 
 
-  .person-card-info strong {
+  :global(.person-card-info strong) {
     font-size: 12px;
   }
 
 
-  .person-card-info span,
-  .person-card-info small {
+  :global(.person-card-info span),
+  :global(.person-card-info small) {
     margin-top: 2px;
     color: #77847b;
     font-size: 10px;
