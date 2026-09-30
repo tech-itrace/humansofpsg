@@ -611,7 +611,7 @@ function getMapY(lat) {
           class="back-button hidden"
           type="button"
         >
-          ← Back
+          Back
         </button>
 
       </div>
@@ -731,10 +731,6 @@ function getMapY(lat) {
 
                   <span class="city-dot"></span>
 
-                  <span class="city-name">
-                    {person.city}
-                  </span>
-
                 </button>
 
               ))
@@ -764,7 +760,7 @@ function getMapY(lat) {
 
 
       <div class="map-hint">
-        Click India → Tamil Nadu → city · Click a person to view details
+        Click India > Tamil Nadu > city | Click a person to view details
       </div>
 
 
@@ -783,7 +779,7 @@ function getMapY(lat) {
           type="button"
           aria-label="Close"
         >
-          ×
+          X
         </button>
 
 
@@ -908,7 +904,7 @@ function getMapY(lat) {
   <footer class="directory-footer">
 
     <span>
-      © 2026 by HOP
+      2026 by HOP
     </span>
 
     <span>
@@ -1289,28 +1285,20 @@ function getMapY(lat) {
 
         card.innerHTML = `
 
+          <span class="person-card-accent"></span>
+
           <span class="person-card-avatar">
             ${imageHTML}
           </span>
 
           <span class="person-card-info">
-
-            <strong>
-              ${person.name}
-            </strong>
-
-            <span>
-              ${person.city}, ${person.state}
-            </span>
-
-            <small>
-              ${person.department}
-            </small>
-
+            <strong>${person.name}</strong>
+            <span class="person-location">${person.city}, ${person.state}</span>
+            <small class="person-department">${person.department}</small>
           </span>
 
-          <span class="person-arrow">
-            →
+          <span class="person-arrow" aria-hidden="true">
+            <span class="arrow-line"></span>
           </span>
 
         `;
@@ -1365,37 +1353,37 @@ function getMapY(lat) {
 
     detailCity.textContent =
       person.city ||
-      "—";
+      "-";
 
 
     detailState.textContent =
       person.state ||
-      "—";
+      "-";
 
 
     detailCountry.textContent =
       person.country ||
-      "—";
+      "-";
 
 
     detailDepartment.textContent =
       person.department ||
-      "—";
+      "-";
 
 
     detailExpertise.textContent =
       person.expertise ||
-      "—";
+      "-";
 
 
     detailEmail.textContent =
       person.email ||
-      "—";
+      "-";
 
 
     detailAddress.textContent =
       person.address ||
-      "—";
+      "-";
 
 
     detailInitial.textContent =
@@ -2307,36 +2295,22 @@ function getMapY(lat) {
   .results-header {
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
-    margin:
-      25px 0 11px;
-
-    padding-top:
-      17px;
-
-    border-top:
-      1px solid var(--line);
+    margin: 25px 0 12px;
+    padding-top: 17px;
+    border-top: 1px solid var(--line);
 
   }
 
 
   .results-header span {
 
-    color:
-      var(--muted);
-
-    font-size:
-      10px;
-
-    letter-spacing:
-      .12em;
-
-    text-transform:
-      uppercase;
+    color: var(--ink);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 600;
 
   }
 
@@ -2344,27 +2318,15 @@ function getMapY(lat) {
   .results-header strong {
 
     display: grid;
-
     place-items: center;
-
-    min-width: 26px;
-
-    height: 24px;
-
-    padding:
-      0 7px;
-
-    border-radius:
-      999px;
-
-    background:
-      var(--accent-soft);
-
-    color:
-      var(--accent);
-
-    font-size:
-      10px;
+    min-width: 30px;
+    height: 26px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: #eaf4fb;
+    color: #2478bd;
+    font-size: 11px;
+    font-weight: 600;
 
   }
 
@@ -2376,12 +2338,282 @@ function getMapY(lat) {
   .people-list {
 
     flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 2px 2px 4px 0;
+
+  }
+
+
+  .people-list::-webkit-scrollbar {
+    width: 4px;
+  }
+
+
+  .people-list::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #d9e4ea;
+  }
+
+
+  .person-card {
+
+    position: relative;
+    width: 100%;
+    min-height: 72px;
+    display: grid;
+    grid-template-columns: 4px 42px minmax(0, 1fr) 30px;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 9px 9px 0;
+    margin: 0 0 8px;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    border: 1px solid #e5e9ed;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    color: #20364a;
+    text-align: left;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    box-shadow: 0 2px 8px rgba(35,55,70,.045);
+
+    transition:
+      transform .18s ease,
+      box-shadow .18s ease,
+      border-color .18s ease,
+      background .18s ease;
+
+  }
+
+
+  .person-card:hover {
+
+    transform: translateY(-1px);
+
+    border-color: #c8ddea;
+
+    background: #fafdff;
+
+    box-shadow: 0 7px 18px rgba(35,55,70,.09);
+
+  }
+
+
+  .person-card:focus-visible {
+
+    outline: 2px solid #3c91e6;
+    outline-offset: 2px;
+
+  }
+
+
+  .person-card-accent {
+
+    align-self: stretch;
+
+    width: 4px;
+
+    border-radius: 0 7px 7px 0;
+
+    background: #3c91e6;
+
+  }
+
+
+  .person-card-avatar {
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+
+    border-radius: 50%;
+
+    background: #eaf2f8;
+
+    border: 1px solid #dce8f0;
+
+    flex: 0 0 42px;
+
+  }
+
+
+  .person-card-avatar img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+  }
+
+
+  .person-initial {
+
+    font-family: "Fedora", sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1;
+
+    color: #2f5f82;
+
+    font-weight: 600;
+
+    letter-spacing: .02em;
+
+  }
+
+
+  .person-card-info {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 3px;
+
+  }
+
+
+  .person-card-info strong {
+
+    display: block;
+
+    overflow: hidden;
+
+    color: #20364a;
+
+    font-size: 12px;
+
+    line-height: 1.25;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+  }
+
+
+  .person-card-info .person-location {
+
+    display: block;
+
+    overflow: hidden;
+
+    color: #718392;
+
+    font-size: 9.5px;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+  }
+
+
+  .person-card-info .person-department {
+
+    display: inline-flex;
+
+    width: fit-content;
+
+    max-width: 100%;
+
+    overflow: hidden;
+
+    margin-top: 1px;
+
+    padding: 2px 7px;
+
+    border-radius: 999px;
+
+    background: #edf6fc;
+
+    color: #39749e;
+
+    font-size: 8px;
+
+    line-height: 1.25;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+  }
+
+
+  .person-arrow {
+
+    width: 28px;
+    height: 28px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #f0f7fc;
+
+    transition:
+      transform .18s ease,
+      background .18s ease;
+
+  }
+
+
+  .arrow-line {
+
+    width: 7px;
+    height: 7px;
+
+    border-top: 1.8px solid #3c91e6;
+    border-right: 1.8px solid #3c91e6;
+
+    transform: rotate(45deg);
+
+    margin-left: -2px;
+
+  }
+
+
+  .person-card:hover .person-arrow {
+
+    transform: translateX(2px);
+
+    background: #e3f2fc;
+
+  }
+
+
+  .people-list {
+
+    flex: 1;
 
     min-height: 0;
 
     overflow-y: auto;
 
-    padding-right: 4px;
+    padding: 2px 4px 4px 0;
 
   }
 
@@ -2397,195 +2629,27 @@ function getMapY(lat) {
 
     border-radius: 10px;
 
-    background:
-      #d9cec7;
+    background: #d5e1e8;
 
   }
 
 
-  .person-card {
+  .people-list::-webkit-scrollbar-track {
 
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns:
-      44px minmax(0,1fr) 18px;
-
-    align-items: center;
-
-    gap: 11px;
-
-    padding:
-      10px 8px;
-
-    border: 0;
-
-    border-bottom:
-      1px solid #eee8e3;
-
-    background:
-      transparent;
-
-    color:
-      inherit;
-
-    text-align:
-      left;
-
-    font-family:
-      inherit;
-
-    cursor: pointer;
-
-    transition:
-      background .2s ease;
+    background: transparent;
 
   }
 
 
-  .person-card:hover {
 
-    background:
-      #faf6f2;
+  .person-card,
+  .person-card:hover,
+  .person-card:active {
 
-  }
-
-
-  .person-card-avatar {
-
-    width: 44px;
-
-    height: 44px;
-
-    display: grid;
-
-    place-items: center;
-
-    overflow: hidden;
-
-    border-radius: 50%;
-
-    background:
-      #eee5df;
+    appearance: none;
+    -webkit-appearance: none;
 
   }
-
-
-  .person-card-avatar img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-  }
-
-
-  .person-initial {
-
-    font-family:
-      "Fedora",
-      serif;
-
-    font-size:
-      13px;
-
-    color:
-      var(--ink);
-
-  }
-
-
-  .person-card-info {
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-  }
-
-
-  .person-card-info strong {
-
-    overflow: hidden;
-
-    color:
-      var(--ink);
-
-    font-size:
-      12px;
-
-    font-weight:
-      600;
-
-    white-space:
-      nowrap;
-
-    text-overflow:
-      ellipsis;
-
-  }
-
-
-  .person-card-info span {
-
-    margin-top: 3px;
-
-    overflow: hidden;
-
-    color:
-      var(--muted);
-
-    font-size:
-      9px;
-
-    white-space:
-      nowrap;
-
-    text-overflow:
-      ellipsis;
-
-  }
-
-
-  .person-card-info small {
-
-    margin-top: 3px;
-
-    color:
-      #b09d92;
-
-    font-size:
-      8px;
-
-  }
-
-
-  .person-arrow {
-
-    color:
-      #b09d92;
-
-    font-size:
-      14px;
-
-    transition:
-      transform .2s ease;
-
-  }
-
-
-  .person-card:hover .person-arrow {
-
-    transform:
-      translateX(3px);
-
-  }
-
 
   .empty-results {
 
@@ -3372,14 +3436,11 @@ function getMapY(lat) {
   }
 
 
+  /* City names intentionally hidden.
+     The blue dot remains clickable. */
+
   .city-name {
-
-    font-size:
-      8px;
-
-    white-space:
-      nowrap;
-
+    display: none !important;
   }
 
 
