@@ -2331,369 +2331,432 @@ function getMapY(lat) {
   }
 
 
-  /* =========================================================
-     PEOPLE LIST
-  ========================================================= */
+/* =========================================================
+   PEOPLE LIST — NEW MODERN DIRECTORY DESIGN
+========================================================= */
 
-  .people-list {
+.people-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 2px 10px 0;
+  scroll-behavior: smooth;
+}
 
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    padding: 2px 2px 4px 0;
+.people-list::-webkit-scrollbar {
+  width: 4px;
+}
 
-  }
+.people-list::-webkit-scrollbar-thumb {
+  background: #d8e0e4;
+  border-radius: 999px;
+}
+
+.people-list::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 
-  .people-list::-webkit-scrollbar {
-    width: 4px;
-  }
+/* =========================================================
+   PERSON ROW
+========================================================= */
+
+.person-card {
+  position: relative;
+
+  width: 100%;
+  min-height: 78px;
+
+  display: grid;
+  grid-template-columns: 30px 48px minmax(0, 1fr) 30px;
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 0 0 4px;
+  padding: 10px 8px 10px 4px;
+
+  border: 0;
+  border-bottom: 1px solid #eee8e3;
+  border-radius: 0;
+
+  background: transparent;
+
+  color: #3d302a;
+  text-align: left;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  transition:
+    background .2s ease,
+    transform .2s ease,
+    padding-left .2s ease;
+}
 
 
-  .people-list::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #d9e4ea;
-  }
+/* LEFT NUMBER */
 
+.person-card::before {
+  content: counter(people);
+}
+
+.people-list {
+  counter-reset: people;
+}
+
+.person-card {
+  counter-increment: people;
+}
+
+.person-card::before {
+  font-family: "Fedora", serif;
+  font-size: 11px;
+  color: #b0a39b;
+  text-align: center;
+  letter-spacing: .03em;
+}
+
+
+/* REMOVE OLD BLUE ACCENT */
+
+.person-card-accent {
+  display: none;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.person-card-avatar {
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #edf5f8,
+      #f8f3ee
+    );
+
+  border: 1px solid #d9e3e7;
+
+  box-shadow:
+    0 0 0 4px #faf8f5;
+
+  flex: 0 0 46px;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.person-card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* INITIALS */
+
+.person-initial {
+  font-family: "Fedora", serif;
+
+  font-size: 12px;
+  line-height: 1;
+
+  color: #426b82;
+
+  font-weight: 400;
+
+  letter-spacing: .04em;
+}
+
+
+/* =========================================================
+   PERSON INFORMATION
+========================================================= */
+
+.person-card-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 4px;
+}
+
+
+/* NAME */
+
+.person-card-info strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #3d302a;
+
+  font-family: "Futura Std", Futura, sans-serif;
+
+  font-size: 13px;
+  line-height: 1.25;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* LOCATION */
+
+.person-card-info .person-location {
+  display: block;
+
+  overflow: hidden;
+
+  color: #91847b;
+
+  font-size: 10px;
+  line-height: 1.25;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   DEPARTMENT PILL
+========================================================= */
+
+.person-card-info .person-department {
+  display: inline-flex;
+
+  width: fit-content;
+  max-width: 100%;
+
+  overflow: hidden;
+
+  margin-top: 1px;
+  padding: 3px 8px;
+
+  border: 1px solid #e1ebef;
+  border-radius: 999px;
+
+  background: #f4f8fa;
+
+  color: #4b7388;
+
+  font-size: 8px;
+  line-height: 1.2;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  letter-spacing: .02em;
+}
+
+
+/* =========================================================
+   RIGHT ARROW
+========================================================= */
+
+.person-arrow {
+  width: 28px;
+  height: 28px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+
+.arrow-line {
+  position: relative;
+
+  width: 9px;
+  height: 9px;
+
+  border-top: 1.5px solid #9b8d84;
+  border-right: 1.5px solid #9b8d84;
+
+  transform: rotate(45deg);
+
+  margin-left: -3px;
+
+  transition:
+    border-color .2s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.person-card:hover {
+  padding-left: 9px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #f5fafc 0%,
+      #faf9f7 100%
+    );
+
+  transform: translateX(2px);
+}
+
+
+.person-card:hover .person-card-avatar {
+  transform: scale(1.05);
+
+  border-color: #b9d5e2;
+
+  box-shadow:
+    0 0 0 4px #f3f8fa;
+}
+
+
+.person-card:hover .person-card-info strong {
+  color: #2478bd;
+}
+
+
+.person-card:hover .person-card-info .person-department {
+  border-color: #c9e0ea;
+  background: #edf7fb;
+  color: #2478bd;
+}
+
+
+.person-card:hover .person-arrow {
+  transform: translateX(3px);
+
+  background: #edf6fa;
+}
+
+
+.person-card:hover .arrow-line {
+  border-color: #2478bd;
+}
+
+
+/* =========================================================
+   ACTIVE / FOCUS
+========================================================= */
+
+.person-card:focus-visible {
+  outline: 2px solid #8ebfd7;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   EMPTY RESULTS
+========================================================= */
+
+.empty-results {
+  min-height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.empty-results strong {
+  font-family: "Fedora", serif;
+
+  font-size: 18px;
+  font-weight: 400;
+
+  color: #4b3b34;
+}
+
+.empty-results span {
+  margin-top: 6px;
+
+  color: #968278;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
 
   .person-card {
+    grid-template-columns:
+      24px
+      44px
+      minmax(0, 1fr)
+      26px;
 
-    position: relative;
-    width: 100%;
+    gap: 9px;
+
     min-height: 72px;
-    display: grid;
-    grid-template-columns: 4px 42px minmax(0, 1fr) 30px;
-    align-items: center;
-    gap: 11px;
-    padding: 9px 9px 9px 0;
-    margin: 0 0 8px;
-    overflow: hidden;
-    box-sizing: border-box;
 
-    border: 1px solid #e5e9ed;
-    border-radius: 12px;
-
-    background: #ffffff;
-
-    color: #20364a;
-    text-align: left;
-    font-family: inherit;
-
-    cursor: pointer;
-
-    box-shadow: 0 2px 8px rgba(35,55,70,.045);
-
-    transition:
-      transform .18s ease,
-      box-shadow .18s ease,
-      border-color .18s ease,
-      background .18s ease;
-
+    padding:
+      9px
+      5px
+      9px
+      2px;
   }
-
-
-  .person-card:hover {
-
-    transform: translateY(-1px);
-
-    border-color: #c8ddea;
-
-    background: #fafdff;
-
-    box-shadow: 0 7px 18px rgba(35,55,70,.09);
-
-  }
-
-
-  .person-card:focus-visible {
-
-    outline: 2px solid #3c91e6;
-    outline-offset: 2px;
-
-  }
-
-
-  .person-card-accent {
-
-    align-self: stretch;
-
-    width: 4px;
-
-    border-radius: 0 7px 7px 0;
-
-    background: #3c91e6;
-
-  }
-
 
   .person-card-avatar {
-
     width: 42px;
     height: 42px;
 
-    display: grid;
-    place-items: center;
-
-    overflow: hidden;
-
-    border-radius: 50%;
-
-    background: #eaf2f8;
-
-    border: 1px solid #dce8f0;
-
-    flex: 0 0 42px;
-
+    flex-basis: 42px;
   }
-
-
-  .person-card-avatar img {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-  }
-
-
-  .person-initial {
-
-    font-family: "Fedora", sans-serif;
-
-    font-size: 12px;
-
-    line-height: 1;
-
-    color: #2f5f82;
-
-    font-weight: 600;
-
-    letter-spacing: .02em;
-
-  }
-
-
-  .person-card-info {
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    gap: 3px;
-
-  }
-
 
   .person-card-info strong {
-
-    display: block;
-
-    overflow: hidden;
-
-    color: #20364a;
-
     font-size: 12px;
-
-    line-height: 1.25;
-
-    font-weight: 650;
-
-    white-space: nowrap;
-
-    text-overflow: ellipsis;
-
   }
-
 
   .person-card-info .person-location {
-
-    display: block;
-
-    overflow: hidden;
-
-    color: #718392;
-
-    font-size: 9.5px;
-
-    line-height: 1.2;
-
-    white-space: nowrap;
-
-    text-overflow: ellipsis;
-
+    font-size: 9px;
   }
-
 
   .person-card-info .person-department {
-
-    display: inline-flex;
-
-    width: fit-content;
-
-    max-width: 100%;
-
-    overflow: hidden;
-
-    margin-top: 1px;
-
-    padding: 2px 7px;
-
-    border-radius: 999px;
-
-    background: #edf6fc;
-
-    color: #39749e;
-
-    font-size: 8px;
-
-    line-height: 1.25;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    text-overflow: ellipsis;
-
+    font-size: 7.5px;
+    padding: 3px 7px;
   }
-
 
   .person-arrow {
-
-    width: 28px;
-    height: 28px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 50%;
-
-    background: #f0f7fc;
-
-    transition:
-      transform .18s ease,
-      background .18s ease;
-
+    width: 25px;
+    height: 25px;
   }
-
-
-  .arrow-line {
-
-    width: 7px;
-    height: 7px;
-
-    border-top: 1.8px solid #3c91e6;
-    border-right: 1.8px solid #3c91e6;
-
-    transform: rotate(45deg);
-
-    margin-left: -2px;
-
-  }
-
-
-  .person-card:hover .person-arrow {
-
-    transform: translateX(2px);
-
-    background: #e3f2fc;
-
-  }
-
-
-  .people-list {
-
-    flex: 1;
-
-    min-height: 0;
-
-    overflow-y: auto;
-
-    padding: 2px 4px 4px 0;
-
-  }
-
-
-  .people-list::-webkit-scrollbar {
-
-    width: 4px;
-
-  }
-
-
-  .people-list::-webkit-scrollbar-thumb {
-
-    border-radius: 10px;
-
-    background: #d5e1e8;
-
-  }
-
-
-  .people-list::-webkit-scrollbar-track {
-
-    background: transparent;
-
-  }
-
-
-
-  .person-card,
-  .person-card:hover,
-  .person-card:active {
-
-    appearance: none;
-    -webkit-appearance: none;
-
-  }
-
-  .empty-results {
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-height: 160px;
-
-    text-align: center;
-
-  }
-
-
-  .empty-results strong {
-
-    font-family:
-      "Fedora",
-      serif;
-
-    font-size:
-      17px;
-
-    font-weight:
-      400;
-
-  }
-
-
-  .empty-results span {
-
-    margin-top: 5px;
-
-    color:
-      var(--muted);
-
-    font-size:
-      10px;
-
-  }
+}
 
 
   /* =========================================================
@@ -3986,4 +4049,268 @@ function getMapY(lat) {
     }
 
   }
+
+
+/* =========================================================
+   FINAL PEOPLE DIRECTORY UI FIX
+   - Keeps sidebar and People list inside the available height
+   - Makes the bottom of the People list scroll correctly
+   - Prevents cards from overflowing the sidebar
+   - Keeps map and directory aligned
+========================================================= */
+
+.directory-main {
+  height: 720px;
+  min-height: 720px;
+  align-items: stretch;
+}
+
+.directory-sidebar {
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.results-header {
+  flex: 0 0 auto;
+}
+
+.people-list {
+  flex: 1 1 0;
+  min-height: 0;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 6px 4px 12px 0;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+.people-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.people-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.people-list::-webkit-scrollbar-thumb {
+  background: #d5dfe4;
+  border-radius: 999px;
+}
+
+.people-list::-webkit-scrollbar-thumb:hover {
+  background: #b9cbd4;
+}
+
+.person-card {
+  width: 100%;
+  min-height: 68px;
+  box-sizing: border-box;
+  margin: 0 0 7px;
+  padding: 8px 7px 8px 4px;
+  display: grid;
+  grid-template-columns: 27px 44px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #e6e0dc;
+  border-radius: 11px;
+  background: #fff;
+  color: #3d302a;
+  text-align: left;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow: 0 2px 8px rgba(35,55,70,.035);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.person-card::before {
+  font-family: "Fedora", serif;
+  font-size: 10px;
+  color: #aaa09a;
+  text-align: center;
+}
+
+.person-card:hover {
+  transform: translateY(-1px);
+  border-color: #c9dce7;
+  background: #fbfdfe;
+  box-shadow: 0 6px 16px rgba(35,55,70,.08);
+}
+
+.person-card-accent {
+  display: none;
+}
+
+.person-card-avatar {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1px solid #d9e3e7;
+  background: linear-gradient(145deg,#edf5f8,#f8f3ee);
+  transition: transform .18s ease, border-color .18s ease;
+}
+
+.person-card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person-initial {
+  font-family: "Fedora", serif;
+  font-size: 11px;
+  line-height: 1;
+  color: #426b82;
+}
+
+.person-card-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.person-card-info strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #3d302a;
+  font-family: "Futura Std", Futura, sans-serif;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.person-card-info .person-location {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #91847b;
+  font-size: 9px;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.person-card-info .person-department {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 3px 7px;
+  border: 1px solid #e1ebef;
+  border-radius: 999px;
+  background: #f4f8fa;
+  color: #4b7388;
+  font-size: 8px;
+  line-height: 1.1;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.person-arrow {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f3f7f9;
+  transition: transform .18s ease, background .18s ease;
+}
+
+.arrow-line {
+  width: 7px;
+  height: 7px;
+  margin-left: -2px;
+  border-top: 1.5px solid #7f9aaa;
+  border-right: 1.5px solid #7f9aaa;
+  transform: rotate(45deg);
+}
+
+.person-card:hover .person-card-avatar {
+  transform: scale(1.04);
+  border-color: #b9d5e2;
+}
+
+.person-card:hover .person-card-info strong {
+  color: #2478bd;
+}
+
+.person-card:hover .person-arrow {
+  transform: translateX(3px);
+  background: #e8f3f8;
+}
+
+.person-card:hover .arrow-line {
+  border-color: #2478bd;
+}
+
+.person-card:focus-visible {
+  outline: 2px solid #8ebfd7;
+  outline-offset: 2px;
+}
+
+@media (max-width: 1100px) {
+  .directory-main {
+    height: 650px;
+    min-height: 650px;
+  }
+}
+
+@media (max-width: 800px) {
+  .directory-main {
+    height: auto;
+    min-height: auto;
+  }
+
+  .directory-sidebar {
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .people-list {
+    flex: none;
+    height: 390px;
+    min-height: 390px;
+    max-height: 390px;
+  }
+
+  .person-card {
+    grid-template-columns: 24px 42px minmax(0,1fr) 27px;
+    min-height: 64px;
+    gap: 8px;
+  }
+
+  .person-card-avatar {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+}
+
+@media (max-width: 520px) {
+  .people-list {
+    height: 360px;
+    min-height: 360px;
+    max-height: 360px;
+  }
+}
+
 </style>
