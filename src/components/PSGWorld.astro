@@ -632,41 +632,52 @@
 
   .location-item {
     width: 100%;
-
-    display: flex;
-    align-items: center;
-
-    gap: 11px;
-
-    padding: 10px;
+    margin-bottom: 4px;
 
     border: 1px solid transparent;
-    border-radius: 11px;
+    border-radius: 12px;
 
     background: transparent;
-
     color: #ffffff;
 
-    cursor: pointer;
-
-    text-align: left;
+    overflow: hidden;
 
     transition:
-      background 0.18s ease,
-      border-color 0.18s ease,
-      transform 0.18s ease;
+      background 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .location-item:hover {
-    background: rgba(255, 255, 255, 0.055);
-
-    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.045);
   }
 
   .location-item.active {
     border-color: rgba(0, 255, 136, 0.22);
+    background: rgba(0, 255, 136, 0.055);
+  }
 
-    background: rgba(0, 255, 136, 0.07);
+  /* Main location row */
+  .location-main {
+    width: 100%;
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 9px 8px;
+
+    border: 0;
+    background: transparent;
+    color: #ffffff;
+
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .location-main:focus-visible {
+    outline: 1px solid rgba(0, 255, 136, 0.5);
+    outline-offset: -2px;
   }
 
   .location-icon {
@@ -680,17 +691,26 @@
 
     border-radius: 9px;
 
-    color: #00ff88;
-
     background: rgba(0, 255, 136, 0.08);
+    border: 1px solid rgba(0, 255, 136, 0.16);
+  }
 
-    border: 1px solid rgba(0, 255, 136, 0.14);
+  .location-icon-dot {
+    width: 6px;
+    height: 6px;
 
-    font-size: 13px;
+    border-radius: 50%;
+
+    background: #00ff88;
+
+    box-shadow:
+      0 0 6px #00ff88,
+      0 0 12px rgba(0, 255, 136, 0.8);
   }
 
   .location-info {
     min-width: 0;
+    flex: 1;
   }
 
   .location-name {
@@ -700,15 +720,347 @@
     white-space: nowrap;
 
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 750;
   }
 
   .location-country {
-    margin-top: 2px;
+    margin-top: 3px;
 
     color: rgba(255, 255, 255, 0.4);
 
     font-size: 9px;
+  }
+
+  /* Right-side arrow */
+  .location-arrow {
+    flex: 0 0 auto;
+
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+    place-items: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.025);
+    color: rgba(255, 255, 255, 0.52);
+
+    cursor: pointer;
+
+    font-size: 18px;
+    line-height: 1;
+
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .location-arrow:hover {
+    color: #00ff88;
+
+    background: rgba(0, 255, 136, 0.08);
+
+    border-color: rgba(0, 255, 136, 0.2);
+  }
+
+  .location-item.expanded .location-arrow {
+    color: #00ff88;
+
+    background: rgba(0, 255, 136, 0.08);
+
+    border-color: rgba(0, 255, 136, 0.2);
+
+    transform: rotate(90deg);
+  }
+
+  /* Dropdown details */
+  .location-extra {
+    display: none;
+
+    margin: 0 8px 10px 49px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background: rgba(0, 0, 0, 0.22);
+
+    border: 1px solid rgba(255, 255, 255, 0.055);
+  }
+
+  .location-item.expanded .location-extra {
+    display: block;
+    animation: locationDrop 0.18s ease;
+  }
+
+  @keyframes locationDrop {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .location-extra-row {
+    min-height: 24px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+  }
+
+  .location-extra-icon {
+    flex: 0 0 18px;
+
+    width: 18px;
+
+    color: #00ff88;
+
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .location-extra-label {
+    flex: 0 0 48px;
+
+    width: 48px;
+
+    color: rgba(255, 255, 255, 0.35);
+
+    font-size: 9px;
+  }
+
+  .location-extra-value {
+    min-width: 0;
+    flex: 1;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 9px;
+    font-weight: 600;
+  }
+
+  /* =======================================================
+     PEOPLE LIST INSIDE LOCATION DROPDOWN
+     MODERN NAME CARD UI
+  ======================================================= */
+
+  .location-extra-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 3px 3px 9px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .location-extra-heading span:first-child {
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .1px;
+  }
+
+  .location-extra-heading span:last-child {
+    padding: 4px 7px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,255,136,.14);
+    background: rgba(0,255,136,.06);
+    color: #00ff88;
+    font-size: 8px;
+    font-weight: 700;
+  }
+
+  .location-people-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .location-person-card {
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 11px;
+    background: linear-gradient(
+      135deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,.012)
+    );
+    transition:
+      border-color .18s ease,
+      background .18s ease,
+      transform .18s ease;
+  }
+
+  .location-person-card:hover {
+    border-color: rgba(0,255,136,.18);
+    background: rgba(0,255,136,.035);
+    transform: translateX(1px);
+  }
+
+  .location-person-card.person-expanded {
+    border-color: rgba(0,255,136,.24);
+    background: rgba(0,255,136,.045);
+  }
+
+  .location-person-header {
+    width: 100%;
+    min-height: 51px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 8px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .location-person-number {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: rgba(0,255,136,.075);
+    border: 1px solid rgba(0,255,136,.16);
+    color: #00ff88;
+    font-size: 10px;
+    font-weight: 850;
+    box-shadow: inset 0 0 12px rgba(0,255,136,.035);
+  }
+
+  .location-person-header > div:nth-child(2) {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .location-person-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .location-person-role-preview {
+    margin-top: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgba(255,255,255,.42);
+    font-size: 8px;
+    line-height: 1.2;
+  }
+
+  .location-person-arrow {
+    width: 27px;
+    height: 27px;
+    flex: 0 0 27px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px;
+    background: rgba(255,255,255,.025);
+    color: rgba(255,255,255,.48);
+    font-size: 16px;
+    line-height: 1;
+    transition:
+      transform .2s ease,
+      color .2s ease,
+      background .2s ease,
+      border-color .2s ease;
+  }
+
+  .location-person-header:hover .location-person-arrow {
+    color: #00ff88;
+    border-color: rgba(0,255,136,.2);
+    background: rgba(0,255,136,.07);
+  }
+
+  .location-person-card.person-expanded .location-person-arrow {
+    transform: rotate(90deg);
+    color: #00ff88;
+    border-color: rgba(0,255,136,.22);
+    background: rgba(0,255,136,.08);
+  }
+
+  .location-person-details {
+    display: none;
+    margin: 0 8px 8px 47px;
+    padding: 9px;
+    border-radius: 9px;
+    border: 1px solid rgba(0,255,136,.09);
+    background: rgba(0,0,0,.22);
+  }
+
+  .location-person-card.person-expanded .location-person-details {
+    display: block;
+    animation: personDrop .18s ease;
+  }
+
+  @keyframes personDrop {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .person-detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 24px;
+    padding: 3px 0;
+  }
+
+  .person-detail-row + .person-detail-row {
+    border-top: 1px solid rgba(255,255,255,.035);
+  }
+
+  .person-detail-label {
+    flex: 0 0 58px;
+    color: rgba(255,255,255,.32);
+    font-size: 7px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .45px;
+  }
+
+  .person-detail-value {
+    min-width: 0;
+    flex: 1;
+    color: rgba(255,255,255,.82);
+    font-size: 8px;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
   }
 
   /* =======================================================
@@ -1364,7 +1716,14 @@
       role: "Engineering",
       address: "Chennai, Tamil Nadu, India",
       phone: "+91 90000 00001",
-      email: "arun@example.com"
+      email: "arun@example.com",
+      people: [
+        { name: "Arun Kumar", role: "Engineering", department: "Mechanical Engineering", phone: "+91 90000 00001", email: "arun@example.com" },
+        { name: "Anand Raj", role: "Software Engineer", department: "Computer Science", phone: "+91 90000 00021", email: "anand.raj@example.com" },
+        { name: "Divya Priya", role: "Project Manager", department: "Management", phone: "+91 90000 00022", email: "divya.priya@example.com" },
+        { name: "Sathish Kumar", role: "Research Associate", department: "Research & Development", phone: "+91 90000 00023", email: "sathish.kumar@example.com" },
+        { name: "Meena Joseph", role: "HR Executive", department: "Human Resources", phone: "+91 90000 00024", email: "meena.joseph@example.com" }
+      ]
     },
 
     {
@@ -1379,7 +1738,14 @@
       role: "Technology",
       address: "Coimbatore, Tamil Nadu, India",
       phone: "+91 90000 00002",
-      email: "priya@example.com"
+      email: "priya@example.com",
+      people: [
+        { name: "Priya Kumar", role: "Technology", department: "Information Technology", phone: "+91 90000 00002", email: "priya@example.com" },
+        { name: "Vignesh R", role: "Software Developer", department: "Computer Applications", phone: "+91 90000 00025", email: "vignesh.r@example.com" },
+        { name: "Harini S", role: "Data Analyst", department: "Data Science", phone: "+91 90000 00026", email: "harini.s@example.com" },
+        { name: "Karthik M", role: "Design Engineer", department: "Engineering", phone: "+91 90000 00027", email: "karthik.m@example.com" },
+        { name: "Nithya Devi", role: "Administration", department: "Administration", phone: "+91 90000 00028", email: "nithya.devi@example.com" }
+      ]
     },
 
     {
@@ -2086,6 +2452,7 @@
 
   /* =======================================================
      CREATE LOCATION LIST
+     ACCORDION + ARROW DROPDOWN
   ======================================================= */
 
   function renderLocationList(
@@ -2107,19 +2474,19 @@
         if (!query) return true;
 
         return (
-          location.name
+          String(location.name || "")
             .toLowerCase()
             .includes(query) ||
 
-          location.country
+          String(location.country || "")
             .toLowerCase()
             .includes(query) ||
 
-          location.person
+          String(location.person || "")
             .toLowerCase()
             .includes(query) ||
 
-          location.role
+          String(location.role || "")
             .toLowerCase()
             .includes(query)
         );
@@ -2136,70 +2503,358 @@
 
 
     locationList.innerHTML =
-      filtered.map(location => `
+      filtered.map(location => {
 
-        <button
-          type="button"
-          class="location-item ${
-            selectedLocation &&
-            Number(selectedLocation.id) === Number(location.id)
-              ? "active"
-              : ""
-          }"
-          data-location-id="${location.id}"
-        >
+        const isActive =
+          selectedLocation &&
+          Number(selectedLocation.id) === Number(location.id);
 
-          <div class="location-icon">
-            ●
-          </div>
+        return `
 
-          <div class="location-info">
+          <div
+            class="location-item ${isActive ? "active" : ""}"
+            data-location-id="${location.id}"
+          >
 
-            <div class="location-name">
-              ${escapeHtml(location.name)}
+            <!-- MAIN LOCATION ROW -->
+
+            <div
+              class="location-main"
+              role="button"
+              tabindex="0"
+              data-action="focus"
+            >
+
+              <div class="location-icon">
+                <span class="location-icon-dot"></span>
+              </div>
+
+
+              <div class="location-info">
+
+                <div class="location-name">
+                  ${escapeHtml(location.name)}
+                </div>
+
+                <div class="location-country">
+                  ${escapeHtml(location.country)}
+                </div>
+
+              </div>
+
+
+              <!-- RIGHT ARROW -->
+
+              <button
+                type="button"
+                class="location-arrow"
+                data-action="toggle"
+                aria-label="Show ${escapeHtml(location.name)} details"
+                aria-expanded="false"
+              >
+                ›
+              </button>
+
             </div>
 
-            <div class="location-country">
-              ${escapeHtml(location.country)}
+
+            <!-- DROPDOWN DATA -->
+
+            <div class="location-extra">
+
+              <div class="location-extra-heading">
+                <span>${escapeHtml(location.name)}</span>
+                <span>${(location.people || []).length} people</span>
+              </div>
+
+              <div class="location-people-list">
+
+                ${(location.people || []).map((person, index) => `
+
+                  <div
+                    class="location-person-card"
+                    data-person-index="${index}"
+                  >
+
+                    <button
+                      type="button"
+                      class="location-person-header"
+                      aria-expanded="false"
+                    >
+
+                      <div class="location-person-number">
+                        ${index + 1}
+                      </div>
+
+                      <div style="min-width:0;flex:1;">
+                        <div class="location-person-name">
+                          ${escapeHtml(person.name || "-")}
+                        </div>
+
+                        <div class="location-person-role-preview">
+                          ${escapeHtml(person.role || "-")}
+                        </div>
+                      </div>
+
+                      <span class="location-person-arrow">›</span>
+
+                    </button>
+
+                    <div class="location-person-details">
+
+                      <div class="person-detail-row">
+                        <span class="person-detail-label">Role</span>
+                        <span class="person-detail-value">
+                          ${escapeHtml(person.role || "-")}
+                        </span>
+                      </div>
+
+                      <div class="person-detail-row">
+                        <span class="person-detail-label">Department</span>
+                        <span class="person-detail-value">
+                          ${escapeHtml(person.department || "-")}
+                        </span>
+                      </div>
+
+                      <div class="person-detail-row">
+                        <span class="person-detail-label">Phone</span>
+                        <span class="person-detail-value">
+                          ${escapeHtml(person.phone || "-")}
+                        </span>
+                      </div>
+
+                      <div class="person-detail-row">
+                        <span class="person-detail-label">Email</span>
+                        <span class="person-detail-value">
+                          ${escapeHtml(person.email || "-")}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                `).join("")}
+
+              </div>
+
             </div>
 
           </div>
 
-        </button>
+        `;
 
-      `).join("");
+      }).join("");
 
 
-    const items =
+    /* =====================================================
+       MAIN ROW → FOCUS MAP
+    ===================================================== */
+
+    const mainRows =
       locationList.querySelectorAll(
-        ".location-item"
+        ".location-main"
       );
 
 
-    items.forEach(item => {
+    mainRows.forEach(main => {
 
-      item.addEventListener(
+      const item =
+        main.closest(".location-item");
+
+      if (!item) return;
+
+
+      const handleFocus = () => {
+
+        const id =
+          Number(item.dataset.locationId);
+
+        const location =
+          locations.find(
+            itemLocation =>
+              Number(itemLocation.id) === id
+          );
+
+        if (!location) return;
+
+        focusLocation(location);
+
+      };
+
+
+      main.addEventListener(
         "click",
-        () => {
+        event => {
 
-          const id =
-            Number(item.dataset.locationId);
+          if (
+            event.target.closest(
+              ".location-arrow"
+            )
+          ) {
+            return;
+          }
 
-          const location =
-            locations.find(
-              itemLocation =>
-                Number(itemLocation.id) === id
+          handleFocus();
+
+        }
+      );
+
+
+      main.addEventListener(
+        "keydown",
+        event => {
+
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+
+            event.preventDefault();
+
+            handleFocus();
+
+          }
+
+        }
+      );
+
+    });
+
+
+    /* =====================================================
+       PERSON NAME → OPEN / CLOSE PERSON DATA
+    ===================================================== */
+
+    const personHeaders =
+      locationList.querySelectorAll(
+        ".location-person-header"
+      );
+
+    personHeaders.forEach(header => {
+
+      header.addEventListener("click", event => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const card =
+          header.closest(".location-person-card");
+
+        if (!card) return;
+
+        const parentList =
+          card.parentElement;
+
+        const isExpanded =
+          card.classList.contains("person-expanded");
+
+        /* Only one person opens inside a city */
+        parentList
+          ?.querySelectorAll(".location-person-card.person-expanded")
+          .forEach(other => {
+
+            if (other === card) return;
+
+            other.classList.remove("person-expanded");
+
+            const otherHeader =
+              other.querySelector(".location-person-header");
+
+            otherHeader?.setAttribute(
+              "aria-expanded",
+              "false"
             );
 
+          });
 
-          if (!location) return;
+        card.classList.toggle(
+          "person-expanded",
+          !isExpanded
+        );
+
+        header.setAttribute(
+          "aria-expanded",
+          String(!isExpanded)
+        );
+
+      });
+
+    });
 
 
-          /*
-           * Radio Garden behavior:
-           * click list → move globe → center location
-           */
-          focusLocation(location);
+    /* =====================================================
+       ARROW → OPEN / CLOSE CITY DROPDOWN
+    ===================================================== */
+
+    const arrows =
+      locationList.querySelectorAll(
+        ".location-arrow"
+      );
+
+
+    arrows.forEach(arrow => {
+
+      arrow.addEventListener(
+        "click",
+        event => {
+
+          event.preventDefault();
+
+          event.stopPropagation();
+
+
+          const item =
+            arrow.closest(".location-item");
+
+          if (!item) return;
+
+
+          const isExpanded =
+            item.classList.contains("expanded");
+
+
+          /* Close every other dropdown */
+
+          locationList
+            .querySelectorAll(
+              ".location-item.expanded"
+            )
+            .forEach(other => {
+
+              if (other === item) return;
+
+              other.classList.remove("expanded");
+
+              const otherArrow =
+                other.querySelector(
+                  ".location-arrow"
+                );
+
+              if (otherArrow) {
+
+                otherArrow.setAttribute(
+                  "aria-expanded",
+                  "false"
+                );
+
+              }
+
+            });
+
+
+          /* Toggle current dropdown */
+
+          item.classList.toggle(
+            "expanded",
+            !isExpanded
+          );
+
+
+          arrow.setAttribute(
+            "aria-expanded",
+            String(!isExpanded)
+          );
 
         }
       );
