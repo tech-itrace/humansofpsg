@@ -2,21 +2,6 @@
 /* =========================================================
    PSG WORLD
    Radio Garden Style Interactive Globe
-
-   FEATURES
-   ---------------------------------------------------------
-   • Interactive 3D globe
-   • Click location → smooth close zoom
-   • Selected location moves to exact center
-   • Fixed glowing center target
-   • Location marker
-   • Search
-   • Location list
-   • Details panel
-   • Random location
-   • Reset globe
-   • Auto rotation
-   • Country polygons
 ========================================================= */
 ---
 
@@ -32,14 +17,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-
-    font-family:
-      Inter,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
-
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: #020609;
     color: #ffffff;
   }
@@ -53,9 +31,7 @@
     font: inherit;
   }
 
-  /* =======================================================
-     MAIN
-  ======================================================= */
+  /* ================= MAIN ================= */
 
   .psg-world {
     position: relative;
@@ -63,17 +39,9 @@
     height: 100vh;
     overflow: hidden;
     background:
-      radial-gradient(
-        circle at 50% 45%,
-        rgba(0, 255, 150, 0.05),
-        transparent 38%
-      ),
+      radial-gradient(circle at 50% 45%, rgba(0, 255, 150, 0.05), transparent 38%),
       #020609;
   }
-
-  /* =======================================================
-     GLOBE AREA
-  ======================================================= */
 
   .globe-panel {
     position: absolute;
@@ -96,50 +64,38 @@
     inset: 0;
     pointer-events: none;
     z-index: 2;
-
-    background:
-      radial-gradient(
-        circle at center,
-        transparent 48%,
-        rgba(0, 0, 0, 0.08) 65%,
-        rgba(0, 0, 0, 0.55) 100%
-      );
+    background: radial-gradient(
+      circle at center,
+      transparent 48%,
+      rgba(0, 0, 0, 0.08) 65%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
   }
 
-  /* =======================================================
-     TOP HEADER
-  ======================================================= */
+  /* ================= TOP BAR ================= */
 
   .top-bar {
     position: absolute;
     left: 24px;
     right: 24px;
     top: 20px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     z-index: 15;
-
     pointer-events: none;
   }
 
   .brand {
     pointer-events: auto;
-
     display: flex;
     align-items: center;
     gap: 12px;
-
     padding: 10px 16px;
-
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 14px;
-
     background: rgba(2, 8, 11, 0.72);
     backdrop-filter: blur(16px);
-
     box-shadow:
       0 10px 40px rgba(0, 0, 0, 0.3),
       inset 0 1px rgba(255, 255, 255, 0.04);
@@ -148,15 +104,9 @@
   .brand-dot {
     width: 10px;
     height: 10px;
-
     border-radius: 50%;
-
     background: #00ff88;
-
-    box-shadow:
-      0 0 8px #00ff88,
-      0 0 20px rgba(0, 255, 136, 0.75);
-
+    box-shadow: 0 0 8px #00ff88, 0 0 20px rgba(0, 255, 136, 0.75);
     animation: brandPulse 2s infinite;
   }
 
@@ -168,65 +118,43 @@
 
   .brand-subtitle {
     margin-top: 2px;
-
     color: rgba(255, 255, 255, 0.48);
-
     font-size: 10px;
     letter-spacing: 0.8px;
     text-transform: uppercase;
   }
 
   @keyframes brandPulse {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    50% {
-      opacity: 0.55;
-      transform: scale(0.8);
-    }
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.8); }
   }
 
-  /* =======================================================
-     SEARCH
-  ======================================================= */
+  /* ================= SEARCH ================= */
 
   .search-box {
     pointer-events: auto;
-
     width: 300px;
-
     position: relative;
   }
 
   .search-input {
     width: 100%;
     height: 44px;
-
     padding: 0 16px 0 42px;
-
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 13px;
-
     outline: none;
-
     color: #ffffff;
-
     background: rgba(2, 8, 11, 0.78);
     backdrop-filter: blur(16px);
-
     box-shadow:
       0 10px 40px rgba(0, 0, 0, 0.3),
       inset 0 1px rgba(255, 255, 255, 0.04);
-
     transition: 0.2s ease;
   }
 
   .search-input:focus {
     border-color: rgba(0, 255, 136, 0.5);
-
     box-shadow:
       0 0 0 3px rgba(0, 255, 136, 0.06),
       0 10px 40px rgba(0, 0, 0, 0.3);
@@ -238,38 +166,26 @@
 
   .search-icon {
     position: absolute;
-
     left: 15px;
     top: 50%;
-
     transform: translateY(-50%);
-
     color: rgba(255, 255, 255, 0.5);
-
     font-size: 15px;
-
     pointer-events: none;
   }
 
-  /* =======================================================
-     CENTER MARKER
-  ======================================================= */
+  /* ================= CENTER MARKER ================= */
 
   .center-marker {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 110px;
     height: 110px;
-
     transform: translate(-50%, -50%);
-
     z-index: 12;
-
-    pointer-events: none;
-
+    pointer-events: auto;
+    cursor: pointer;
     display: none;
   }
 
@@ -279,209 +195,129 @@
 
   .center-marker-dot {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 12px;
     height: 12px;
-
     transform: translate(-50%, -50%);
-
     border-radius: 50%;
-
     background: #ffffff;
-
     box-shadow:
       0 0 6px #ffffff,
       0 0 14px #00ff88,
       0 0 32px #00ff88,
       0 0 55px rgba(0, 255, 136, 0.8);
-
     z-index: 5;
   }
 
   .center-marker-ring {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 30px;
     height: 30px;
-
     transform: translate(-50%, -50%);
-
     border: 2px solid #00ff88;
-
     border-radius: 50%;
-
-    box-shadow:
-      0 0 10px #00ff88,
-      0 0 28px rgba(0, 255, 136, 0.8);
-
+    box-shadow: 0 0 10px #00ff88, 0 0 28px rgba(0, 255, 136, 0.8);
     animation: centerRing 1.7s ease-out infinite;
   }
 
   .center-marker-ring-2 {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 60px;
     height: 60px;
-
     transform: translate(-50%, -50%);
-
     border: 1px solid rgba(0, 255, 136, 0.35);
-
     border-radius: 50%;
-
     animation: centerRing2 2.2s ease-out infinite;
   }
 
   .center-cross-horizontal,
   .center-cross-vertical {
     position: absolute;
-
     background: rgba(0, 255, 136, 0.65);
-
     box-shadow: 0 0 7px rgba(0, 255, 136, 0.5);
   }
 
   .center-cross-horizontal {
     left: 10px;
     right: 10px;
-
     top: 54px;
-
     height: 1px;
   }
 
   .center-cross-vertical {
     top: 10px;
     bottom: 10px;
-
     left: 54px;
-
     width: 1px;
   }
 
   .center-label {
     position: absolute;
-
     left: 50%;
     top: 83px;
-
     transform: translateX(-50%);
-
     padding: 6px 11px;
-
     white-space: nowrap;
-
     color: #ffffff;
-
     font-size: 11px;
     font-weight: 700;
-
     border: 1px solid rgba(0, 255, 136, 0.35);
-
     border-radius: 20px;
-
     background: rgba(0, 0, 0, 0.78);
-
     backdrop-filter: blur(10px);
-
     box-shadow:
       0 5px 20px rgba(0, 0, 0, 0.5),
       0 0 15px rgba(0, 255, 136, 0.08);
   }
 
   @keyframes centerRing {
-    0% {
-      width: 22px;
-      height: 22px;
-      opacity: 1;
-    }
-
-    70% {
-      width: 72px;
-      height: 72px;
-      opacity: 0.12;
-    }
-
-    100% {
-      width: 78px;
-      height: 78px;
-      opacity: 0;
-    }
+    0% { width: 22px; height: 22px; opacity: 1; }
+    70% { width: 72px; height: 72px; opacity: 0.12; }
+    100% { width: 78px; height: 78px; opacity: 0; }
   }
 
   @keyframes centerRing2 {
-    0% {
-      width: 45px;
-      height: 45px;
-      opacity: 0.5;
-    }
-
-    100% {
-      width: 90px;
-      height: 90px;
-      opacity: 0;
-    }
+    0% { width: 45px; height: 45px; opacity: 0.5; }
+    100% { width: 90px; height: 90px; opacity: 0; }
   }
 
-  /* =======================================================
-     LOCATION MARKERS
-  ======================================================= */
+  /* ================= MAP MARKERS ================= */
 
   .station-marker {
     position: relative;
-
     width: 30px;
     height: 30px;
-
     transform: translate(-50%, -50%);
-
     cursor: pointer;
-
     pointer-events: auto;
   }
 
   .station-marker-ring {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 18px;
     height: 18px;
-
     transform: translate(-50%, -50%);
-
     border: 1px solid rgba(0, 255, 136, 0.8);
-
     border-radius: 50%;
-
     animation: markerPulse 2s infinite;
   }
 
   .station-marker-core {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 7px;
     height: 7px;
-
     transform: translate(-50%, -50%);
-
     border-radius: 50%;
-
     background: #00ff88;
-
     box-shadow:
       0 0 5px #ffffff,
       0 0 12px #00ff88,
@@ -491,21 +327,14 @@
   .station-marker.selected .station-marker-core {
     width: 11px;
     height: 11px;
-
     background: #ffffff;
-
-    box-shadow:
-      0 0 8px #ffffff,
-      0 0 18px #00ff88,
-      0 0 38px #00ff88;
+    box-shadow: 0 0 8px #ffffff, 0 0 18px #00ff88, 0 0 38px #00ff88;
   }
 
   .station-marker.selected .station-marker-ring {
     width: 30px;
     height: 30px;
-
     border-color: #00ff88;
-
     box-shadow:
       0 0 12px rgba(0, 255, 136, 0.8),
       inset 0 0 10px rgba(0, 255, 136, 0.2);
@@ -513,29 +342,18 @@
 
   .station-tooltip {
     position: absolute;
-
     left: 50%;
     top: 23px;
-
     transform: translateX(-50%);
-
     white-space: nowrap;
-
     padding: 4px 8px;
-
     border-radius: 5px;
-
     color: rgba(255, 255, 255, 0.88);
-
     font-size: 9px;
     font-weight: 600;
-
     background: rgba(0, 0, 0, 0.68);
-
     opacity: 0;
-
     pointer-events: none;
-
     transition: 0.18s ease;
   }
 
@@ -544,50 +362,28 @@
   }
 
   @keyframes markerPulse {
-    0% {
-      transform: translate(-50%, -50%) scale(0.65);
-      opacity: 0.9;
-    }
-
-    70% {
-      transform: translate(-50%, -50%) scale(1.35);
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 0;
-    }
+    0% { transform: translate(-50%, -50%) scale(0.65); opacity: 0.9; }
+    70% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+    100% { opacity: 0; }
   }
 
-  /* =======================================================
-     LEFT LOCATION PANEL
-  ======================================================= */
+  /* ================= LEFT LOCATION PANEL ================= */
 
   .location-panel {
     position: absolute;
-
     left: 24px;
     top: 50%;
-
     width: 310px;
     max-height: calc(100vh - 150px);
-
     transform: translateY(-50%);
-
     z-index: 14;
-
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
-
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 18px;
-
     background: rgba(3, 10, 13, 0.76);
-
     backdrop-filter: blur(20px);
-
     box-shadow:
       0 25px 80px rgba(0, 0, 0, 0.5),
       inset 0 1px rgba(255, 255, 255, 0.04);
@@ -595,29 +391,24 @@
 
   .panel-head {
     padding: 18px 18px 14px;
-
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .panel-title {
     font-size: 13px;
     font-weight: 800;
-
     letter-spacing: 1px;
     text-transform: uppercase;
   }
 
   .panel-count {
     margin-top: 5px;
-
     color: rgba(255, 255, 255, 0.42);
-
     font-size: 10px;
   }
 
   .location-list {
     padding: 8px;
-
     overflow-y: auto;
   }
 
@@ -633,18 +424,12 @@
   .location-item {
     width: 100%;
     margin-bottom: 4px;
-
     border: 1px solid transparent;
     border-radius: 12px;
-
     background: transparent;
     color: #ffffff;
-
     overflow: hidden;
-
-    transition:
-      background 0.2s ease,
-      border-color 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
 
   .location-item:hover {
@@ -656,21 +441,16 @@
     background: rgba(0, 255, 136, 0.055);
   }
 
-  /* Main location row */
   .location-main {
     width: 100%;
     min-height: 52px;
-
     display: flex;
     align-items: center;
     gap: 11px;
-
     padding: 9px 8px;
-
     border: 0;
     background: transparent;
     color: #ffffff;
-
     text-align: left;
     cursor: pointer;
   }
@@ -682,15 +462,11 @@
 
   .location-icon {
     flex: 0 0 auto;
-
     width: 30px;
     height: 30px;
-
     display: grid;
     place-items: center;
-
     border-radius: 9px;
-
     background: rgba(0, 255, 136, 0.08);
     border: 1px solid rgba(0, 255, 136, 0.16);
   }
@@ -698,14 +474,9 @@
   .location-icon-dot {
     width: 6px;
     height: 6px;
-
     border-radius: 50%;
-
     background: #00ff88;
-
-    box-shadow:
-      0 0 6px #00ff88,
-      0 0 12px rgba(0, 255, 136, 0.8);
+    box-shadow: 0 0 6px #00ff88, 0 0 12px rgba(0, 255, 136, 0.8);
   }
 
   .location-info {
@@ -715,45 +486,32 @@
 
   .location-name {
     overflow: hidden;
-
     text-overflow: ellipsis;
     white-space: nowrap;
-
     font-size: 12px;
     font-weight: 750;
   }
 
   .location-country {
     margin-top: 3px;
-
     color: rgba(255, 255, 255, 0.4);
-
     font-size: 9px;
   }
 
-  /* Right-side arrow */
   .location-arrow {
     flex: 0 0 auto;
-
     width: 30px;
     height: 30px;
-
     display: grid;
     place-items: center;
-
     padding: 0;
-
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
-
     background: rgba(255, 255, 255, 0.025);
     color: rgba(255, 255, 255, 0.52);
-
     cursor: pointer;
-
     font-size: 18px;
     line-height: 1;
-
     transition:
       transform 0.2s ease,
       color 0.2s ease,
@@ -763,34 +521,24 @@
 
   .location-arrow:hover {
     color: #00ff88;
-
     background: rgba(0, 255, 136, 0.08);
-
     border-color: rgba(0, 255, 136, 0.2);
   }
 
   .location-item.expanded .location-arrow {
     color: #00ff88;
-
     background: rgba(0, 255, 136, 0.08);
-
     border-color: rgba(0, 255, 136, 0.2);
-
     transform: rotate(90deg);
   }
 
-  /* Dropdown details */
+  /* Dropdown box (used on the LEFT and the RIGHT) */
   .location-extra {
     display: none;
-
     margin: 0 8px 10px 49px;
-
     padding: 10px;
-
     border-radius: 10px;
-
     background: rgba(0, 0, 0, 0.22);
-
     border: 1px solid rgba(255, 255, 255, 0.055);
   }
 
@@ -799,67 +547,19 @@
     animation: locationDrop 0.18s ease;
   }
 
+  /* Same box shown inside the RIGHT details panel */
+  .details-panel .location-extra {
+    display: block;
+    margin: 0;
+    animation: none;
+  }
+
   @keyframes locationDrop {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  .location-extra-row {
-    min-height: 24px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 7px;
-  }
-
-  .location-extra-icon {
-    flex: 0 0 18px;
-
-    width: 18px;
-
-    color: #00ff88;
-
-    font-size: 10px;
-    text-align: center;
-  }
-
-  .location-extra-label {
-    flex: 0 0 48px;
-
-    width: 48px;
-
-    color: rgba(255, 255, 255, 0.35);
-
-    font-size: 9px;
-  }
-
-  .location-extra-value {
-    min-width: 0;
-    flex: 1;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    color: rgba(255, 255, 255, 0.82);
-
-    font-size: 9px;
-    font-weight: 600;
-  }
-
-  /* =======================================================
-     PEOPLE LIST INSIDE LOCATION DROPDOWN
-     MODERN NAME CARD UI
-  ======================================================= */
+  /* ================= PEOPLE CARDS (LEFT + RIGHT) ================= */
 
   .location-extra-heading {
     display: flex;
@@ -868,21 +568,21 @@
     gap: 10px;
     margin-bottom: 8px;
     padding: 3px 3px 9px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   }
 
   .location-extra-heading span:first-child {
     color: #ffffff;
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: .1px;
+    letter-spacing: 0.1px;
   }
 
   .location-extra-heading span:last-child {
     padding: 4px 7px;
     border-radius: 20px;
-    border: 1px solid rgba(0,255,136,.14);
-    background: rgba(0,255,136,.06);
+    border: 1px solid rgba(0, 255, 136, 0.14);
+    background: rgba(0, 255, 136, 0.06);
     color: #00ff88;
     font-size: 8px;
     font-weight: 700;
@@ -896,28 +596,25 @@
 
   .location-person-card {
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,.065);
+    border: 1px solid rgba(255, 255, 255, 0.065);
     border-radius: 11px;
     background: linear-gradient(
       135deg,
-      rgba(255,255,255,.035),
-      rgba(255,255,255,.012)
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.012)
     );
-    transition:
-      border-color .18s ease,
-      background .18s ease,
-      transform .18s ease;
+    transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
   }
 
   .location-person-card:hover {
-    border-color: rgba(0,255,136,.18);
-    background: rgba(0,255,136,.035);
+    border-color: rgba(0, 255, 136, 0.18);
+    background: rgba(0, 255, 136, 0.035);
     transform: translateX(1px);
   }
 
   .location-person-card.person-expanded {
-    border-color: rgba(0,255,136,.24);
-    background: rgba(0,255,136,.045);
+    border-color: rgba(0, 255, 136, 0.24);
+    background: rgba(0, 255, 136, 0.045);
   }
 
   .location-person-header {
@@ -941,12 +638,12 @@
     display: grid;
     place-items: center;
     border-radius: 9px;
-    background: rgba(0,255,136,.075);
-    border: 1px solid rgba(0,255,136,.16);
+    background: rgba(0, 255, 136, 0.075);
+    border: 1px solid rgba(0, 255, 136, 0.16);
     color: #00ff88;
     font-size: 10px;
     font-weight: 850;
-    box-shadow: inset 0 0 12px rgba(0,255,136,.035);
+    box-shadow: inset 0 0 12px rgba(0, 255, 136, 0.035);
   }
 
   .location-person-header > div:nth-child(2) {
@@ -970,7 +667,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: rgba(255,255,255,.42);
+    color: rgba(255, 255, 255, 0.42);
     font-size: 8px;
     line-height: 1.2;
   }
@@ -981,30 +678,30 @@
     flex: 0 0 27px;
     display: grid;
     place-items: center;
-    border: 1px solid rgba(255,255,255,.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
-    background: rgba(255,255,255,.025);
-    color: rgba(255,255,255,.48);
+    background: rgba(255, 255, 255, 0.025);
+    color: rgba(255, 255, 255, 0.48);
     font-size: 16px;
     line-height: 1;
     transition:
-      transform .2s ease,
-      color .2s ease,
-      background .2s ease,
-      border-color .2s ease;
+      transform 0.2s ease,
+      color 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .location-person-header:hover .location-person-arrow {
     color: #00ff88;
-    border-color: rgba(0,255,136,.2);
-    background: rgba(0,255,136,.07);
+    border-color: rgba(0, 255, 136, 0.2);
+    background: rgba(0, 255, 136, 0.07);
   }
 
   .location-person-card.person-expanded .location-person-arrow {
     transform: rotate(90deg);
     color: #00ff88;
-    border-color: rgba(0,255,136,.22);
-    background: rgba(0,255,136,.08);
+    border-color: rgba(0, 255, 136, 0.22);
+    background: rgba(0, 255, 136, 0.08);
   }
 
   .location-person-details {
@@ -1012,24 +709,18 @@
     margin: 0 8px 8px 47px;
     padding: 9px;
     border-radius: 9px;
-    border: 1px solid rgba(0,255,136,.09);
-    background: rgba(0,0,0,.22);
+    border: 1px solid rgba(0, 255, 136, 0.09);
+    background: rgba(0, 0, 0, 0.22);
   }
 
   .location-person-card.person-expanded .location-person-details {
     display: block;
-    animation: personDrop .18s ease;
+    animation: personDrop 0.18s ease;
   }
 
   @keyframes personDrop {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .person-detail-row {
@@ -1041,90 +732,92 @@
   }
 
   .person-detail-row + .person-detail-row {
-    border-top: 1px solid rgba(255,255,255,.035);
+    border-top: 1px solid rgba(255, 255, 255, 0.035);
   }
 
   .person-detail-label {
     flex: 0 0 58px;
-    color: rgba(255,255,255,.32);
+    color: rgba(255, 255, 255, 0.32);
     font-size: 7px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .45px;
+    letter-spacing: 0.45px;
   }
 
   .person-detail-value {
     min-width: 0;
     flex: 1;
-    color: rgba(255,255,255,.82);
+    color: rgba(255, 255, 255, 0.82);
     font-size: 8px;
     font-weight: 600;
     line-height: 1.4;
     overflow-wrap: anywhere;
   }
 
-  /* =======================================================
-     DETAILS PANEL
-  ======================================================= */
+  /* ================= RIGHT DETAILS PANEL ================= */
 
   .details-panel {
     position: absolute;
-
     right: 24px;
     bottom: 24px;
-
     width: 350px;
-
+    max-height: min(620px, calc(100vh - 48px));
+    overflow: hidden;
     z-index: 14;
-
     padding: 18px;
-
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 18px;
-
     background: rgba(3, 10, 13, 0.8);
-
     backdrop-filter: blur(20px);
-
     box-shadow:
       0 25px 80px rgba(0, 0, 0, 0.5),
       inset 0 1px rgba(255, 255, 255, 0.04);
   }
 
+  .details-panel.hidden {
+    display: none;
+  }
+
+  .details-content {
+    max-height: min(580px, calc(100vh - 90px));
+    overflow-y: auto;
+    padding-right: 3px;
+  }
+
+  .details-content::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .details-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 136, 0.22);
+    border-radius: 10px;
+  }
+
+  /* ===== RIGHT PANEL CITY HEADER ===== */
+
   .details-top {
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     padding-bottom: 14px;
-
+    margin-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .details-avatar {
     width: 44px;
     height: 44px;
-
     display: grid;
     place-items: center;
-
     flex: 0 0 auto;
-
     border-radius: 13px;
-
     color: #00ff88;
-
-    background:
-      radial-gradient(
-        circle,
-        rgba(0, 255, 136, 0.18),
-        rgba(0, 255, 136, 0.04)
-      );
-
+    background: radial-gradient(
+      circle,
+      rgba(0, 255, 136, 0.18),
+      rgba(0, 255, 136, 0.04)
+    );
     border: 1px solid rgba(0, 255, 136, 0.2);
-
     font-size: 18px;
     font-weight: 800;
   }
@@ -1136,150 +829,62 @@
 
   .details-role {
     margin-top: 3px;
-
     color: rgba(255, 255, 255, 0.48);
-
     font-size: 10px;
   }
 
-  .details-grid {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 9px;
-
-    margin-top: 15px;
+  .details-location-count {
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 9px;
   }
 
-  .detail-item {
-    min-width: 0;
-
-    padding: 9px;
-
-    border-radius: 9px;
-
-    background: rgba(255, 255, 255, 0.035);
-
-    border: 1px solid rgba(255, 255, 255, 0.055);
-  }
-
-  .detail-label {
-    color: rgba(255, 255, 255, 0.35);
-
-    font-size: 8px;
-
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-  }
-
-  .detail-value {
-    margin-top: 4px;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    color: rgba(255, 255, 255, 0.85);
-
-    font-size: 10px;
-    font-weight: 600;
-  }
-
-  .details-address {
-    margin-top: 9px;
-
-    padding: 10px;
-
-    border-radius: 9px;
-
-    background: rgba(255, 255, 255, 0.035);
-
-    border: 1px solid rgba(255, 255, 255, 0.055);
-  }
-
-  .details-panel.hidden {
-    display: none;
-  }
-
-  /* =======================================================
-     CONTROLS
-  ======================================================= */
+  /* ================= CONTROLS ================= */
 
   .control-bar {
     position: absolute;
-
     right: 24px;
     top: 82px;
-
     z-index: 15;
-
     display: flex;
-
     gap: 7px;
   }
 
   .control-button {
     width: 38px;
     height: 38px;
-
     display: grid;
     place-items: center;
-
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-
     color: rgba(255, 255, 255, 0.75);
-
     background: rgba(3, 10, 13, 0.75);
-
     backdrop-filter: blur(12px);
-
     cursor: pointer;
-
-    transition:
-      background 0.18s ease,
-      color 0.18s ease,
-      transform 0.18s ease;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
   }
 
   .control-button:hover {
     color: #ffffff;
-
     background: rgba(0, 255, 136, 0.1);
-
     border-color: rgba(0, 255, 136, 0.25);
-
     transform: translateY(-1px);
   }
 
-  /* =======================================================
-     LOADING
-  ======================================================= */
+  /* ================= LOADING ================= */
 
   .map-loading {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     transform: translate(-50%, -50%);
-
     z-index: 30;
-
     padding: 12px 18px;
-
     border-radius: 12px;
-
     color: rgba(255, 255, 255, 0.7);
-
     font-size: 11px;
-
     background: rgba(0, 0, 0, 0.7);
-
     backdrop-filter: blur(12px);
-
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
@@ -1287,149 +892,77 @@
     display: none;
   }
 
-  /* =======================================================
-     MOBILE
-  ======================================================= */
+  /* ================= MOBILE ================= */
 
   @media (max-width: 900px) {
-    .top-bar {
-      left: 12px;
-      right: 12px;
-      top: 12px;
-    }
-
-    .brand-subtitle {
-      display: none;
-    }
-
-    .search-box {
-      width: 210px;
-    }
+    .top-bar { left: 12px; right: 12px; top: 12px; }
+    .brand-subtitle { display: none; }
+    .search-box { width: 210px; }
 
     .location-panel {
       left: 12px;
       top: auto;
       bottom: 12px;
-
       width: 250px;
-
       max-height: 42vh;
-
       transform: none;
     }
 
-    .details-panel {
-      right: 12px;
-      bottom: 12px;
-
-      width: 290px;
-    }
-
-    .control-bar {
-      right: 12px;
-      top: 68px;
-    }
+    .details-panel { right: 12px; bottom: 12px; width: 290px; }
+    .control-bar { right: 12px; top: 68px; }
   }
 
   @media (max-width: 650px) {
-    .brand {
-      padding: 9px 11px;
-    }
-
-    .brand-title {
-      font-size: 11px;
-    }
-
-    .search-box {
-      width: 170px;
-    }
-
-    .location-panel {
-      display: none;
-    }
+    .brand { padding: 9px 11px; }
+    .brand-title { font-size: 11px; }
+    .search-box { width: 170px; }
+    .location-panel { display: none; }
 
     .details-panel {
       left: 12px;
       right: 12px;
       bottom: 12px;
-
       width: auto;
     }
 
-    .control-bar {
-      top: 66px;
-    }
-
-    .center-label {
-      font-size: 9px;
-    }
+    .control-bar { top: 66px; }
+    .center-label { font-size: 9px; }
   }
 </style>
 
 <div class="psg-world">
 
-  <!-- =====================================================
-       GLOBE
-  ====================================================== -->
-
+  <!-- GLOBE -->
   <div class="globe-panel">
 
     <div id="globe-container"></div>
 
     <div class="globe-vignette"></div>
 
-    <!-- ===================================================
-         EXACT SCREEN CENTER TARGET
-    ==================================================== -->
-
     <div id="center-marker" class="center-marker">
-
       <div class="center-marker-ring"></div>
-
       <div class="center-marker-ring-2"></div>
-
       <div class="center-cross-horizontal"></div>
-
       <div class="center-cross-vertical"></div>
-
       <div class="center-marker-dot"></div>
-
-      <div id="center-label" class="center-label">
-        Location
-      </div>
-
+      <div id="center-label" class="center-label">Location</div>
     </div>
 
   </div>
 
-
-  <!-- =====================================================
-       HEADER
-  ====================================================== -->
-
+  <!-- HEADER -->
   <div class="top-bar">
 
     <div class="brand">
-
       <div class="brand-dot"></div>
-
       <div>
-        <div class="brand-title">
-          PSG WORLD
-        </div>
-
-        <div class="brand-subtitle">
-          Global People Network
-        </div>
+        <div class="brand-title">PSG WORLD</div>
+        <div class="brand-subtitle">Global People Network</div>
       </div>
-
     </div>
 
-
     <div class="search-box">
-
       <span class="search-icon">⌕</span>
-
       <input
         id="location-search"
         class="search-input"
@@ -1437,250 +970,37 @@
         placeholder="Search location..."
         autocomplete="off"
       />
-
     </div>
 
   </div>
 
-
-  <!-- =====================================================
-       MAP CONTROLS
-  ====================================================== -->
-
+  <!-- MAP CONTROLS -->
   <div class="control-bar">
-
-    <button
-      id="zoom-in"
-      class="control-button"
-      title="Zoom in"
-      type="button"
-    >
-      +
-    </button>
-
-    <button
-      id="zoom-out"
-      class="control-button"
-      title="Zoom out"
-      type="button"
-    >
-      −
-    </button>
-
-    <button
-      id="random-location"
-      class="control-button"
-      title="Random location"
-      type="button"
-    >
-      ⤨
-    </button>
-
-    <button
-      id="reset-globe"
-      class="control-button"
-      title="Reset globe"
-      type="button"
-    >
-      ◉
-    </button>
-
+    <button id="zoom-in" class="control-button" title="Zoom in" type="button">+</button>
+    <button id="zoom-out" class="control-button" title="Zoom out" type="button">−</button>
+    <button id="random-location" class="control-button" title="Random location" type="button">⤨</button>
+    <button id="reset-globe" class="control-button" title="Reset globe" type="button">◉</button>
   </div>
 
-
-  <!-- =====================================================
-       LOCATION LIST
-  ====================================================== -->
-
+  <!-- LOCATION LIST (LEFT) -->
   <aside class="location-panel">
 
     <div class="panel-head">
-
-      <div class="panel-title">
-        PSG Locations
-      </div>
-
-      <div
-        id="panel-count"
-        class="panel-count"
-      >
-        0 locations
-      </div>
-
+      <div class="panel-title">PSG Locations</div>
+      <div id="panel-count" class="panel-count">0 locations</div>
     </div>
 
-    <div
-      id="location-list"
-      class="location-list"
-    ></div>
+    <div id="location-list" class="location-list"></div>
 
   </aside>
 
-
-  <!-- =====================================================
-       DETAILS
-  ====================================================== -->
-
+  <!-- DETAILS (RIGHT) -->
   <section id="details-panel" class="details-panel hidden">
-
-    <div class="details-top">
-
-      <div
-        id="details-avatar"
-        class="details-avatar"
-      >
-        P
-      </div>
-
-      <div>
-
-        <div
-          id="details-name"
-          class="details-name"
-        >
-          Chennai
-        </div>
-
-        <div
-          id="details-role"
-          class="details-role"
-        >
-          PSG Location
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="details-grid">
-
-      <div class="detail-item">
-
-        <div class="detail-label">
-          City
-        </div>
-
-        <div
-          id="details-city"
-          class="detail-value"
-        >
-          Chennai
-        </div>
-
-      </div>
-
-
-      <div class="detail-item">
-
-        <div class="detail-label">
-          Country
-        </div>
-
-        <div
-          id="details-country"
-          class="detail-value"
-        >
-          India
-        </div>
-
-      </div>
-
-
-      <div class="detail-item">
-
-        <div class="detail-label">
-          Branch
-        </div>
-
-        <div
-          id="details-branch"
-          class="detail-value"
-        >
-          PSG
-        </div>
-
-      </div>
-
-
-      <div class="detail-item">
-
-        <div class="detail-label">
-          Person
-        </div>
-
-        <div
-          id="details-person"
-          class="detail-value"
-        >
-          -
-        </div>
-
-      </div>
-
-
-      <div class="detail-item">
-
-        <div class="detail-label">
-          Phone
-        </div>
-
-        <div
-          id="details-phone"
-          class="detail-value"
-        >
-          -
-        </div>
-
-      </div>
-
-
-      <div class="detail-item">
-
-        <div class="detail-label">
-          Email
-        </div>
-
-        <div
-          id="details-email"
-          class="detail-value"
-        >
-          -
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="details-address">
-
-      <div class="detail-label">
-        Address
-      </div>
-
-      <div
-        id="details-address"
-        class="detail-value"
-      >
-        Chennai, Tamil Nadu, India
-      </div>
-
-    </div>
-
+    <div id="details-content" class="details-content"></div>
   </section>
 
-
-  <!-- =====================================================
-       LOADING
-  ====================================================== -->
-
-  <div
-    id="map-loading"
-    class="map-loading"
-  >
-    Loading map...
-  </div>
+  <!-- LOADING -->
+  <div id="map-loading" class="map-loading">Loading map...</div>
 
 </div>
 
@@ -1691,11 +1011,17 @@
      IMPORTS
   ======================================================= */
 
-  import Globe from
-    "https://esm.sh/globe.gl@2.45.0";
+  import Globe from "https://esm.sh/globe.gl@2.45.0";
+  import * as topojson from "https://esm.sh/topojson-client@3";
 
-  import * as topojson from
-    "https://esm.sh/topojson-client@3";
+
+  /* =======================================================
+     SETTINGS
+     false = opening one person closes the others
+     true  = many people can stay open together
+  ======================================================= */
+
+  const ALLOW_MULTIPLE_OPEN = false;
 
 
   /* =======================================================
@@ -1748,275 +1074,41 @@
       ]
     },
 
-    {
-      id: 3,
-      name: "Madurai",
-      country: "India",
-      countryCode: "IN",
-      lat: 9.9252,
-      lng: 78.1198,
-      branch: "PSG",
-      person: "Karthik Raj",
-      role: "Management",
-      address: "Madurai, Tamil Nadu, India",
-      phone: "+91 90000 00003",
-      email: "karthik@example.com"
-    },
+    { id: 3, name: "Madurai", country: "India", countryCode: "IN", lat: 9.9252, lng: 78.1198, branch: "PSG", person: "Karthik Raj", role: "Management", address: "Madurai, Tamil Nadu, India", phone: "+91 90000 00003", email: "karthik@example.com" },
 
-    {
-      id: 4,
-      name: "Salem",
-      country: "India",
-      countryCode: "IN",
-      lat: 11.6643,
-      lng: 78.146,
-      branch: "PSG",
-      person: "Divya S",
-      role: "Administration",
-      address: "Salem, Tamil Nadu, India",
-      phone: "+91 90000 00004",
-      email: "divya@example.com"
-    },
+    { id: 4, name: "Salem", country: "India", countryCode: "IN", lat: 11.6643, lng: 78.146, branch: "PSG", person: "Divya S", role: "Administration", address: "Salem, Tamil Nadu, India", phone: "+91 90000 00004", email: "divya@example.com" },
 
-    {
-      id: 5,
-      name: "Tiruchirappalli",
-      country: "India",
-      countryCode: "IN",
-      lat: 10.7905,
-      lng: 78.7047,
-      branch: "PSG",
-      person: "Suresh Kumar",
-      role: "Engineering",
-      address: "Tiruchirappalli, Tamil Nadu, India",
-      phone: "+91 90000 00005",
-      email: "suresh@example.com"
-    },
+    { id: 5, name: "Tiruchirappalli", country: "India", countryCode: "IN", lat: 10.7905, lng: 78.7047, branch: "PSG", person: "Suresh Kumar", role: "Engineering", address: "Tiruchirappalli, Tamil Nadu, India", phone: "+91 90000 00005", email: "suresh@example.com" },
 
-    {
-      id: 6,
-      name: "Tirunelveli",
-      country: "India",
-      countryCode: "IN",
-      lat: 8.7139,
-      lng: 77.7567,
-      branch: "PSG",
-      person: "Meena Raj",
-      role: "Education",
-      address: "Tirunelveli, Tamil Nadu, India",
-      phone: "+91 90000 00006",
-      email: "meena@example.com"
-    },
+    { id: 6, name: "Tirunelveli", country: "India", countryCode: "IN", lat: 8.7139, lng: 77.7567, branch: "PSG", person: "Meena Raj", role: "Education", address: "Tirunelveli, Tamil Nadu, India", phone: "+91 90000 00006", email: "meena@example.com" },
 
-    {
-      id: 7,
-      name: "Tiruppur",
-      country: "India",
-      countryCode: "IN",
-      lat: 11.1085,
-      lng: 77.3411,
-      branch: "PSG",
-      person: "Vijay Kumar",
-      role: "Business",
-      address: "Tiruppur, Tamil Nadu, India",
-      phone: "+91 90000 00007",
-      email: "vijay@example.com"
-    },
+    { id: 7, name: "Tiruppur", country: "India", countryCode: "IN", lat: 11.1085, lng: 77.3411, branch: "PSG", person: "Vijay Kumar", role: "Business", address: "Tiruppur, Tamil Nadu, India", phone: "+91 90000 00007", email: "vijay@example.com" },
 
-    {
-      id: 8,
-      name: "Erode",
-      country: "India",
-      countryCode: "IN",
-      lat: 11.341,
-      lng: 77.7172,
-      branch: "PSG",
-      person: "Anitha M",
-      role: "Finance",
-      address: "Erode, Tamil Nadu, India",
-      phone: "+91 90000 00008",
-      email: "anitha@example.com"
-    },
+    { id: 8, name: "Erode", country: "India", countryCode: "IN", lat: 11.341, lng: 77.7172, branch: "PSG", person: "Anitha M", role: "Finance", address: "Erode, Tamil Nadu, India", phone: "+91 90000 00008", email: "anitha@example.com" },
 
-    {
-      id: 9,
-      name: "Bengaluru",
-      country: "India",
-      countryCode: "IN",
-      lat: 12.9716,
-      lng: 77.5946,
-      branch: "PSG",
-      person: "Rahul S",
-      role: "Software",
-      address: "Bengaluru, Karnataka, India",
-      phone: "+91 90000 00009",
-      email: "rahul@example.com"
-    },
+    { id: 9, name: "Bengaluru", country: "India", countryCode: "IN", lat: 12.9716, lng: 77.5946, branch: "PSG", person: "Rahul S", role: "Software", address: "Bengaluru, Karnataka, India", phone: "+91 90000 00009", email: "rahul@example.com" },
 
-    {
-      id: 10,
-      name: "Hyderabad",
-      country: "India",
-      countryCode: "IN",
-      lat: 17.385,
-      lng: 78.4867,
-      branch: "PSG",
-      person: "Naveen Kumar",
-      role: "Technology",
-      address: "Hyderabad, Telangana, India",
-      phone: "+91 90000 00010",
-      email: "naveen@example.com"
-    },
+    { id: 10, name: "Hyderabad", country: "India", countryCode: "IN", lat: 17.385, lng: 78.4867, branch: "PSG", person: "Naveen Kumar", role: "Technology", address: "Hyderabad, Telangana, India", phone: "+91 90000 00010", email: "naveen@example.com" },
 
-    {
-      id: 11,
-      name: "Mumbai",
-      country: "India",
-      countryCode: "IN",
-      lat: 19.076,
-      lng: 72.8777,
-      branch: "PSG",
-      person: "Ravi Kumar",
-      role: "Management",
-      address: "Mumbai, Maharashtra, India",
-      phone: "+91 90000 00011",
-      email: "ravi@example.com"
-    },
+    { id: 11, name: "Mumbai", country: "India", countryCode: "IN", lat: 19.076, lng: 72.8777, branch: "PSG", person: "Ravi Kumar", role: "Management", address: "Mumbai, Maharashtra, India", phone: "+91 90000 00011", email: "ravi@example.com" },
 
-    {
-      id: 12,
-      name: "Pune",
-      country: "India",
-      countryCode: "IN",
-      lat: 18.5204,
-      lng: 73.8567,
-      branch: "PSG",
-      person: "Swetha R",
-      role: "Engineering",
-      address: "Pune, Maharashtra, India",
-      phone: "+91 90000 00012",
-      email: "swetha@example.com"
-    },
+    { id: 12, name: "Pune", country: "India", countryCode: "IN", lat: 18.5204, lng: 73.8567, branch: "PSG", person: "Swetha R", role: "Engineering", address: "Pune, Maharashtra, India", phone: "+91 90000 00012", email: "swetha@example.com" },
 
-    {
-      id: 13,
-      name: "Ahmedabad",
-      country: "India",
-      countryCode: "IN",
-      lat: 23.0225,
-      lng: 72.5714,
-      branch: "PSG",
-      person: "Mohan K",
-      role: "Business",
-      address: "Ahmedabad, Gujarat, India",
-      phone: "+91 90000 00013",
-      email: "mohan@example.com"
-    },
+    { id: 13, name: "Ahmedabad", country: "India", countryCode: "IN", lat: 23.0225, lng: 72.5714, branch: "PSG", person: "Mohan K", role: "Business", address: "Ahmedabad, Gujarat, India", phone: "+91 90000 00013", email: "mohan@example.com" },
 
-    {
-      id: 14,
-      name: "New Delhi",
-      country: "India",
-      countryCode: "IN",
-      lat: 28.6139,
-      lng: 77.209,
-      branch: "PSG",
-      person: "Rajesh Kumar",
-      role: "Administration",
-      address: "New Delhi, India",
-      phone: "+91 90000 00014",
-      email: "rajesh@example.com"
-    },
+    { id: 14, name: "New Delhi", country: "India", countryCode: "IN", lat: 28.6139, lng: 77.209, branch: "PSG", person: "Rajesh Kumar", role: "Administration", address: "New Delhi, India", phone: "+91 90000 00014", email: "rajesh@example.com" },
 
-    {
-      id: 15,
-      name: "Jaipur",
-      country: "India",
-      countryCode: "IN",
-      lat: 26.9124,
-      lng: 75.7873,
-      branch: "PSG",
-      person: "Pooja S",
-      role: "Design",
-      address: "Jaipur, Rajasthan, India",
-      phone: "+91 90000 00015",
-      email: "pooja@example.com"
-    },
+    { id: 15, name: "Jaipur", country: "India", countryCode: "IN", lat: 26.9124, lng: 75.7873, branch: "PSG", person: "Pooja S", role: "Design", address: "Jaipur, Rajasthan, India", phone: "+91 90000 00015", email: "pooja@example.com" },
 
-    {
-      id: 16,
-      name: "Kolkata",
-      country: "India",
-      countryCode: "IN",
-      lat: 22.5726,
-      lng: 88.3639,
-      branch: "PSG",
-      person: "Amit Das",
-      role: "Technology",
-      address: "Kolkata, West Bengal, India",
-      phone: "+91 90000 00016",
-      email: "amit@example.com"
-    },
+    { id: 16, name: "Kolkata", country: "India", countryCode: "IN", lat: 22.5726, lng: 88.3639, branch: "PSG", person: "Amit Das", role: "Technology", address: "Kolkata, West Bengal, India", phone: "+91 90000 00016", email: "amit@example.com" },
 
-    {
-      id: 17,
-      name: "Kochi",
-      country: "India",
-      countryCode: "IN",
-      lat: 9.9312,
-      lng: 76.2673,
-      branch: "PSG",
-      person: "Joseph Mathew",
-      role: "Management",
-      address: "Kochi, Kerala, India",
-      phone: "+91 90000 00017",
-      email: "joseph@example.com"
-    },
+    { id: 17, name: "Kochi", country: "India", countryCode: "IN", lat: 9.9312, lng: 76.2673, branch: "PSG", person: "Joseph Mathew", role: "Management", address: "Kochi, Kerala, India", phone: "+91 90000 00017", email: "joseph@example.com" },
 
-    {
-      id: 18,
-      name: "Lucknow",
-      country: "India",
-      countryCode: "IN",
-      lat: 26.8467,
-      lng: 80.9462,
-      branch: "PSG",
-      person: "Anil Sharma",
-      role: "Education",
-      address: "Lucknow, Uttar Pradesh, India",
-      phone: "+91 90000 00018",
-      email: "anil@example.com"
-    },
+    { id: 18, name: "Lucknow", country: "India", countryCode: "IN", lat: 26.8467, lng: 80.9462, branch: "PSG", person: "Anil Sharma", role: "Education", address: "Lucknow, Uttar Pradesh, India", phone: "+91 90000 00018", email: "anil@example.com" },
 
-    {
-      id: 19,
-      name: "Singapore",
-      country: "Singapore",
-      countryCode: "SG",
-      lat: 1.3521,
-      lng: 103.8198,
-      branch: "PSG",
-      person: "Daniel Tan",
-      role: "Technology",
-      address: "Singapore",
-      phone: "+65 9000 00019",
-      email: "daniel@example.com"
-    },
+    { id: 19, name: "Singapore", country: "Singapore", countryCode: "SG", lat: 1.3521, lng: 103.8198, branch: "PSG", person: "Daniel Tan", role: "Technology", address: "Singapore", phone: "+65 9000 00019", email: "daniel@example.com" },
 
-    {
-      id: 20,
-      name: "Dubai",
-      country: "United Arab Emirates",
-      countryCode: "AE",
-      lat: 25.2048,
-      lng: 55.2708,
-      branch: "PSG",
-      person: "Ahmed Khan",
-      role: "Business",
-      address: "Dubai, UAE",
-      phone: "+971 5000 00020",
-      email: "ahmed@example.com"
-    }
+    { id: 20, name: "Dubai", country: "United Arab Emirates", countryCode: "AE", lat: 25.2048, lng: 55.2708, branch: "PSG", person: "Ahmed Khan", role: "Business", address: "Dubai, UAE", phone: "+971 5000 00020", email: "ahmed@example.com" }
 
   ];
 
@@ -2026,13 +1118,9 @@
   ======================================================= */
 
   let globe = null;
-
   let selectedLocation = null;
-
   let autoRotateTimeout = null;
-
   let focusTimeout = null;
-
   let countryData = [];
 
 
@@ -2040,29 +1128,25 @@
      DOM
   ======================================================= */
 
-  const globeContainer =
-    document.getElementById("globe-container");
+  const globeContainer = document.getElementById("globe-container");
+  const locationList = document.getElementById("location-list");
+  const searchInput = document.getElementById("location-search");
+  const panelCount = document.getElementById("panel-count");
+  const centerMarker = document.getElementById("center-marker");
+  const centerLabel = document.getElementById("center-label");
+  const loading = document.getElementById("map-loading");
+  const detailsPanel = document.getElementById("details-panel");
 
-  const locationList =
-    document.getElementById("location-list");
 
-  const searchInput =
-    document.getElementById("location-search");
+  /* Clicking the center label/target re-opens the right panel */
+  centerMarker?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
 
-  const panelCount =
-    document.getElementById("panel-count");
+    if (!selectedLocation) return;
 
-  const centerMarker =
-    document.getElementById("center-marker");
-
-  const centerLabel =
-    document.getElementById("center-label");
-
-  const loading =
-    document.getElementById("map-loading");
-
-  const detailsPanel =
-    document.getElementById("details-panel");
+    showLocation(selectedLocation);
+  });
 
 
   /* =======================================================
@@ -2070,19 +1154,158 @@
   ======================================================= */
 
   function escapeHtml(value) {
-
     return String(value ?? "")
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+
+  /* =======================================================
+     SHARED PEOPLE ACCORDION
+     Used by BOTH the left list and the right panel,
+     so they always look and work the same.
+  ======================================================= */
+
+  /* People list. Cities without a `people` array use
+     the single person saved on the location. */
+  function getPeople(location) {
+
+    if (Array.isArray(location.people) && location.people.length) {
+      return location.people;
+    }
+
+    return [{
+      name: location.person,
+      role: location.role,
+      department: location.role,
+      phone: location.phone,
+      email: location.email
+    }];
+
+  }
+
+
+  /* Numbered name cards. openFirst = first person starts open. */
+  function buildPeopleCards(location, openFirst = false) {
+
+    return getPeople(location).map((person, index) => {
+
+      const isOpen = openFirst && index === 0;
+
+      return `
+
+        <div class="location-person-card ${isOpen ? "person-expanded" : ""}">
+
+          <button
+            type="button"
+            class="location-person-header"
+            aria-expanded="${isOpen}"
+          >
+
+            <div class="location-person-number">${index + 1}</div>
+
+            <div style="min-width:0;flex:1;">
+              <div class="location-person-name">
+                ${escapeHtml(person.name || "-")}
+              </div>
+              <div class="location-person-role-preview">
+                ${escapeHtml(person.role || "-")}
+              </div>
+            </div>
+
+            <span class="location-person-arrow">›</span>
+
+          </button>
+
+          <div class="location-person-details">
+
+            <div class="person-detail-row">
+              <span class="person-detail-label">Role</span>
+              <span class="person-detail-value">${escapeHtml(person.role || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
+              <span class="person-detail-label">Department</span>
+              <span class="person-detail-value">${escapeHtml(person.department || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
+              <span class="person-detail-label">Phone</span>
+              <span class="person-detail-value">${escapeHtml(person.phone || location.phone || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
+              <span class="person-detail-label">Email</span>
+              <span class="person-detail-value">${escapeHtml(person.email || location.email || "-")}</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+  }
+
+
+  /* One click handler per container (event delegation).
+     Safe to call many times - it binds only once. */
+  function bindPersonAccordion(container) {
+
+    if (!container || container.dataset.accordionBound) return;
+
+    container.dataset.accordionBound = "true";
+
+    container.addEventListener("click", event => {
+
+      const header = event.target.closest(".location-person-header");
+
+      if (!header || !container.contains(header)) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const card = header.closest(".location-person-card");
+
+      if (!card) return;
+
+      const willOpen = !card.classList.contains("person-expanded");
+
+      /* Close the other people in the same city */
+      if (!ALLOW_MULTIPLE_OPEN) {
+
+        card.parentElement
+          ?.querySelectorAll(".location-person-card.person-expanded")
+          .forEach(other => {
+
+            other.classList.remove("person-expanded");
+
+            other
+              .querySelector(".location-person-header")
+              ?.setAttribute("aria-expanded", "false");
+
+          });
+
+      }
+
+      card.classList.toggle("person-expanded", willOpen);
+
+      header.setAttribute("aria-expanded", String(willOpen));
+
+    });
 
   }
 
 
   /* =======================================================
-     UPDATE DETAILS
+     RIGHT PANEL
+     City header + all people as dropdowns.
+     All dropdowns start CLOSED; click a name to open it.
   ======================================================= */
 
   function showLocation(location) {
@@ -2091,104 +1314,64 @@
 
     selectedLocation = location;
 
-    // Show the right-side details only after the user selects a location.
     if (detailsPanel) {
       detailsPanel.classList.remove("hidden");
     }
 
-    const avatar =
-      document.getElementById("details-avatar");
+    const content = document.getElementById("details-content");
 
-    const name =
-      document.getElementById("details-name");
+    if (!content) return;
 
-    const role =
-      document.getElementById("details-role");
+    const count = getPeople(location).length;
+    const label = count === 1 ? "person" : "people";
 
-    const city =
-      document.getElementById("details-city");
+    content.innerHTML = `
 
-    const country =
-      document.getElementById("details-country");
+      <!-- CITY HEADER -->
+      <div class="details-top">
 
-    const branch =
-      document.getElementById("details-branch");
+        <div class="details-avatar">
+          ${escapeHtml(location.name?.charAt(0).toUpperCase() || "P")}
+        </div>
 
-    const person =
-      document.getElementById("details-person");
+        <div style="min-width:0;flex:1;">
+          <div class="details-name">${escapeHtml(location.name)}</div>
+          <div class="details-role">
+            ${escapeHtml(location.branch || "PSG")} · ${count} ${label}
+          </div>
+          <div class="details-location-count">
+            ${escapeHtml(location.country || "")} · ${escapeHtml(location.address || location.name || "")}
+          </div>
+        </div>
 
-    const phone =
-      document.getElementById("details-phone");
+      </div>
 
-    const email =
-      document.getElementById("details-email");
+      <!-- ALL PEOPLE IN THIS CITY (closed at first) -->
+      <div class="location-extra">
 
-    const address =
-      document.getElementById("details-address");
+        <div class="location-extra-heading">
+          <span>People in ${escapeHtml(location.name)}</span>
+          <span>${count} ${label}</span>
+        </div>
 
+        <div class="location-people-list">
+          ${buildPeopleCards(location, false)}
+        </div>
 
-    if (avatar) {
-      avatar.textContent =
-        location.name
-          .charAt(0)
-          .toUpperCase();
-    }
+      </div>
 
-    if (name) {
-      name.textContent =
-        location.name;
-    }
+    `;
 
-    if (role) {
-      role.textContent =
-        location.role || "PSG Location";
-    }
-
-    if (city) {
-      city.textContent =
-        location.name;
-    }
-
-    if (country) {
-      country.textContent =
-        location.country;
-    }
-
-    if (branch) {
-      branch.textContent =
-        location.branch || "PSG";
-    }
-
-    if (person) {
-      person.textContent =
-        location.person || "-";
-    }
-
-    if (phone) {
-      phone.textContent =
-        location.phone || "-";
-    }
-
-    if (email) {
-      email.textContent =
-        location.email || "-";
-    }
-
-    if (address) {
-      address.textContent =
-        location.address || "-";
-    }
-
+    bindPersonAccordion(content);
 
     updateActiveLocation();
-
     updateSelectedMapMarker();
 
   }
 
 
   /* =======================================================
-     EXACT CENTER MARKER
+     CENTER MARKER
   ======================================================= */
 
   function showCenterMarker(location) {
@@ -2198,10 +1381,7 @@
     centerMarker.classList.add("visible");
 
     if (centerLabel) {
-
-      centerLabel.textContent =
-        location.name;
-
+      centerLabel.textContent = location.name;
     }
 
   }
@@ -2217,23 +1397,18 @@
 
 
   /* =======================================================
-     SELECTED MARKER
+     SELECTED MAP MARKER
   ======================================================= */
 
   function updateSelectedMapMarker() {
 
-    const markers =
-      document.querySelectorAll(".station-marker");
+    document.querySelectorAll(".station-marker").forEach(marker => {
 
-    markers.forEach(marker => {
-
-      const id =
-        Number(marker.dataset.locationId);
+      const id = Number(marker.dataset.locationId);
 
       marker.classList.toggle(
         "selected",
-        selectedLocation &&
-        id === Number(selectedLocation.id)
+        selectedLocation && id === Number(selectedLocation.id)
       );
 
     });
@@ -2247,20 +1422,58 @@
 
   function updateActiveLocation() {
 
-    const items =
-      document.querySelectorAll(".location-item");
+    document.querySelectorAll(".location-item").forEach(item => {
 
-    items.forEach(item => {
-
-      const id =
-        Number(item.dataset.locationId);
+      const id = Number(item.dataset.locationId);
 
       item.classList.toggle(
         "active",
-        selectedLocation &&
-        id === Number(selectedLocation.id)
+        selectedLocation && id === Number(selectedLocation.id)
       );
 
+    });
+
+  }
+
+
+  /* =======================================================
+     SYNC LEFT CITY DROPDOWN
+     Map click → open matching city in the left list
+  ======================================================= */
+
+  function syncLocationDropdown(locationId) {
+
+    if (!locationList) return;
+
+    const item = locationList.querySelector(
+      `.location-item[data-location-id="${Number(locationId)}"]`
+    );
+
+    if (!item) return;
+
+    locationList
+      .querySelectorAll(".location-item.expanded")
+      .forEach(other => {
+
+        if (other === item) return;
+
+        other.classList.remove("expanded");
+
+        other
+          .querySelector(".location-arrow")
+          ?.setAttribute("aria-expanded", "false");
+
+      });
+
+    item.classList.add("expanded");
+
+    item
+      .querySelector(".location-arrow")
+      ?.setAttribute("aria-expanded", "true");
+
+    item.scrollIntoView({
+      block: "nearest",
+      behavior: "smooth"
     });
 
   }
@@ -2274,63 +1487,30 @@
 
     if (!globe || !location) return;
 
-
     selectedLocation = location;
 
+    const lat = Number(location.lat);
+    const lng = Number(location.lng);
 
-    const lat =
-      Number(location.lat);
-
-    const lng =
-      Number(location.lng);
-
-
-    if (
-      !Number.isFinite(lat) ||
-      !Number.isFinite(lng)
-    ) {
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
       return;
     }
-
-
-    /* -------------------------------------------------------
-       STOP ROTATION
-    ------------------------------------------------------- */
 
     clearTimeout(autoRotateTimeout);
     clearTimeout(focusTimeout);
 
-
-    const controls =
-      globe.controls();
-
+    const controls = globe.controls();
 
     if (controls) {
-
       controls.autoRotate = false;
-
-      /*
-       * Temporarily disable dragging/zooming while
-       * the Radio Garden style camera animation runs.
-       */
       controls.enabled = false;
-
     }
-
-
-    /* -------------------------------------------------------
-       SHOW TARGET IMMEDIATELY
-    ------------------------------------------------------- */
 
     showCenterMarker(location);
 
     showLocation(location);
 
-
-    /* -------------------------------------------------------
-       VERY CLOSE CAMERA
-       Lower altitude = closer to globe.
-    ------------------------------------------------------- */
+    syncLocationDropdown(location.id);
 
     globe.pointOfView(
       {
@@ -2341,28 +1521,15 @@
       1700
     );
 
-
-    /* -------------------------------------------------------
-       RESTORE USER CONTROLS AFTER ANIMATION
-    ------------------------------------------------------- */
-
     focusTimeout = setTimeout(() => {
 
       if (!globe) return;
 
-      const currentControls =
-        globe.controls();
+      const currentControls = globe.controls();
 
       if (currentControls) {
-
         currentControls.enabled = true;
-
-        /*
-         * Keep auto rotation OFF while user is focused
-         * on the selected location.
-         */
         currentControls.autoRotate = false;
-
       }
 
     }, 1750);
@@ -2378,35 +1545,22 @@
 
     if (!globe) return;
 
-
     globe
       .htmlElementsData(locations)
 
-      .htmlLat(location =>
-        Number(location.lat)
-      )
+      .htmlLat(location => Number(location.lat))
 
-      .htmlLng(location =>
-        Number(location.lng)
-      )
+      .htmlLng(location => Number(location.lng))
 
-      /*
-       * Slightly above globe surface so the marker
-       * remains visible.
-       */
       .htmlAltitude(0.025)
 
       .htmlElement(location => {
 
-        const wrapper =
-          document.createElement("div");
+        const wrapper = document.createElement("div");
 
-        wrapper.className =
-          "station-marker";
+        wrapper.className = "station-marker";
 
-        wrapper.dataset.locationId =
-          String(location.id);
-
+        wrapper.dataset.locationId = String(location.id);
 
         wrapper.innerHTML = `
 
@@ -2415,35 +1569,25 @@
           <div class="station-marker-core"></div>
 
           <div class="station-tooltip">
-            ${escapeHtml(location.name)}
-            ·
-            ${escapeHtml(location.country)}
+            ${escapeHtml(location.name)} · ${escapeHtml(location.country)}
           </div>
 
         `;
 
+        wrapper.addEventListener("click", event => {
 
-        wrapper.addEventListener(
-          "click",
-          event => {
+          event.preventDefault();
+          event.stopPropagation();
 
-            event.preventDefault();
+          showLocation(location);
 
-            event.stopPropagation();
+          focusLocation(location);
 
-
-            showLocation(location);
-
-            focusLocation(location);
-
-          }
-        );
-
+        });
 
         return wrapper;
 
       });
-
 
     updateSelectedMapMarker();
 
@@ -2451,413 +1595,211 @@
 
 
   /* =======================================================
-     CREATE LOCATION LIST
-     ACCORDION + ARROW DROPDOWN
+     LEFT LOCATION LIST
   ======================================================= */
 
-  function renderLocationList(
-    filterText = ""
-  ) {
+  function renderLocationList(filterText = "") {
 
     if (!locationList) return;
 
+    const query = String(filterText).trim().toLowerCase();
 
-    const query =
-      String(filterText)
-        .trim()
-        .toLowerCase();
+    const filtered = locations.filter(location => {
 
+      if (!query) return true;
 
-    const filtered =
-      locations.filter(location => {
+      return (
+        String(location.name || "").toLowerCase().includes(query) ||
+        String(location.country || "").toLowerCase().includes(query) ||
+        String(location.person || "").toLowerCase().includes(query) ||
+        String(location.role || "").toLowerCase().includes(query)
+      );
 
-        if (!query) return true;
-
-        return (
-          String(location.name || "")
-            .toLowerCase()
-            .includes(query) ||
-
-          String(location.country || "")
-            .toLowerCase()
-            .includes(query) ||
-
-          String(location.person || "")
-            .toLowerCase()
-            .includes(query) ||
-
-          String(location.role || "")
-            .toLowerCase()
-            .includes(query)
-        );
-
-      });
-
+    });
 
     if (panelCount) {
-
       panelCount.textContent =
         `${filtered.length} location${filtered.length === 1 ? "" : "s"}`;
-
     }
 
+    locationList.innerHTML = filtered.map(location => {
 
-    locationList.innerHTML =
-      filtered.map(location => {
+      const isActive =
+        selectedLocation &&
+        Number(selectedLocation.id) === Number(location.id);
 
-        const isActive =
-          selectedLocation &&
-          Number(selectedLocation.id) === Number(location.id);
+      const peopleCount = getPeople(location).length;
 
-        return `
+      return `
+
+        <div
+          class="location-item ${isActive ? "active" : ""}"
+          data-location-id="${location.id}"
+        >
 
           <div
-            class="location-item ${isActive ? "active" : ""}"
-            data-location-id="${location.id}"
+            class="location-main"
+            role="button"
+            tabindex="0"
+            data-action="focus"
           >
 
-            <!-- MAIN LOCATION ROW -->
-
-            <div
-              class="location-main"
-              role="button"
-              tabindex="0"
-              data-action="focus"
-            >
-
-              <div class="location-icon">
-                <span class="location-icon-dot"></span>
-              </div>
-
-
-              <div class="location-info">
-
-                <div class="location-name">
-                  ${escapeHtml(location.name)}
-                </div>
-
-                <div class="location-country">
-                  ${escapeHtml(location.country)}
-                </div>
-
-              </div>
-
-
-              <!-- RIGHT ARROW -->
-
-              <button
-                type="button"
-                class="location-arrow"
-                data-action="toggle"
-                aria-label="Show ${escapeHtml(location.name)} details"
-                aria-expanded="false"
-              >
-                ›
-              </button>
-
+            <div class="location-icon">
+              <span class="location-icon-dot"></span>
             </div>
 
+            <div class="location-info">
+              <div class="location-name">${escapeHtml(location.name)}</div>
+              <div class="location-country">${escapeHtml(location.country)}</div>
+            </div>
 
-            <!-- DROPDOWN DATA -->
+            <button
+              type="button"
+              class="location-arrow"
+              data-action="toggle"
+              aria-label="Show ${escapeHtml(location.name)} details"
+              aria-expanded="false"
+            >
+              ›
+            </button>
 
-            <div class="location-extra">
+          </div>
 
-              <div class="location-extra-heading">
-                <span>${escapeHtml(location.name)}</span>
-                <span>${(location.people || []).length} people</span>
-              </div>
+          <div class="location-extra">
 
-              <div class="location-people-list">
+            <div class="location-extra-heading">
+              <span>${escapeHtml(location.name)}</span>
+              <span>${peopleCount} ${peopleCount === 1 ? "person" : "people"}</span>
+            </div>
 
-                ${(location.people || []).map((person, index) => `
-
-                  <div
-                    class="location-person-card"
-                    data-person-index="${index}"
-                  >
-
-                    <button
-                      type="button"
-                      class="location-person-header"
-                      aria-expanded="false"
-                    >
-
-                      <div class="location-person-number">
-                        ${index + 1}
-                      </div>
-
-                      <div style="min-width:0;flex:1;">
-                        <div class="location-person-name">
-                          ${escapeHtml(person.name || "-")}
-                        </div>
-
-                        <div class="location-person-role-preview">
-                          ${escapeHtml(person.role || "-")}
-                        </div>
-                      </div>
-
-                      <span class="location-person-arrow">›</span>
-
-                    </button>
-
-                    <div class="location-person-details">
-
-                      <div class="person-detail-row">
-                        <span class="person-detail-label">Role</span>
-                        <span class="person-detail-value">
-                          ${escapeHtml(person.role || "-")}
-                        </span>
-                      </div>
-
-                      <div class="person-detail-row">
-                        <span class="person-detail-label">Department</span>
-                        <span class="person-detail-value">
-                          ${escapeHtml(person.department || "-")}
-                        </span>
-                      </div>
-
-                      <div class="person-detail-row">
-                        <span class="person-detail-label">Phone</span>
-                        <span class="person-detail-value">
-                          ${escapeHtml(person.phone || "-")}
-                        </span>
-                      </div>
-
-                      <div class="person-detail-row">
-                        <span class="person-detail-label">Email</span>
-                        <span class="person-detail-value">
-                          ${escapeHtml(person.email || "-")}
-                        </span>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                `).join("")}
-
-              </div>
-
+            <div class="location-people-list">
+              ${buildPeopleCards(location)}
             </div>
 
           </div>
 
-        `;
+        </div>
 
-      }).join("");
+      `;
 
-
-    /* =====================================================
-       MAIN ROW → FOCUS MAP
-    ===================================================== */
-
-    const mainRows =
-      locationList.querySelectorAll(
-        ".location-main"
-      );
+    }).join("");
 
 
-    mainRows.forEach(main => {
+    /* ---------- city dropdown helper ---------- */
 
-      const item =
-        main.closest(".location-item");
+    function setLocationDropdown(item, shouldOpen) {
 
       if (!item) return;
 
+      const arrow = item.querySelector(".location-arrow");
+
+      locationList
+        .querySelectorAll(".location-item.expanded")
+        .forEach(other => {
+
+          if (other === item) return;
+
+          other.classList.remove("expanded");
+
+          other
+            .querySelector(".location-arrow")
+            ?.setAttribute("aria-expanded", "false");
+
+        });
+
+      const open =
+        typeof shouldOpen === "boolean"
+          ? shouldOpen
+          : !item.classList.contains("expanded");
+
+      item.classList.toggle("expanded", open);
+
+      arrow?.setAttribute("aria-expanded", String(open));
+
+    }
+
+
+    /* ---------- main row → focus map + open dropdown ---------- */
+
+    locationList.querySelectorAll(".location-main").forEach(main => {
+
+      const item = main.closest(".location-item");
+
+      if (!item) return;
 
       const handleFocus = () => {
 
-        const id =
-          Number(item.dataset.locationId);
+        const id = Number(item.dataset.locationId);
 
-        const location =
-          locations.find(
-            itemLocation =>
-              Number(itemLocation.id) === id
-          );
+        const location = locations.find(
+          itemLocation => Number(itemLocation.id) === id
+        );
 
         if (!location) return;
+
+        setLocationDropdown(item, true);
 
         focusLocation(location);
 
       };
 
+      main.addEventListener("click", event => {
 
-      main.addEventListener(
-        "click",
-        event => {
+        if (event.target.closest(".location-arrow")) return;
 
-          if (
-            event.target.closest(
-              ".location-arrow"
-            )
-          ) {
-            return;
-          }
+        handleFocus();
 
+      });
+
+      main.addEventListener("keydown", event => {
+
+        if (event.target.closest(".location-arrow")) return;
+
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
           handleFocus();
-
         }
-      );
-
-
-      main.addEventListener(
-        "keydown",
-        event => {
-
-          if (
-            event.key === "Enter" ||
-            event.key === " "
-          ) {
-
-            event.preventDefault();
-
-            handleFocus();
-
-          }
-
-        }
-      );
-
-    });
-
-
-    /* =====================================================
-       PERSON NAME → OPEN / CLOSE PERSON DATA
-    ===================================================== */
-
-    const personHeaders =
-      locationList.querySelectorAll(
-        ".location-person-header"
-      );
-
-    personHeaders.forEach(header => {
-
-      header.addEventListener("click", event => {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        const card =
-          header.closest(".location-person-card");
-
-        if (!card) return;
-
-        const parentList =
-          card.parentElement;
-
-        const isExpanded =
-          card.classList.contains("person-expanded");
-
-        /* Only one person opens inside a city */
-        parentList
-          ?.querySelectorAll(".location-person-card.person-expanded")
-          .forEach(other => {
-
-            if (other === card) return;
-
-            other.classList.remove("person-expanded");
-
-            const otherHeader =
-              other.querySelector(".location-person-header");
-
-            otherHeader?.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          });
-
-        card.classList.toggle(
-          "person-expanded",
-          !isExpanded
-        );
-
-        header.setAttribute(
-          "aria-expanded",
-          String(!isExpanded)
-        );
 
       });
 
     });
 
 
-    /* =====================================================
-       ARROW → OPEN / CLOSE CITY DROPDOWN
-    ===================================================== */
+    /* ---------- person dropdowns (shared with right panel) ---------- */
 
-    const arrows =
-      locationList.querySelectorAll(
-        ".location-arrow"
-      );
+    bindPersonAccordion(locationList);
 
 
-    arrows.forEach(arrow => {
+    /* ---------- arrow → open/close city dropdown ---------- */
 
-      arrow.addEventListener(
-        "click",
-        event => {
+    locationList.querySelectorAll(".location-arrow").forEach(arrow => {
 
-          event.preventDefault();
+      arrow.addEventListener("click", event => {
 
-          event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
 
+        const item = arrow.closest(".location-item");
 
-          const item =
-            arrow.closest(".location-item");
+        if (!item) return;
 
-          if (!item) return;
+        const isExpanded = item.classList.contains("expanded");
 
+        const id = Number(item.dataset.locationId);
 
-          const isExpanded =
-            item.classList.contains("expanded");
+        const location = locations.find(
+          itemLocation => Number(itemLocation.id) === id
+        );
 
+        if (!location) return;
 
-          /* Close every other dropdown */
+        setLocationDropdown(item, !isExpanded);
 
-          locationList
-            .querySelectorAll(
-              ".location-item.expanded"
-            )
-            .forEach(other => {
-
-              if (other === item) return;
-
-              other.classList.remove("expanded");
-
-              const otherArrow =
-                other.querySelector(
-                  ".location-arrow"
-                );
-
-              if (otherArrow) {
-
-                otherArrow.setAttribute(
-                  "aria-expanded",
-                  "false"
-                );
-
-              }
-
-            });
-
-
-          /* Toggle current dropdown */
-
-          item.classList.toggle(
-            "expanded",
-            !isExpanded
-          );
-
-
-          arrow.setAttribute(
-            "aria-expanded",
-            String(!isExpanded)
-          );
-
+        if (!isExpanded) {
+          focusLocation(location);
         }
-      );
+
+      });
 
     });
 
@@ -2865,64 +1807,42 @@
 
 
   /* =======================================================
-     LOAD COUNTRY POLYGONS
+     COUNTRY POLYGONS
   ======================================================= */
 
   async function loadCountries() {
 
     try {
 
-      const response =
-        await fetch(
-          "https://unpkg.com/world-atlas@2/countries-110m.json"
-        );
-
+      const response = await fetch(
+        "https://unpkg.com/world-atlas@2/countries-110m.json"
+      );
 
       if (!response.ok) {
-        throw new Error(
-          "Country map request failed"
-        );
+        throw new Error("Country map request failed");
       }
 
+      const world = await response.json();
 
-      const world =
-        await response.json();
-
-
-      countryData =
-        topojson.feature(
-          world,
-          world.objects.countries
-        ).features;
-
+      countryData = topojson.feature(
+        world,
+        world.objects.countries
+      ).features;
 
       if (globe) {
 
         globe
           .polygonsData(countryData)
-
-          .polygonCapColor(
-            () => "rgba(20, 42, 46, 0.52)"
-          )
-
-          .polygonSideColor(
-            () => "rgba(0, 255, 136, 0.025)"
-          )
-
-          .polygonStrokeColor(
-            () => "rgba(0, 255, 136, 0.18)"
-          )
-
+          .polygonCapColor(() => "rgba(20, 42, 46, 0.52)")
+          .polygonSideColor(() => "rgba(0, 255, 136, 0.025)")
+          .polygonStrokeColor(() => "rgba(0, 255, 136, 0.18)")
           .polygonAltitude(0.004);
 
       }
 
     } catch (error) {
 
-      console.error(
-        "Country map error:",
-        error
-      );
+      console.error("Country map error:", error);
 
     }
 
@@ -2937,180 +1857,96 @@
 
     if (!globeContainer) return;
 
-
-    globe =
-      new Globe(globeContainer, {
-        animateIn: true
-      });
-
+    globe = new Globe(globeContainer, {
+      animateIn: true
+    });
 
     globe
-
-      /* ---------------------------------------------------
-         EARTH
-      --------------------------------------------------- */
-
       .globeImageUrl(
         "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
       )
-
       .bumpImageUrl(
         "https://unpkg.com/three-globe/example/img/earth-topology.png"
       )
-
-      .backgroundColor(
-        "rgba(0,0,0,0)"
-      )
-
+      .backgroundColor("rgba(0,0,0,0)")
       .showAtmosphere(true)
-
-      .atmosphereColor(
-        "#00ff88"
-      )
-
-      .atmosphereAltitude(
-        0.12
-      );
-
-
-    /* -----------------------------------------------------
-       LOCATIONS
-    ----------------------------------------------------- */
+      .atmosphereColor("#00ff88")
+      .atmosphereAltitude(0.12);
 
     createLocationMarkers();
 
-
-    /* -----------------------------------------------------
-       CONTROLS
-    ----------------------------------------------------- */
-
-    const controls =
-      globe.controls();
-
+    const controls = globe.controls();
 
     if (controls) {
-
       controls.enablePan = false;
-
       controls.enableZoom = true;
-
       controls.enableDamping = true;
-
       controls.dampingFactor = 0.08;
-
       controls.minDistance = 105;
-
       controls.maxDistance = 430;
-
       controls.autoRotate = true;
-
       controls.autoRotateSpeed = 0.18;
-
     }
 
-
-    /* -----------------------------------------------------
-       INITIAL POV
-    ----------------------------------------------------- */
-
     globe.pointOfView(
-      {
-        lat: 18,
-        lng: 80,
-        altitude: 2.05
-      },
+      { lat: 18, lng: 80, altitude: 2.05 },
       0
     );
 
 
-    /* -----------------------------------------------------
-       GLOBE CLICK
-    ----------------------------------------------------- */
+    /* Click near a city on the map → select that city */
 
-    globe.onGlobeClick(
-      () => {
+    globe.onGlobeClick(({ lat, lng }) => {
 
-        /*
-         * Clicking empty globe area does not remove
-         * selected location. This keeps the focus target.
-         */
+      let nearest = null;
+      let nearestDistance = Infinity;
 
+      locations.forEach(location => {
+
+        const dLat = Number(location.lat) - Number(lat);
+        const dLng = Number(location.lng) - Number(lng);
+
+        const distance = Math.sqrt(dLat * dLat + dLng * dLng);
+
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearest = location;
+        }
+
+      });
+
+      if (nearest && nearestDistance <= 3.0) {
+        focusLocation(nearest);
       }
-    );
+
+    });
+
+    globe.onZoom(() => {});
 
 
-    /* -----------------------------------------------------
-       ZOOM EVENT
-    ----------------------------------------------------- */
-
-    globe.onZoom(
-      () => {
-
-        /*
-         * Intentionally left available for future
-         * Radio Garden style UI changes.
-         */
-
-      }
-    );
-
-
-    /* -----------------------------------------------------
-       RESIZE
-    ----------------------------------------------------- */
+    /* Resize */
 
     function resizeGlobe() {
 
-      if (!globe || !globeContainer) {
-        return;
-      }
+      if (!globe || !globeContainer) return;
 
+      const width = globeContainer.clientWidth;
+      const height = globeContainer.clientHeight;
 
-      const width =
-        globeContainer.clientWidth;
-
-      const height =
-        globeContainer.clientHeight;
-
-
-      if (width > 0) {
-
-        globe.width(width);
-
-      }
-
-      if (height > 0) {
-
-        globe.height(height);
-
-      }
+      if (width > 0) globe.width(width);
+      if (height > 0) globe.height(height);
 
     }
 
-
-    window.addEventListener(
-      "resize",
-      resizeGlobe
-    );
-
+    window.addEventListener("resize", resizeGlobe);
 
     resizeGlobe();
 
 
-    /* -----------------------------------------------------
-       HIDE LOADING
-    ----------------------------------------------------- */
+    /* Hide loading */
 
     setTimeout(() => {
-
-      if (loading) {
-
-        loading.classList.add(
-          "hidden"
-        );
-
-      }
-
+      loading?.classList.add("hidden");
     }, 900);
 
   }
@@ -3122,277 +1958,133 @@
 
   if (searchInput) {
 
-    searchInput.addEventListener(
-      "input",
-      () => {
+    searchInput.addEventListener("input", () => {
+      renderLocationList(searchInput.value);
+    });
 
-        renderLocationList(
-          searchInput.value
-        );
+    searchInput.addEventListener("keydown", event => {
 
+      if (event.key !== "Enter") return;
+
+      const query = searchInput.value.trim().toLowerCase();
+
+      if (!query) return;
+
+      const location = locations.find(item =>
+        item.name.toLowerCase().includes(query) ||
+        item.country.toLowerCase().includes(query) ||
+        item.person.toLowerCase().includes(query)
+      );
+
+      if (location) {
+        focusLocation(location);
       }
-    );
 
-
-    searchInput.addEventListener(
-      "keydown",
-      event => {
-
-        if (event.key !== "Enter") {
-          return;
-        }
-
-
-        const query =
-          searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-        if (!query) return;
-
-
-        const location =
-          locations.find(item =>
-
-            item.name
-              .toLowerCase()
-              .includes(query) ||
-
-            item.country
-              .toLowerCase()
-              .includes(query) ||
-
-            item.person
-              .toLowerCase()
-              .includes(query)
-
-          );
-
-
-        if (location) {
-
-          focusLocation(location);
-
-        }
-
-      }
-    );
+    });
 
   }
 
 
   /* =======================================================
-     ZOOM IN
+     ZOOM IN / OUT
   ======================================================= */
 
-  const zoomIn =
-    document.getElementById(
-      "zoom-in"
-    );
+  document.getElementById("zoom-in")?.addEventListener("click", () => {
 
+    if (!globe) return;
 
-  if (zoomIn) {
+    const controls = globe.controls();
 
-    zoomIn.addEventListener(
-      "click",
-      () => {
+    if (controls && typeof controls.dollyIn === "function") {
+      controls.dollyIn(1.25);
+    }
 
-        if (!globe) return;
+  });
 
+  document.getElementById("zoom-out")?.addEventListener("click", () => {
 
-        const controls =
-          globe.controls();
+    if (!globe) return;
 
+    const controls = globe.controls();
 
-        if (
-          controls &&
-          typeof controls.dollyIn === "function"
-        ) {
+    if (controls && typeof controls.dollyOut === "function") {
+      controls.dollyOut(1.25);
+    }
 
-          controls.dollyIn(1.25);
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     ZOOM OUT
-  ======================================================= */
-
-  const zoomOut =
-    document.getElementById(
-      "zoom-out"
-    );
-
-
-  if (zoomOut) {
-
-    zoomOut.addEventListener(
-      "click",
-      () => {
-
-        if (!globe) return;
-
-
-        const controls =
-          globe.controls();
-
-
-        if (
-          controls &&
-          typeof controls.dollyOut === "function"
-        ) {
-
-          controls.dollyOut(1.25);
-
-        }
-
-      }
-    );
-
-  }
+  });
 
 
   /* =======================================================
      RANDOM LOCATION
   ======================================================= */
 
-  const randomButton =
-    document.getElementById(
-      "random-location"
+  document.getElementById("random-location")?.addEventListener("click", () => {
+
+    if (!locations.length) return;
+
+    let location;
+
+    do {
+
+      location = locations[Math.floor(Math.random() * locations.length)];
+
+    } while (
+      locations.length > 1 &&
+      selectedLocation &&
+      location.id === selectedLocation.id
     );
 
+    focusLocation(location);
 
-  if (randomButton) {
-
-    randomButton.addEventListener(
-      "click",
-      () => {
-
-        if (!locations.length) return;
-
-
-        let location;
-
-
-        do {
-
-          location =
-            locations[
-              Math.floor(
-                Math.random() *
-                locations.length
-              )
-            ];
-
-        } while (
-          locations.length > 1 &&
-          selectedLocation &&
-          location.id === selectedLocation.id
-        );
-
-
-        focusLocation(location);
-
-      }
-    );
-
-  }
+  });
 
 
   /* =======================================================
      RESET
   ======================================================= */
 
-  const resetButton =
-    document.getElementById(
-      "reset-globe"
+  document.getElementById("reset-globe")?.addEventListener("click", () => {
+
+    if (!globe) return;
+
+    clearTimeout(autoRotateTimeout);
+    clearTimeout(focusTimeout);
+
+    hideCenterMarker();
+
+    selectedLocation = null;
+
+    detailsPanel?.classList.add("hidden");
+
+    updateActiveLocation();
+    updateSelectedMapMarker();
+
+    const controls = globe.controls();
+
+    if (controls) {
+      controls.enabled = false;
+      controls.autoRotate = false;
+    }
+
+    globe.pointOfView(
+      { lat: 18, lng: 80, altitude: 2.05 },
+      1200
     );
 
+    setTimeout(() => {
 
-  if (resetButton) {
+      if (!globe) return;
 
-    resetButton.addEventListener(
-      "click",
-      () => {
+      const currentControls = globe.controls();
 
-        if (!globe) return;
-
-
-        clearTimeout(
-          autoRotateTimeout
-        );
-
-        clearTimeout(
-          focusTimeout
-        );
-
-
-        hideCenterMarker();
-
-        // Return to the initial state: no location selected
-        // and no right-side details panel visible.
-        selectedLocation = null;
-
-        if (detailsPanel) {
-          detailsPanel.classList.add("hidden");
-        }
-
-        updateActiveLocation();
-        updateSelectedMapMarker();
-
-
-        const controls =
-          globe.controls();
-
-
-        if (controls) {
-
-          controls.enabled = false;
-
-          controls.autoRotate = false;
-
-        }
-
-
-        globe.pointOfView(
-          {
-            lat: 18,
-            lng: 80,
-            altitude: 2.05
-          },
-          1200
-        );
-
-
-        setTimeout(() => {
-
-          if (!globe) return;
-
-
-          const currentControls =
-            globe.controls();
-
-
-          if (currentControls) {
-
-            currentControls.enabled = true;
-
-            currentControls.autoRotate = true;
-
-          }
-
-        }, 1250);
-
+      if (currentControls) {
+        currentControls.enabled = true;
+        currentControls.autoRotate = true;
       }
-    );
 
-  }
+    }, 1250);
+
+  });
 
 
   /* =======================================================
@@ -3408,29 +2100,15 @@
 
   /* =======================================================
      INITIAL STATE
+     Nothing is selected on page load:
+     no right panel, no active city, no center target.
   ======================================================= */
-
-  /*
-   * Important:
-   * Do NOT select any location on initial page load.
-   *
-   * The globe starts clean:
-   * - no right-side details panel
-   * - no active location
-   * - no center target
-   *
-   * The details panel appears only when the user clicks
-   * a location from the list, globe marker, search result,
-   * or random-location button.
-   */
 
   selectedLocation = null;
 
   hideCenterMarker();
 
-  if (detailsPanel) {
-    detailsPanel.classList.add("hidden");
-  }
+  detailsPanel?.classList.add("hidden");
 
   updateActiveLocation();
   updateSelectedMapMarker();
