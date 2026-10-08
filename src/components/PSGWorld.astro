@@ -367,15 +367,15 @@
     100% { opacity: 0; }
   }
 
-  /* ================= LEFT LOCATION PANEL ================= */
+  /* ================= LEFT LOCATION PANEL (CITY NAMES ONLY) ================= */
 
   .location-panel {
     position: absolute;
     left: 24px;
-    top: 50%;
+    top: 92px;
     width: 310px;
-    max-height: calc(100vh - 150px);
-    transform: translateY(-50%);
+    max-height: calc(100vh - 116px);
+    transform: none;
     z-index: 14;
     display: flex;
     flex-direction: column;
@@ -498,68 +498,15 @@
     font-size: 9px;
   }
 
-  .location-arrow {
-    flex: 0 0 auto;
-    width: 30px;
-    height: 30px;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.025);
-    color: rgba(255, 255, 255, 0.52);
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    transition:
-      transform 0.2s ease,
-      color 0.2s ease,
-      background 0.2s ease,
-      border-color 0.2s ease;
-  }
+  /* ================= PEOPLE BOX (RIGHT PANEL ONLY) ================= */
 
-  .location-arrow:hover {
-    color: #00ff88;
-    background: rgba(0, 255, 136, 0.08);
-    border-color: rgba(0, 255, 136, 0.2);
-  }
-
-  .location-item.expanded .location-arrow {
-    color: #00ff88;
-    background: rgba(0, 255, 136, 0.08);
-    border-color: rgba(0, 255, 136, 0.2);
-    transform: rotate(90deg);
-  }
-
-  /* Dropdown box (used on the LEFT and the RIGHT) */
   .location-extra {
-    display: none;
-    margin: 0 8px 10px 49px;
+    margin: 0;
     padding: 10px;
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.22);
     border: 1px solid rgba(255, 255, 255, 0.055);
   }
-
-  .location-item.expanded .location-extra {
-    display: block;
-    animation: locationDrop 0.18s ease;
-  }
-
-  /* Same box shown inside the RIGHT details panel */
-  .details-panel .location-extra {
-    display: block;
-    margin: 0;
-    animation: none;
-  }
-
-  @keyframes locationDrop {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ================= PEOPLE CARDS (LEFT + RIGHT) ================= */
 
   .location-extra-heading {
     display: flex;
@@ -644,11 +591,6 @@
     font-size: 10px;
     font-weight: 850;
     box-shadow: inset 0 0 12px rgba(0, 255, 136, 0.035);
-  }
-
-  .location-person-header > div:nth-child(2) {
-    min-width: 0;
-    flex: 1;
   }
 
   .location-person-name {
@@ -736,7 +678,7 @@
   }
 
   .person-detail-label {
-    flex: 0 0 58px;
+    flex: 0 0 66px;
     color: rgba(255, 255, 255, 0.32);
     font-size: 7px;
     font-weight: 700;
@@ -761,7 +703,7 @@
     right: 24px;
     bottom: 24px;
     width: 350px;
-    max-height: min(620px, calc(100vh - 48px));
+    max-height: min(440px, calc(100vh - 150px));
     overflow: hidden;
     z-index: 14;
     padding: 18px;
@@ -779,7 +721,7 @@
   }
 
   .details-content {
-    max-height: min(580px, calc(100vh - 90px));
+    max-height: min(400px, calc(100vh - 190px));
     overflow-y: auto;
     padding-right: 3px;
   }
@@ -792,8 +734,6 @@
     background: rgba(0, 255, 136, 0.22);
     border-radius: 10px;
   }
-
-  /* ===== RIGHT PANEL CITY HEADER ===== */
 
   .details-top {
     display: flex;
@@ -956,8 +896,8 @@
     <div class="brand">
       <div class="brand-dot"></div>
       <div>
-        <div class="brand-title">PSG WORLD</div>
-        <div class="brand-subtitle">Global People Network</div>
+        <div class="brand-title">HUMANS OF PSG</div>
+
       </div>
     </div>
 
@@ -982,11 +922,11 @@
     <button id="reset-globe" class="control-button" title="Reset globe" type="button">◉</button>
   </div>
 
-  <!-- LOCATION LIST (LEFT) -->
+  <!-- LOCATION LIST (LEFT) : city names only -->
   <aside class="location-panel">
 
     <div class="panel-head">
-      <div class="panel-title">PSG Locations</div>
+      <div class="panel-title">PSG Alumni Members</div>
       <div id="panel-count" class="panel-count">0 locations</div>
     </div>
 
@@ -994,7 +934,7 @@
 
   </aside>
 
-  <!-- DETAILS (RIGHT) -->
+  <!-- DETAILS (RIGHT) : people list -->
   <section id="details-panel" class="details-panel hidden">
     <div id="details-content" class="details-content"></div>
   </section>
@@ -1014,6 +954,9 @@
   import Globe from "https://esm.sh/globe.gl@2.45.0";
   import * as topojson from "https://esm.sh/topojson-client@3";
 
+  /* Data lives in a separate file: public/data/psg-members.js */
+  import { members, DEFAULT_CITY, CITY_COORDS } from "/data/psg-members.js";
+
 
   /* =======================================================
      SETTINGS
@@ -1025,92 +968,51 @@
 
 
   /* =======================================================
-     DATA
+     DATA  (members, cities -> public/data/psg-members.js)
   ======================================================= */
 
-  const locations = [
+  /* Group members by city -> one globe location per city */
+  function buildLocations(list) {
 
-    {
-      id: 1,
-      name: "Chennai",
-      country: "India",
-      countryCode: "IN",
-      lat: 13.0827,
-      lng: 80.2707,
+    const groups = new Map();
+
+    list.forEach(member => {
+
+      const city = member.city || DEFAULT_CITY;
+
+      if (!CITY_COORDS[city]) {
+        console.warn("City missing in CITY_COORDS:", city);
+        return;
+      }
+
+      if (!groups.has(city)) groups.set(city, []);
+
+      groups.get(city).push({
+        name: member.name,
+        role: member.jobTitle || member.organization || "Member",
+        department: member.department,
+        organization: member.organization,
+        batch: member.batch,
+        degree: member.degree,
+        industry: member.industry,
+        phone: member.phone,
+        email: member.email,
+        linkedin: member.linkedin
+      });
+
+    });
+
+    return [...groups.entries()].map(([city, people], index) => ({
+      id: index + 1,
+      name: city,
       branch: "PSG",
-      person: "Arun Kumar",
-      role: "Engineering",
-      address: "Chennai, Tamil Nadu, India",
-      phone: "+91 90000 00001",
-      email: "arun@example.com",
-      people: [
-        { name: "Arun Kumar", role: "Engineering", department: "Mechanical Engineering", phone: "+91 90000 00001", email: "arun@example.com" },
-        { name: "Anand Raj", role: "Software Engineer", department: "Computer Science", phone: "+91 90000 00021", email: "anand.raj@example.com" },
-        { name: "Divya Priya", role: "Project Manager", department: "Management", phone: "+91 90000 00022", email: "divya.priya@example.com" },
-        { name: "Sathish Kumar", role: "Research Associate", department: "Research & Development", phone: "+91 90000 00023", email: "sathish.kumar@example.com" },
-        { name: "Meena Joseph", role: "HR Executive", department: "Human Resources", phone: "+91 90000 00024", email: "meena.joseph@example.com" }
-      ]
-    },
+      ...CITY_COORDS[city],
+      people
+    }));
 
-    {
-      id: 2,
-      name: "Coimbatore",
-      country: "India",
-      countryCode: "IN",
-      lat: 11.0168,
-      lng: 76.9558,
-      branch: "PSG",
-      person: "Priya Kumar",
-      role: "Technology",
-      address: "Coimbatore, Tamil Nadu, India",
-      phone: "+91 90000 00002",
-      email: "priya@example.com",
-      people: [
-        { name: "Priya Kumar", role: "Technology", department: "Information Technology", phone: "+91 90000 00002", email: "priya@example.com" },
-        { name: "Vignesh R", role: "Software Developer", department: "Computer Applications", phone: "+91 90000 00025", email: "vignesh.r@example.com" },
-        { name: "Harini S", role: "Data Analyst", department: "Data Science", phone: "+91 90000 00026", email: "harini.s@example.com" },
-        { name: "Karthik M", role: "Design Engineer", department: "Engineering", phone: "+91 90000 00027", email: "karthik.m@example.com" },
-        { name: "Nithya Devi", role: "Administration", department: "Administration", phone: "+91 90000 00028", email: "nithya.devi@example.com" }
-      ]
-    },
+  }
 
-    { id: 3, name: "Madurai", country: "India", countryCode: "IN", lat: 9.9252, lng: 78.1198, branch: "PSG", person: "Karthik Raj", role: "Management", address: "Madurai, Tamil Nadu, India", phone: "+91 90000 00003", email: "karthik@example.com" },
-
-    { id: 4, name: "Salem", country: "India", countryCode: "IN", lat: 11.6643, lng: 78.146, branch: "PSG", person: "Divya S", role: "Administration", address: "Salem, Tamil Nadu, India", phone: "+91 90000 00004", email: "divya@example.com" },
-
-    { id: 5, name: "Tiruchirappalli", country: "India", countryCode: "IN", lat: 10.7905, lng: 78.7047, branch: "PSG", person: "Suresh Kumar", role: "Engineering", address: "Tiruchirappalli, Tamil Nadu, India", phone: "+91 90000 00005", email: "suresh@example.com" },
-
-    { id: 6, name: "Tirunelveli", country: "India", countryCode: "IN", lat: 8.7139, lng: 77.7567, branch: "PSG", person: "Meena Raj", role: "Education", address: "Tirunelveli, Tamil Nadu, India", phone: "+91 90000 00006", email: "meena@example.com" },
-
-    { id: 7, name: "Tiruppur", country: "India", countryCode: "IN", lat: 11.1085, lng: 77.3411, branch: "PSG", person: "Vijay Kumar", role: "Business", address: "Tiruppur, Tamil Nadu, India", phone: "+91 90000 00007", email: "vijay@example.com" },
-
-    { id: 8, name: "Erode", country: "India", countryCode: "IN", lat: 11.341, lng: 77.7172, branch: "PSG", person: "Anitha M", role: "Finance", address: "Erode, Tamil Nadu, India", phone: "+91 90000 00008", email: "anitha@example.com" },
-
-    { id: 9, name: "Bengaluru", country: "India", countryCode: "IN", lat: 12.9716, lng: 77.5946, branch: "PSG", person: "Rahul S", role: "Software", address: "Bengaluru, Karnataka, India", phone: "+91 90000 00009", email: "rahul@example.com" },
-
-    { id: 10, name: "Hyderabad", country: "India", countryCode: "IN", lat: 17.385, lng: 78.4867, branch: "PSG", person: "Naveen Kumar", role: "Technology", address: "Hyderabad, Telangana, India", phone: "+91 90000 00010", email: "naveen@example.com" },
-
-    { id: 11, name: "Mumbai", country: "India", countryCode: "IN", lat: 19.076, lng: 72.8777, branch: "PSG", person: "Ravi Kumar", role: "Management", address: "Mumbai, Maharashtra, India", phone: "+91 90000 00011", email: "ravi@example.com" },
-
-    { id: 12, name: "Pune", country: "India", countryCode: "IN", lat: 18.5204, lng: 73.8567, branch: "PSG", person: "Swetha R", role: "Engineering", address: "Pune, Maharashtra, India", phone: "+91 90000 00012", email: "swetha@example.com" },
-
-    { id: 13, name: "Ahmedabad", country: "India", countryCode: "IN", lat: 23.0225, lng: 72.5714, branch: "PSG", person: "Mohan K", role: "Business", address: "Ahmedabad, Gujarat, India", phone: "+91 90000 00013", email: "mohan@example.com" },
-
-    { id: 14, name: "New Delhi", country: "India", countryCode: "IN", lat: 28.6139, lng: 77.209, branch: "PSG", person: "Rajesh Kumar", role: "Administration", address: "New Delhi, India", phone: "+91 90000 00014", email: "rajesh@example.com" },
-
-    { id: 15, name: "Jaipur", country: "India", countryCode: "IN", lat: 26.9124, lng: 75.7873, branch: "PSG", person: "Pooja S", role: "Design", address: "Jaipur, Rajasthan, India", phone: "+91 90000 00015", email: "pooja@example.com" },
-
-    { id: 16, name: "Kolkata", country: "India", countryCode: "IN", lat: 22.5726, lng: 88.3639, branch: "PSG", person: "Amit Das", role: "Technology", address: "Kolkata, West Bengal, India", phone: "+91 90000 00016", email: "amit@example.com" },
-
-    { id: 17, name: "Kochi", country: "India", countryCode: "IN", lat: 9.9312, lng: 76.2673, branch: "PSG", person: "Joseph Mathew", role: "Management", address: "Kochi, Kerala, India", phone: "+91 90000 00017", email: "joseph@example.com" },
-
-    { id: 18, name: "Lucknow", country: "India", countryCode: "IN", lat: 26.8467, lng: 80.9462, branch: "PSG", person: "Anil Sharma", role: "Education", address: "Lucknow, Uttar Pradesh, India", phone: "+91 90000 00018", email: "anil@example.com" },
-
-    { id: 19, name: "Singapore", country: "Singapore", countryCode: "SG", lat: 1.3521, lng: 103.8198, branch: "PSG", person: "Daniel Tan", role: "Technology", address: "Singapore", phone: "+65 9000 00019", email: "daniel@example.com" },
-
-    { id: 20, name: "Dubai", country: "United Arab Emirates", countryCode: "AE", lat: 25.2048, lng: 55.2708, branch: "PSG", person: "Ahmed Khan", role: "Business", address: "Dubai, UAE", phone: "+971 5000 00020", email: "ahmed@example.com" }
-
-  ];
+  const locations = buildLocations(members);
 
 
   /* =======================================================
@@ -1164,27 +1066,11 @@
 
 
   /* =======================================================
-     SHARED PEOPLE ACCORDION
-     Used by BOTH the left list and the right panel,
-     so they always look and work the same.
+     PEOPLE ACCORDION (RIGHT PANEL ONLY)
   ======================================================= */
 
-  /* People list. Cities without a `people` array use
-     the single person saved on the location. */
   function getPeople(location) {
-
-    if (Array.isArray(location.people) && location.people.length) {
-      return location.people;
-    }
-
-    return [{
-      name: location.person,
-      role: location.role,
-      department: location.role,
-      phone: location.phone,
-      email: location.email
-    }];
-
+    return Array.isArray(location.people) ? location.people : [];
   }
 
 
@@ -1228,18 +1114,43 @@
             </div>
 
             <div class="person-detail-row">
+              <span class="person-detail-label">Organization</span>
+              <span class="person-detail-value">${escapeHtml(person.organization || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
+              <span class="person-detail-label">Batch</span>
+              <span class="person-detail-value">${escapeHtml(person.batch || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
+              <span class="person-detail-label">Degree</span>
+              <span class="person-detail-value">${escapeHtml(person.degree || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
               <span class="person-detail-label">Department</span>
               <span class="person-detail-value">${escapeHtml(person.department || "-")}</span>
             </div>
 
             <div class="person-detail-row">
+              <span class="person-detail-label">Industry</span>
+              <span class="person-detail-value">${escapeHtml(person.industry || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
               <span class="person-detail-label">Phone</span>
-              <span class="person-detail-value">${escapeHtml(person.phone || location.phone || "-")}</span>
+              <span class="person-detail-value">${escapeHtml(person.phone || "-")}</span>
             </div>
 
             <div class="person-detail-row">
               <span class="person-detail-label">Email</span>
-              <span class="person-detail-value">${escapeHtml(person.email || location.email || "-")}</span>
+              <span class="person-detail-value">${escapeHtml(person.email || "-")}</span>
+            </div>
+
+            <div class="person-detail-row">
+              <span class="person-detail-label">LinkedIn</span>
+              <span class="person-detail-value">${escapeHtml(person.linkedin || "-")}</span>
             </div>
 
           </div>
@@ -1396,6 +1307,46 @@
   }
 
 
+  /* The target follows the REAL place on the globe, so when the
+     globe is dragged or rotated the target moves with Chennai
+     (and hides when Chennai turns to the back of the globe). */
+  function trackCenterMarker() {
+
+    requestAnimationFrame(trackCenterMarker);
+
+    if (
+      !globe ||
+      !centerMarker ||
+      !selectedLocation ||
+      !centerMarker.classList.contains("visible")
+    ) return;
+
+    const lat = Number(selectedLocation.lat);
+    const lng = Number(selectedLocation.lng);
+
+    const point = globe.getCoords(lat, lng, 0.025);
+    const cam = globe.camera().position;
+    const radius = globe.getGlobeRadius();
+
+    const facingCamera =
+      point.x * cam.x + point.y * cam.y + point.z * cam.z > radius * radius;
+
+    if (!facingCamera) {
+      centerMarker.style.opacity = "0";
+      centerMarker.style.pointerEvents = "none";
+      return;
+    }
+
+    const screen = globe.getScreenCoords(lat, lng, 0.025);
+
+    centerMarker.style.opacity = "1";
+    centerMarker.style.pointerEvents = "auto";
+    centerMarker.style.left = screen.x + "px";
+    centerMarker.style.top = screen.y + "px";
+
+  }
+
+
   /* =======================================================
      SELECTED MAP MARKER
   ======================================================= */
@@ -1437,8 +1388,9 @@
 
 
   /* =======================================================
-     SYNC LEFT CITY DROPDOWN
-     Map click → open matching city in the left list
+     SYNC LEFT LIST
+     Map click -> scroll the left list to that city
+     (no dropdown on the left any more)
   ======================================================= */
 
   function syncLocationDropdown(locationId) {
@@ -1450,26 +1402,6 @@
     );
 
     if (!item) return;
-
-    locationList
-      .querySelectorAll(".location-item.expanded")
-      .forEach(other => {
-
-        if (other === item) return;
-
-        other.classList.remove("expanded");
-
-        other
-          .querySelector(".location-arrow")
-          ?.setAttribute("aria-expanded", "false");
-
-      });
-
-    item.classList.add("expanded");
-
-    item
-      .querySelector(".location-arrow")
-      ?.setAttribute("aria-expanded", "true");
 
     item.scrollIntoView({
       block: "nearest",
@@ -1579,8 +1511,6 @@
           event.preventDefault();
           event.stopPropagation();
 
-          showLocation(location);
-
           focusLocation(location);
 
         });
@@ -1595,8 +1525,26 @@
 
 
   /* =======================================================
-     LEFT LOCATION LIST
+     LEFT LOCATION LIST  (CITY NAMES ONLY)
+     No arrow, no dropdown, no people on the left.
+     Click a city -> fly to it + open the right panel.
   ======================================================= */
+
+  /* Search matches city, country and every person in the city */
+  function locationMatches(location, query) {
+
+    if (
+      String(location.name || "").toLowerCase().includes(query) ||
+      String(location.country || "").toLowerCase().includes(query)
+    ) return true;
+
+    return getPeople(location).some(person =>
+      [person.name, person.role, person.organization, person.department]
+        .some(value => String(value || "").toLowerCase().includes(query))
+    );
+
+  }
+
 
   function renderLocationList(filterText = "") {
 
@@ -1608,12 +1556,7 @@
 
       if (!query) return true;
 
-      return (
-        String(location.name || "").toLowerCase().includes(query) ||
-        String(location.country || "").toLowerCase().includes(query) ||
-        String(location.person || "").toLowerCase().includes(query) ||
-        String(location.role || "").toLowerCase().includes(query)
-      );
+      return locationMatches(location, query);
 
     });
 
@@ -1628,8 +1571,6 @@
         selectedLocation &&
         Number(selectedLocation.id) === Number(location.id);
 
-      const peopleCount = getPeople(location).length;
-
       return `
 
         <div
@@ -1641,7 +1582,6 @@
             class="location-main"
             role="button"
             tabindex="0"
-            data-action="focus"
           >
 
             <div class="location-icon">
@@ -1653,29 +1593,6 @@
               <div class="location-country">${escapeHtml(location.country)}</div>
             </div>
 
-            <button
-              type="button"
-              class="location-arrow"
-              data-action="toggle"
-              aria-label="Show ${escapeHtml(location.name)} details"
-              aria-expanded="false"
-            >
-              ›
-            </button>
-
-          </div>
-
-          <div class="location-extra">
-
-            <div class="location-extra-heading">
-              <span>${escapeHtml(location.name)}</span>
-              <span>${peopleCount} ${peopleCount === 1 ? "person" : "people"}</span>
-            </div>
-
-            <div class="location-people-list">
-              ${buildPeopleCards(location)}
-            </div>
-
           </div>
 
         </div>
@@ -1685,42 +1602,7 @@
     }).join("");
 
 
-    /* ---------- city dropdown helper ---------- */
-
-    function setLocationDropdown(item, shouldOpen) {
-
-      if (!item) return;
-
-      const arrow = item.querySelector(".location-arrow");
-
-      locationList
-        .querySelectorAll(".location-item.expanded")
-        .forEach(other => {
-
-          if (other === item) return;
-
-          other.classList.remove("expanded");
-
-          other
-            .querySelector(".location-arrow")
-            ?.setAttribute("aria-expanded", "false");
-
-        });
-
-      const open =
-        typeof shouldOpen === "boolean"
-          ? shouldOpen
-          : !item.classList.contains("expanded");
-
-      item.classList.toggle("expanded", open);
-
-      arrow?.setAttribute("aria-expanded", String(open));
-
-    }
-
-
-    /* ---------- main row → focus map + open dropdown ---------- */
-
+    /* Click a city -> fly to it + open right panel */
     locationList.querySelectorAll(".location-main").forEach(main => {
 
       const item = main.closest(".location-item");
@@ -1735,68 +1617,17 @@
           itemLocation => Number(itemLocation.id) === id
         );
 
-        if (!location) return;
-
-        setLocationDropdown(item, true);
-
-        focusLocation(location);
+        if (location) focusLocation(location);
 
       };
 
-      main.addEventListener("click", event => {
-
-        if (event.target.closest(".location-arrow")) return;
-
-        handleFocus();
-
-      });
+      main.addEventListener("click", handleFocus);
 
       main.addEventListener("keydown", event => {
-
-        if (event.target.closest(".location-arrow")) return;
 
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           handleFocus();
-        }
-
-      });
-
-    });
-
-
-    /* ---------- person dropdowns (shared with right panel) ---------- */
-
-    bindPersonAccordion(locationList);
-
-
-    /* ---------- arrow → open/close city dropdown ---------- */
-
-    locationList.querySelectorAll(".location-arrow").forEach(arrow => {
-
-      arrow.addEventListener("click", event => {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        const item = arrow.closest(".location-item");
-
-        if (!item) return;
-
-        const isExpanded = item.classList.contains("expanded");
-
-        const id = Number(item.dataset.locationId);
-
-        const location = locations.find(
-          itemLocation => Number(itemLocation.id) === id
-        );
-
-        if (!location) return;
-
-        setLocationDropdown(item, !isExpanded);
-
-        if (!isExpanded) {
-          focusLocation(location);
         }
 
       });
@@ -1894,7 +1725,7 @@
     );
 
 
-    /* Click near a city on the map → select that city */
+    /* Click near a city on the map -> select that city */
 
     globe.onGlobeClick(({ lat, lng }) => {
 
@@ -1915,7 +1746,9 @@
 
       });
 
-      if (nearest && nearestDistance <= 3.0) {
+      /* Click anywhere on the map -> select the nearest city
+         (only Chennai now, so any click shows Chennai) */
+      if (nearest) {
         focusLocation(nearest);
       }
 
@@ -1941,6 +1774,9 @@
     window.addEventListener("resize", resizeGlobe);
 
     resizeGlobe();
+
+
+    requestAnimationFrame(trackCenterMarker);
 
 
     /* Hide loading */
@@ -1970,11 +1806,7 @@
 
       if (!query) return;
 
-      const location = locations.find(item =>
-        item.name.toLowerCase().includes(query) ||
-        item.country.toLowerCase().includes(query) ||
-        item.person.toLowerCase().includes(query)
-      );
+      const location = locations.find(item => locationMatches(item, query));
 
       if (location) {
         focusLocation(location);
