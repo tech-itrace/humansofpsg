@@ -701,9 +701,11 @@
   .details-panel {
     position: absolute;
     right: 24px;
+    top: 136px;
     bottom: 24px;
-    width: 350px;
-    max-height: min(440px, calc(100vh - 150px));
+    width: 400px;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     z-index: 14;
     padding: 18px;
@@ -721,7 +723,8 @@
   }
 
   .details-content {
-    max-height: min(400px, calc(100vh - 190px));
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     padding-right: 3px;
   }
@@ -848,7 +851,7 @@
       transform: none;
     }
 
-    .details-panel { right: 12px; bottom: 12px; width: 290px; }
+    .details-panel { right: 12px; top: auto; bottom: 12px; width: 290px; max-height: 60vh; }
     .control-bar { right: 12px; top: 68px; }
   }
 
