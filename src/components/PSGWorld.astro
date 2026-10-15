@@ -6,19 +6,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Jost:wght@400;500;600&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap"
   rel="stylesheet"
 />
 
 <style is:global>
   :root {
     --bg: #ffffff;
-    --ink: #2a1b14;
-    --muted: #7d6e66;
-    --blue: #2a6fba;
-    --blue-soft: #eaf2fb;
-    --line: #f1dccd;
-    --peach: #fff7f1;
+    --ink: #1f1410;
+    --muted: #6b5d56;
+    --blue: #2b76c0;
+    --blue-soft: #eaf3fb;
+    --line: #f4dfd1;
+    --peach: #fff8f3;
     --shadow: 0 12px 40px rgba(60, 35, 20, 0.1);
     --head: "Fredoka", "Baloo 2", system-ui, sans-serif;
     --body: "Jost", "Segoe UI", system-ui, sans-serif;
@@ -29,7 +29,8 @@
   html, body {
     margin: 0; padding: 0; width: 100%; height: 100%;
     overflow: hidden; background: var(--bg); color: var(--ink);
-    font-family: var(--body);
+    font-family: var(--body); font-size: 15px; font-weight: 400;
+    -webkit-font-smoothing: antialiased;
   }
 
   button, input { font: inherit; }
@@ -39,24 +40,26 @@
   #globe-container { position: absolute; inset: 0; z-index: 1; }
   #globe-container canvas { display: block; }
 
-  /* ---------- TOP BAR (like website nav) ---------- */
+  /* ---------- TOP BAR (same as website nav) ---------- */
   .top-bar {
-    position: absolute; left: 0; right: 0; top: 0; height: 76px;
-    padding: 0 48px; display: flex; align-items: center; justify-content: space-between;
+    position: absolute; left: 0; right: 0; top: 0; height: 90px;
+    padding: 0 72px; display: flex; align-items: center; justify-content: space-between;
     z-index: 15; background: #fff; border-bottom: 1px solid var(--line);
+    box-shadow: 0 2px 14px rgba(60, 35, 20, 0.05);
   }
   .brand { display: flex; align-items: center; gap: 10px; }
-  .brand-title { font-family: var(--head); font-size: 18px; font-weight: 700; color: var(--ink); }
-  .brand-title b { color: var(--blue); font-style: italic; font-weight: 700; }
+  .brand-title { font-family: var(--head); font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: 0.01em; }
+  .brand-title b { color: inherit; font-style: normal; font-weight: 700; }
 
-  .search-box { position: relative; width: 340px; }
+  .search-box { position: relative; width: 360px; }
   .search-input {
-    width: 100%; height: 44px; padding: 0 18px 0 44px;
+    width: 100%; height: 42px; padding: 0 18px 0 44px;
     border: 1px solid var(--line); border-radius: 999px; outline: none;
-    background: #fff; color: var(--ink); font-size: 15px; transition: 0.2s ease;
+    background: #fff; color: var(--ink);
+    font-family: var(--body); font-size: 14px; font-weight: 400; transition: 0.2s ease;
   }
-  .search-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(42, 111, 186, 0.12); }
-  .search-input::placeholder { color: #9a8b83; }
+  .search-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(43, 118, 192, 0.12); }
+  .search-input::placeholder { color: #8a7b73; font-weight: 400; }
   .search-icon {
     position: absolute; left: 17px; top: 50%; transform: translateY(-50%);
     color: var(--muted); font-size: 17px; pointer-events: none;
@@ -72,7 +75,7 @@
     position: absolute; left: 50%; top: 50%; width: 12px; height: 12px;
     transform: translate(-50%, -50%); border-radius: 50%;
     background: var(--blue); border: 2px solid #fff;
-    box-shadow: 0 0 0 4px rgba(42, 111, 186, 0.25), 0 4px 14px rgba(42, 111, 186, 0.6);
+    box-shadow: 0 0 0 4px rgba(43, 118, 192, 0.25), 0 4px 14px rgba(43, 118, 192, 0.6);
     z-index: 5;
   }
   .center-marker-ring {
@@ -82,10 +85,10 @@
   }
   .center-marker-ring-2 {
     position: absolute; left: 50%; top: 50%; width: 60px; height: 60px;
-    transform: translate(-50%, -50%); border: 1px solid rgba(42, 111, 186, 0.4); border-radius: 50%;
+    transform: translate(-50%, -50%); border: 1px solid rgba(43, 118, 192, 0.4); border-radius: 50%;
     animation: centerRing2 2.2s ease-out infinite;
   }
-  .center-cross-horizontal, .center-cross-vertical { position: absolute; background: rgba(42, 111, 186, 0.55); }
+  .center-cross-horizontal, .center-cross-vertical { position: absolute; background: rgba(43, 118, 192, 0.55); }
   .center-cross-horizontal { left: 10px; right: 10px; top: 54px; height: 1px; }
   .center-cross-vertical { top: 10px; bottom: 10px; left: 54px; width: 1px; }
   .center-label {
@@ -121,7 +124,7 @@
   .station-tooltip {
     position: absolute; left: 50%; top: 24px; transform: translateX(-50%);
     white-space: nowrap; padding: 4px 10px; border-radius: 999px;
-    font-size: 12px; font-weight: 500; color: var(--ink);
+    font-family: var(--body); font-size: 13px; font-weight: 500; color: var(--ink);
     background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow);
     opacity: 0; pointer-events: none; transition: 0.18s ease;
   }
@@ -134,122 +137,42 @@
 
   /* ---------- LEFT LOCATION PANEL ---------- */
   .location-panel {
-    position: absolute; left: 32px; top: 100px; width: 300px;
-    max-height: calc(100vh - 124px); z-index: 14; display: flex; flex-direction: column;
+    position: absolute; left: 32px; top: 114px; width: 300px;
+    max-height: calc(100vh - 138px); z-index: 14; display: flex; flex-direction: column;
     overflow: hidden; background: #fff; border: 1px solid var(--line);
     border-radius: 22px; box-shadow: var(--shadow);
   }
   .panel-head { padding: 18px 20px 14px; border-bottom: 1px solid var(--line); }
-  .panel-title { font-family: var(--head); font-size: 17px; font-weight: 700; }
-  .panel-count { margin-top: 3px; color: var(--muted); font-size: 13px; }
+  .panel-title { font-family: var(--head); font-size: 18px; font-weight: 700; color: var(--ink); }
+  .panel-count { margin-top: 3px; color: var(--muted); font-size: 13px; font-weight: 400; }
   .location-list { padding: 8px; overflow-y: auto; }
   .location-list::-webkit-scrollbar, .details-content::-webkit-scrollbar { width: 5px; }
   .location-list::-webkit-scrollbar-thumb, .details-content::-webkit-scrollbar-thumb { border-radius: 20px; background: var(--line); }
 
   .location-item { margin-bottom: 3px; border: 1px solid transparent; border-radius: 14px; transition: 0.2s ease; }
   .location-item:hover { background: var(--peach); }
-  .location-item.active { background: var(--blue-soft); border-color: rgba(42, 111, 186, 0.25); }
+  .location-item.active { background: var(--blue-soft); border-color: rgba(43, 118, 192, 0.25); }
   .location-main { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 10px; cursor: pointer; }
   .location-main:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 14px; }
   .location-icon { flex: 0 0 auto; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--blue-soft); }
   .location-icon-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
   .location-info { min-width: 0; flex: 1; }
-  .location-name { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .location-country { margin-top: 1px; color: var(--muted); font-size: 12px; }
+  .location-name { font-family: var(--body); font-size: 15px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .location-item.active .location-name { color: var(--blue); font-weight: 600; }
+  .location-country { margin-top: 1px; color: var(--muted); font-size: 13px; font-weight: 400; }
 
-  /* ---------- RIGHT DETAILS PANEL ---------- */
+  /* ---------- RIGHT PANEL SHELL (cards are styled from the script below) ---------- */
   .details-panel {
-    position: absolute; right: 32px; top: 100px; bottom: 24px; width: 400px;
-    display: flex; flex-direction: column; overflow: hidden; z-index: 14; padding: 20px;
-    background: #fff; border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow);
+    position: absolute; right: 32px; top: 114px; bottom: 24px; width: 430px;
+    display: flex; flex-direction: column; overflow: hidden; z-index: 14;
+    padding: 26px 22px 22px 26px;
+    background: #fff; border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow);
   }
   .details-panel.hidden { display: none; }
-  .details-content { flex: 1; min-height: 0; overflow-y: auto; padding-right: 3px; }
-  .details-top { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
-  .details-avatar {
-    width: 50px; height: 50px; flex: 0 0 auto; display: grid; place-items: center;
-    border-radius: 50%; background: var(--blue); color: #fff;
-    font-family: var(--head); font-size: 22px; font-weight: 700;
-  }
-  .details-name { font-family: var(--head); font-size: 22px; font-weight: 700; line-height: 1.1; }
-  .details-role { margin-top: 4px; color: var(--blue); font-size: 14px; font-weight: 600; }
-  .details-location-count { margin-top: 2px; color: var(--muted); font-size: 12px; }
-
-  .location-extra-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-  .location-extra-heading span:first-child { font-family: var(--head); font-size: 15px; font-weight: 600; }
-  .location-extra-heading span:last-child {
-    padding: 3px 10px; border-radius: 999px; background: var(--blue-soft);
-    color: var(--blue); font-size: 12px; font-weight: 600;
-  }
-  .location-people-list { display: flex; flex-direction: column; gap: 8px; }
-
-  .location-person-card { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #fff; transition: 0.18s ease; }
-  .location-person-card.person-expanded { border-color: rgba(42, 111, 186, 0.4); background: #fff; }
-  .location-person-header {
-    width: 100%; display: flex; align-items: center; gap: 10px;
-    padding: 12px 14px 10px; border: 0; background: transparent; color: var(--ink); text-align: left; cursor: default;
-  }
-  .location-person-number {
-    width: 34px; height: 34px; flex: 0 0 34px; display: grid; place-items: center;
-    border-radius: 50%; background: var(--blue-soft); color: var(--blue);
-    border: 1px solid rgba(42, 111, 186, 0.18);
-  }
-  .location-person-name { font-family: var(--head); font-size: 14px; font-weight: 600; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .location-person-designation {
-    margin-top: 1px; color: var(--blue); font-size: 12px; font-weight: 600; line-height: 1.3;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-  .location-person-org {
-    margin-top: 1px; color: var(--muted); font-size: 11px; line-height: 1.3;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-  .location-person-arrow {
-    width: 28px; height: 28px; flex: 0 0 28px; display: grid; place-items: center;
-    border: 1px solid var(--line); border-radius: 50%; color: var(--muted);
-    font-size: 17px; line-height: 1; transition: 0.2s ease;
-  }
-  .location-person-header:hover .location-person-arrow { color: var(--blue); border-color: var(--blue); }
-  .location-person-card.person-expanded .location-person-arrow { transform: rotate(90deg); color: #fff; background: var(--blue); border-color: var(--blue); }
-
-  .location-person-details { display: block; margin: 0 14px 14px; padding-top: 10px; border-top: 1px dashed var(--line); }
-  .location-person-card.person-expanded .location-person-details { display: block; animation: personDrop 0.18s ease; }
-  @keyframes personDrop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* chips: batch / degree / department */
-  .person-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
-  .person-chip {
-    display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px;
-    border-radius: 999px; background: var(--blue-soft); color: var(--blue);
-    font-size: 11px; font-weight: 600; line-height: 1;
-  }
-  .person-chip small { color: var(--muted); font-size: 10px; font-weight: 500; }
-
-  /* info rows with icons */
-  .person-info { display: flex; flex-direction: column; gap: 8px; }
-  .person-info-row { display: flex; align-items: center; gap: 10px; }
-  .person-info-icon {
-    width: 26px; height: 26px; flex: 0 0 26px; display: grid; place-items: center;
-    border-radius: 9px; background: var(--peach); color: var(--blue); border: 1px solid var(--line);
-  }
-  .person-info-text { min-width: 0; flex: 1; }
-  .person-info-label { color: var(--muted); font-size: 10px; font-weight: 500; line-height: 1.2; }
-  .person-info-value { margin-top: 0; color: var(--ink); font-size: 12px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere; }
-  .person-info-value a { color: var(--blue); text-decoration: none; font-weight: 600; }
-  .person-info-value a:hover { text-decoration: underline; }
-
-  /* contact buttons */
-  .person-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
-  .person-action {
-    display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
-    border-radius: 999px; border: 1px solid var(--line); background: #fff;
-    color: var(--ink); font-size: 11.5px; font-weight: 600; text-decoration: none; transition: 0.18s ease;
-  }
-  .person-action:hover { border-color: var(--blue); color: var(--blue); }
-  .person-action.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
-  .person-action.primary:hover { background: #225c9e; color: #fff; }
+  .details-content { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
 
   /* ---------- CONTROLS ---------- */
-  .control-bar { position: absolute; right: 32px; top: 92px; z-index: 16; display: none; }
+  .control-bar { position: absolute; right: 32px; top: 106px; z-index: 16; display: none; }
   .zoom-bar { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 15; display: flex; gap: 8px; }
   .control-button {
     width: 42px; height: 42px; display: grid; place-items: center; cursor: pointer;
@@ -268,15 +191,15 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 900px) {
-    .top-bar { padding: 0 16px; }
-    .search-box { width: 220px; }
+    .top-bar { padding: 0 20px; height: 76px; }
+    .search-box { width: 240px; }
     .location-panel { left: 12px; top: auto; bottom: 12px; width: 250px; max-height: 42vh; }
-    .details-panel { right: 12px; top: auto; bottom: 12px; width: 300px; max-height: 60vh; }
+    .details-panel { right: 12px; top: auto; bottom: 12px; width: 320px; max-height: 60vh; }
     .zoom-bar { bottom: auto; top: 92px; left: auto; right: 12px; transform: none; flex-direction: column; }
   }
   @media (max-width: 650px) {
-    .brand-title { font-size: 15px; }
-    .search-box { width: 170px; }
+    .brand-title { font-size: 14px; }
+    .search-box { width: 180px; }
     .location-panel { display: none; }
     .details-panel { left: 12px; right: 12px; width: auto; }
   }
@@ -304,7 +227,7 @@
 
     <div class="search-box">
       <span class="search-icon">⌕</span>
-      <input id="location-search" class="search-input" type="text" placeholder="Search city, name, company..." autocomplete="off" />
+      <input id="location-search" class="search-input" type="text" placeholder="Search by name, place, keyword..." autocomplete="off" />
     </div>
   </div>
 
@@ -339,8 +262,103 @@
   /* Data lives in public/data/psg-members.js */
   import { members, DEFAULT_CITY, CITY_COORDS } from "/data/psg-members.js";
 
-  /* false = opening one person closes the others */
-  const ALLOW_MULTIPLE_OPEN = false;
+  /* ================================================================
+     RIGHT PANEL STYLES (matches the Humans of PSG website)
+     Fredoka = headings / names, Jost = everything else
+     Injected from JS so the cards are ALWAYS styled.
+     ================================================================ */
+  const PANEL_CSS = `
+    .cc-top { padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid #f4dfd1; }
+    .cc-eyebrow {
+      font-family:"Jost","Segoe UI",system-ui,sans-serif; font-size:11px; font-weight:400;
+      letter-spacing:0.12em; text-transform:uppercase; color:#6b5d56;
+    }
+    .cc-city-name {
+      margin-top:6px; font-family:"Fredoka","Baloo 2",system-ui,sans-serif;
+      font-size:28px; font-weight:700; font-style:italic; line-height:1.05;
+      letter-spacing:-0.01em; color:#2b76c0; overflow-wrap:anywhere;
+    }
+    .cc-city-sub {
+      margin-top:8px; font-family:"Jost","Segoe UI",system-ui,sans-serif;
+      font-size:13px; font-weight:300; line-height:1.5; color:#6b5d56;
+    }
+    .cc-city-sub b { font-weight:500; color:#1f1410; }
+
+    .cc-list { display:flex; flex-direction:column; gap:10px; padding-bottom:6px; }
+
+    .cc-card {
+      display:flex; gap:12px; padding:13px 14px; background:#fff;
+      border:1px solid #f4dfd1; border-radius:18px;
+      font-family:"Jost","Segoe UI",system-ui,sans-serif;
+      transition:0.2s ease;
+    }
+    .cc-card:hover { background:#fff8f3; box-shadow:0 8px 24px rgba(60,35,20,0.08); }
+
+    .cc-avatar {
+      flex:0 0 42px; width:42px; height:42px; display:grid; place-items:center; border-radius:50%;
+      background:linear-gradient(135deg,#2b76c0 0%,#7fb0e6 100%); color:#fff;
+      font-family:"Fredoka","Baloo 2",system-ui,sans-serif; font-size:15px; font-weight:600;
+    }
+    .cc-body { min-width:0; flex:1; }
+
+    .cc-line1 { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+    .cc-name {
+      min-width:0; font-family:"Fredoka","Baloo 2",system-ui,sans-serif; font-size:15.5px; font-weight:700;
+      line-height:1.2; color:#1f1410; overflow-wrap:anywhere;
+    }
+    .cc-batch {
+      flex:0 0 auto; padding:2px 9px; border-radius:999px; background:#eaf3fb; color:#2b76c0;
+      font-size:11px; font-weight:600; line-height:1.4; white-space:nowrap;
+    }
+
+    .cc-role { margin-top:4px; font-size:13px; font-weight:500; line-height:1.35; color:#2b76c0; overflow-wrap:anywhere; }
+    .cc-org  { margin-top:2px; font-size:12px; font-weight:300; line-height:1.4; color:#6b5d56; overflow-wrap:anywhere; }
+
+    .cc-contact { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .cc-link {
+      display:inline-flex; align-items:center; gap:6px; max-width:100%;
+      padding:4px 10px; border:1px solid #f4dfd1; border-radius:999px; background:#fff;
+      color:#1f1410; font-size:11.5px; font-weight:400; line-height:1.3; text-decoration:none;
+      transition:0.2s ease;
+    }
+    .cc-link span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .cc-link svg { flex:0 0 auto; color:#2b76c0; }
+    .cc-link:hover { border-color:#2b76c0; color:#2b76c0; background:#eaf3fb; }
+  `;
+
+  (function injectPanelCss() {
+    const style = document.createElement("style");
+    style.id = "cc-panel-styles";
+    style.textContent = PANEL_CSS;
+    document.head.appendChild(style);
+  })();
+
+  /* ================= HELPERS ================= */
+
+  const clean = v => (v && String(v).trim() && String(v).trim() !== "-") ? String(v).trim() : "";
+
+  const sameText = (a, b) => clean(a).toLowerCase() === clean(b).toLowerCase();
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function linkedinUrl(v) {
+    const value = clean(v);
+    if (!value) return "";
+    return /^https?:\/\//i.test(value) ? value : "https://" + value.replace(/^\/+/, "");
+  }
+
+  function initials(name) {
+    const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return "P";
+    return ((parts[0][0] || "") + (parts.length > 1 ? parts[parts.length - 1][0] : "")).toUpperCase();
+  }
 
   /* ================= DATA ================= */
 
@@ -359,15 +377,12 @@
 
       groups.get(city).push({
         name: member.name,
-        role: member.jobTitle || member.organization || "Member",
-        department: member.department,
-        organization: member.organization,
-        batch: member.batch,
-        degree: member.degree,
-        industry: member.industry,
-        phone: member.phone,
-        email: member.email,
-        linkedin: member.linkedin
+        designation: clean(member.jobTitle),
+        organization: clean(member.organization),
+        batch: clean(member.batch),
+        phone: clean(member.phone),
+        email: clean(member.email),
+        linkedin: clean(member.linkedin)
       });
     });
 
@@ -404,139 +419,60 @@
     if (selectedLocation) showLocation(selectedLocation);
   });
 
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  /* ================= PEOPLE ACCORDION ================= */
+  /* ================= PERSON CARDS ================= */
 
   function getPeople(location) {
     return Array.isArray(location.people) ? location.people : [];
   }
 
   const ICONS = {
-    work: '<path d="M3 8h18v11H3z"></path><path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path><path d="M3 13h18"></path>',
-    industry: '<path d="M3 20V9l6 3V9l6 3V5h3v15z"></path>',
     phone: '<path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2 2A15.5 15.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"></path>',
     mail: '<rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3.5 7 8.5 6 8.5-6"></path>',
-    linkedin: '<path d="M6 9v10M6 5.5v.01M11 19v-6a3 3 0 0 1 6 0v6M11 9v10"></path>',
-    batch: '<rect x="3.5" y="5" width="17" height="15" rx="2"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path>',
-    degree: '<path d="m2.5 9 9.5-4.5L21.5 9 12 13.5z"></path><path d="M6.5 11.5V16c1.5 1.4 3.4 2 5.5 2s4-.6 5.5-2v-4.5"></path>',
-    dept: '<rect x="4" y="3.5" width="16" height="17" rx="2"></rect><path d="M9 8h.01M15 8h.01M9 12h.01M15 12h.01M10 20.5v-4h4v4"></path>'
+    linkedin: '<path d="M6 9v10M6 5.5v.01M11 19v-6a3 3 0 0 1 6 0v6M11 9v10"></path>'
   };
 
-  function icon(name, size = 16) {
-    return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+  function icon(name, size = 14) {
+    return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
   }
 
-  const clean = v => (v && String(v).trim() && String(v).trim() !== "-") ? String(v).trim() : "";
-
-  function linkedinUrl(v) {
-    const value = clean(v);
-    if (!value) return "";
-    return /^https?:\/\//i.test(value) ? value : "https://" + value.replace(/^\/+/, "");
+  function link(iconName, text, href, external = false) {
+    if (!text || !href) return "";
+    return `<a class="cc-link" href="${escapeHtml(href)}" title="${escapeHtml(text)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${icon(iconName, 14)}<span>${escapeHtml(text)}</span></a>`;
   }
 
-  /* data only: icon + value, no title text */
-  function infoRow(iconName, label, valueHtml) {
-    return `
-      <div class="person-info-row" title="${label}">
-        <div class="person-info-icon">${icon(iconName, 13)}</div>
-        <div class="person-info-text">
-          <div class="person-info-value">${valueHtml}</div>
-        </div>
-      </div>`;
-  }
+  function buildPersonCard(person) {
+    const designation = person.designation;
+    const organization = person.organization;
 
-  function buildPersonDetails(person) {
-    const val = v => clean(v);
-    const phone = clean(person.phone);
-    const email = clean(person.email);
+    /* if designation is empty, organization moves up as the blue line; never shown twice */
+    const roleLine = designation || organization;
+    const orgLine = designation && organization && !sameText(designation, organization) ? organization : "";
+
     const linkedin = linkedinUrl(person.linkedin);
+    const contact = [
+      person.phone ? link("phone", person.phone, "tel:" + person.phone.replace(/[^+\d]/g, "")) : "",
+      person.email ? link("mail", person.email, "mailto:" + person.email) : "",
+      linkedin ? link("linkedin", "LinkedIn", linkedin, true) : ""
+    ].join("");
 
-    const phoneHtml = phone
-      ? `<a href="tel:${escapeHtml(phone.replace(/[^+\d]/g, ""))}">${escapeHtml(phone)}</a>` : "";
-    const emailHtml = email
-      ? `<a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>` : "";
-    const linkedinHtml = linkedin
-      ? `<a href="${escapeHtml(linkedin)}" target="_blank" rel="noopener noreferrer">${escapeHtml(clean(person.linkedin))}</a>` : "";
-
-    const rows = [
-      ["work", "Designation", escapeHtml(val(person.role))],
-      ["work", "Organization", escapeHtml(val(person.organization))],
-      ["batch", "Batch", escapeHtml(val(person.batch))],
-      ["degree", "Degree", escapeHtml(val(person.degree))],
-      ["dept", "Department", escapeHtml(val(person.department))],
-      ["industry", "Industry", escapeHtml(val(person.industry))],
-      ["phone", "Phone", phoneHtml],
-      ["mail", "Email", emailHtml],
-      ["linkedin", "LinkedIn", linkedinHtml]
-    ];
-
-    /* only the data is shown (no label text); empty fields are skipped */
-    return `<div class="person-info">${rows
-      .filter(([, , html]) => html)
-      .map(([ic, label, html]) => infoRow(ic, label, html))
-      .join("")}</div>`;
+    return `
+      <article class="cc-card">
+        <div class="cc-avatar">${escapeHtml(initials(person.name))}</div>
+        <div class="cc-body">
+          <div class="cc-line1">
+            <div class="cc-name">${escapeHtml(person.name || "-")}</div>
+            ${person.batch ? `<div class="cc-batch">Batch ${escapeHtml(person.batch)}</div>` : ""}
+          </div>
+          ${roleLine ? `<div class="cc-role">${escapeHtml(roleLine)}</div>` : ""}
+          ${orgLine ? `<div class="cc-org">${escapeHtml(orgLine)}</div>` : ""}
+          ${contact ? `<div class="cc-contact">${contact}</div>` : ""}
+        </div>
+      </article>
+    `;
   }
 
   function buildPeopleCards(location) {
-    return getPeople(location).map((person, index) => `
-      <div class="location-person-card">
-        <div class="location-person-header">
-          <div class="location-person-number">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="8" r="3.6"></circle>
-              <path d="M4.5 20c.9-3.7 3.9-5.6 7.5-5.6s6.6 1.9 7.5 5.6"></path>
-            </svg>
-          </div>
-          <div style="min-width:0;flex:1;">
-            <div class="location-person-name">${escapeHtml(person.name || "-")}</div>
-            <div class="location-person-designation">${escapeHtml(person.role || "-")}</div>
-            ${person.organization && person.organization !== person.role
-              ? `<div class="location-person-org">${escapeHtml(person.organization)}</div>`
-              : ""}
-          </div>
-        </div>
-
-        <div class="location-person-details">${buildPersonDetails(person)}</div>
-      </div>
-    `).join("");
-  }
-
-  function bindPersonAccordion(container) {
-    if (!container || container.dataset.accordionBound) return;
-    container.dataset.accordionBound = "true";
-
-    container.addEventListener("click", event => {
-      const header = event.target.closest(".location-person-header");
-      if (!header || !container.contains(header)) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      const card = header.closest(".location-person-card");
-      if (!card) return;
-
-      const willOpen = !card.classList.contains("person-expanded");
-
-      if (!ALLOW_MULTIPLE_OPEN) {
-        card.parentElement
-          ?.querySelectorAll(".location-person-card.person-expanded")
-          .forEach(other => {
-            other.classList.remove("person-expanded");
-            other.querySelector(".location-person-header")?.setAttribute("aria-expanded", "false");
-          });
-      }
-
-      card.classList.toggle("person-expanded", willOpen);
-      header.setAttribute("aria-expanded", String(willOpen));
-    });
+    return getPeople(location).map(buildPersonCard).join("");
   }
 
   /* ================= RIGHT PANEL ================= */
@@ -552,25 +488,19 @@
 
     const count = getPeople(location).length;
     const label = count === 1 ? "person" : "people";
+    const place = location.address || location.country || "";
 
     content.innerHTML = `
-      <div class="details-top">
-        <div class="details-avatar">${escapeHtml(location.name?.charAt(0).toUpperCase() || "P")}</div>
-        <div style="min-width:0;flex:1;">
-          <div class="details-name">${escapeHtml(location.name)}</div>
-          <div class="details-role">${count} ${label} from PSG</div>
-          <div class="details-location-count">${escapeHtml(location.address || location.country || "")}</div>
-        </div>
+      <div class="cc-top">
+        <div class="cc-eyebrow">PSGians in</div>
+        <div class="cc-city-name">${escapeHtml(location.name)}</div>
+        <div class="cc-city-sub"><b>${count} ${label}</b> from PSG${place ? " · " + escapeHtml(place) : ""}</div>
       </div>
 
-      <div class="location-extra">
-        <div class="location-extra-heading">
-          <span>People in ${escapeHtml(location.name)}</span>
-          <span>${count} ${label}</span>
-        </div>
-        <div class="location-people-list">${buildPeopleCards(location)}</div>
-      </div>
+      <div class="cc-list">${buildPeopleCards(location)}</div>
     `;
+
+    content.scrollTop = 0;
 
     updateActiveLocation();
     updateSelectedMapMarker();
@@ -717,7 +647,7 @@
     ) return true;
 
     return getPeople(location).some(person =>
-      [person.name, person.role, person.organization, person.department]
+      [person.name, person.designation, person.organization, person.batch]
         .some(value => String(value || "").toLowerCase().includes(query))
     );
   }
@@ -781,7 +711,7 @@
       globe
         ?.polygonsData(countryData)
         .polygonCapColor(() => "#ffe3d0")
-        .polygonSideColor(() => "rgba(241, 220, 205, 0.6)")
+        .polygonSideColor(() => "rgba(244, 223, 209, 0.6)")
         .polygonStrokeColor(() => "#e3b99d")
         .polygonAltitude(0.006);
     } catch (error) {
@@ -796,7 +726,6 @@
 
     globe = new Globe(globeContainer, { animateIn: true });
 
-    /* Website-colored globe: soft blue ocean, peach land, blue borders */
     globe
       .backgroundColor("rgba(0,0,0,0)")
       .showAtmosphere(true)
