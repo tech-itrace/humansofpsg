@@ -1,6 +1,10 @@
 ---
 /* PSG WORLD - globe page, styled like the Humans of PSG website
-   (white background, peach divider, Fredoka headings, Jost body, blue accent) */
+   (white background, peach divider, Fredoka headings, Jost body, blue accent)
+   v3: professional directory-style right panel
+       - blue banner header with city + quick facts
+       - filter + sort toolbar
+       - collapsible people rows with copy-to-clipboard contact details */
 ---
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,6 +20,7 @@
     --ink: #1f1410;
     --muted: #6b5d56;
     --blue: #2b76c0;
+    --blue-dark: #1f5fa6;
     --blue-soft: #eaf3fb;
     --line: #f4dfd1;
     --peach: #fff8f3;
@@ -146,8 +151,8 @@
   .panel-title { font-family: var(--head); font-size: 18px; font-weight: 700; color: var(--ink); }
   .panel-count { margin-top: 3px; color: var(--muted); font-size: 13px; font-weight: 400; }
   .location-list { padding: 8px; overflow-y: auto; }
-  .location-list::-webkit-scrollbar, .details-content::-webkit-scrollbar { width: 5px; }
-  .location-list::-webkit-scrollbar-thumb, .details-content::-webkit-scrollbar-thumb { border-radius: 20px; background: var(--line); }
+  .location-list::-webkit-scrollbar { width: 5px; }
+  .location-list::-webkit-scrollbar-thumb { border-radius: 20px; background: var(--line); }
 
   .location-item { margin-bottom: 3px; border: 1px solid transparent; border-radius: 14px; transition: 0.2s ease; }
   .location-item:hover { background: var(--peach); }
@@ -161,15 +166,30 @@
   .location-item.active .location-name { color: var(--blue); font-weight: 600; }
   .location-country { margin-top: 1px; color: var(--muted); font-size: 13px; font-weight: 400; }
 
-  /* ---------- RIGHT PANEL SHELL (cards are styled from the script below) ---------- */
+  /* ---------- RIGHT PANEL SHELL ----------
+     Fits its content, scrolls only inside the people list. */
   .details-panel {
-    position: absolute; right: 32px; top: 114px; bottom: 24px; width: 430px;
+    position: absolute; right: 32px; top: 114px; width: 440px;
+    max-height: calc(100vh - 138px);
     display: flex; flex-direction: column; overflow: hidden; z-index: 14;
-    padding: 26px 22px 22px 26px;
-    background: #fff; border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow);
+    background: #fff; border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow);
+    animation: panelIn 0.28s ease both;
   }
   .details-panel.hidden { display: none; }
-  .details-content { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
+  .details-content { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateX(14px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .details-close {
+    position: absolute; right: 16px; top: 16px; z-index: 3;
+    width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16); color: #fff; transition: 0.18s ease;
+  }
+  .details-close:hover { background: rgba(255, 255, 255, 0.3); }
+  .details-close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
   /* ---------- CONTROLS ---------- */
   .control-bar { position: absolute; right: 32px; top: 106px; z-index: 16; display: none; }
@@ -194,7 +214,7 @@
     .top-bar { padding: 0 20px; height: 76px; }
     .search-box { width: 240px; }
     .location-panel { left: 12px; top: auto; bottom: 12px; width: 250px; max-height: 42vh; }
-    .details-panel { right: 12px; top: auto; bottom: 12px; width: 320px; max-height: 60vh; }
+    .details-panel { right: 12px; top: auto; bottom: 12px; width: 340px; max-height: 66vh; }
     .zoom-bar { bottom: auto; top: 92px; left: auto; right: 12px; transform: none; flex-direction: column; }
   }
   @media (max-width: 650px) {
@@ -202,6 +222,9 @@
     .search-box { width: 180px; }
     .location-panel { display: none; }
     .details-panel { left: 12px; right: 12px; width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .details-panel { animation: none; }
   }
 </style>
 
@@ -246,7 +269,10 @@
     <div id="location-list" class="location-list"></div>
   </aside>
 
-  <section id="details-panel" class="details-panel hidden">
+  <section id="details-panel" class="details-panel hidden" aria-live="polite">
+    <button id="details-close" class="details-close" type="button" aria-label="Close details">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
     <div id="details-content" class="details-content"></div>
   </section>
 
@@ -263,72 +289,149 @@
   import { members, DEFAULT_CITY, CITY_COORDS } from "/data/psg-members.js";
 
   /* ================================================================
-     RIGHT PANEL STYLES (matches the Humans of PSG website)
-     Fredoka = headings / names, Jost = everything else
-     Injected from JS so the cards are ALWAYS styled.
+     RIGHT PANEL STYLES (professional directory design)
+     Injected from JS so the panel is ALWAYS styled.
      ================================================================ */
   const PANEL_CSS = `
-    .cc-top { padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid #f4dfd1; }
-    .cc-eyebrow {
-      font-family:"Jost","Segoe UI",system-ui,sans-serif; font-size:11px; font-weight:400;
-      letter-spacing:0.12em; text-transform:uppercase; color:#6b5d56;
-    }
-    .cc-city-name {
-      margin-top:6px; font-family:"Fredoka","Baloo 2",system-ui,sans-serif;
-      font-size:28px; font-weight:700; font-style:italic; line-height:1.05;
-      letter-spacing:-0.01em; color:#2b76c0; overflow-wrap:anywhere;
-    }
-    .cc-city-sub {
-      margin-top:8px; font-family:"Jost","Segoe UI",system-ui,sans-serif;
-      font-size:13px; font-weight:300; line-height:1.5; color:#6b5d56;
-    }
-    .cc-city-sub b { font-weight:500; color:#1f1410; }
+    .rp, .rp * { box-sizing:border-box; }
+    .rp { display:flex; flex-direction:column; min-height:0; flex:1; font-family:"Jost","Segoe UI",system-ui,sans-serif; color:#1f1410; }
 
-    .cc-list { display:flex; flex-direction:column; gap:10px; padding-bottom:6px; }
+    /* ----- banner header ----- */
+    .rp-head {
+      position:relative; flex:0 0 auto; overflow:hidden; color:#fff;
+      padding:26px 64px 22px 26px;
+      background:linear-gradient(135deg,#1f5fa6 0%,#2b76c0 58%,#4a93d9 100%);
+    }
+    .rp-head::after {
+      content:""; position:absolute; right:-70px; bottom:-90px; width:230px; height:230px;
+      border-radius:50%; border:1px solid rgba(255,255,255,0.22);
+      box-shadow:0 0 0 34px rgba(255,255,255,0.05), 0 0 0 68px rgba(255,255,255,0.04);
+      pointer-events:none;
+    }
+    .rp-city {
+      position:relative; z-index:1;
+      font-family:"Fredoka","Baloo 2",system-ui,sans-serif; font-size:30px; font-weight:700;
+      line-height:1.1; letter-spacing:-0.01em; overflow-wrap:anywhere;
+    }
+    .rp-sub { position:relative; z-index:1; margin-top:4px; font-size:14px; font-weight:300; color:rgba(255,255,255,0.86); }
+    .rp-chips { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .rp-chip {
+      display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:999px;
+      background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.3);
+      font-size:12.5px; font-weight:500; line-height:1.4; white-space:nowrap;
+    }
 
-    .cc-card {
-      display:flex; gap:12px; padding:13px 14px; background:#fff;
-      border:1px solid #f4dfd1; border-radius:18px;
-      font-family:"Jost","Segoe UI",system-ui,sans-serif;
+    /* ----- toolbar ----- */
+    .rp-toolbar {
+      flex:0 0 auto; display:flex; align-items:center; gap:10px;
+      padding:14px 20px; border-bottom:1px solid #f4dfd1; background:#fff;
+    }
+    .rp-filter { position:relative; flex:1; min-width:0; }
+    .rp-filter svg { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:#8a7b73; pointer-events:none; }
+    .rp-filter input {
+      width:100%; height:38px; padding:0 12px 0 33px; border:1px solid #f4dfd1; border-radius:10px;
+      background:#fff; color:#1f1410; font-size:13.5px; outline:none; transition:0.18s ease;
+    }
+    .rp-filter input::placeholder { color:#8a7b73; }
+    .rp-filter input:focus { border-color:#2b76c0; box-shadow:0 0 0 3px rgba(43,118,192,0.12); }
+
+    .rp-seg { display:inline-flex; padding:3px; border:1px solid #f4dfd1; border-radius:10px; background:#fff8f3; }
+    .rp-seg button {
+      height:30px; padding:0 11px; border:0; border-radius:7px; background:transparent; cursor:pointer;
+      color:#6b5d56; font-size:12.5px; font-weight:500; white-space:nowrap; transition:0.18s ease;
+    }
+    .rp-seg button:hover { color:#2b76c0; }
+    .rp-seg button.on { background:#fff; color:#2b76c0; font-weight:600; box-shadow:0 1px 4px rgba(60,35,20,0.12); }
+    .rp-seg button:focus-visible { outline:2px solid #2b76c0; outline-offset:1px; }
+
+    /* ----- people list ----- */
+    .rp-list { flex:1; min-height:0; overflow-y:auto; }
+    .rp-list::-webkit-scrollbar { width:5px; }
+    .rp-list::-webkit-scrollbar-thumb { border-radius:20px; background:#f4dfd1; }
+
+    .rp-item { border-bottom:1px solid #f4dfd1; transition:background 0.2s ease; }
+    .rp-item:last-child { border-bottom:0; }
+    .rp-item.open { background:#fffbf8; }
+
+    .rp-row {
+      display:grid; grid-template-columns:44px minmax(0,1fr) auto; align-items:center; column-gap:14px;
+      width:100%; padding:15px 20px; border:0; background:transparent; text-align:left; cursor:pointer;
+      color:inherit; transition:background 0.18s ease;
+    }
+    .rp-row:hover { background:#fff8f3; }
+    .rp-row:focus-visible { outline:2px solid #2b76c0; outline-offset:-2px; }
+
+    .rp-avatar {
+      width:44px; height:44px; display:grid; place-items:center; border-radius:12px;
+      background:#eaf3fb; color:#2b76c0;
+      font-family:"Fredoka","Baloo 2",system-ui,sans-serif; font-size:15.5px; font-weight:600;
       transition:0.2s ease;
     }
-    .cc-card:hover { background:#fff8f3; box-shadow:0 8px 24px rgba(60,35,20,0.08); }
+    .rp-item.open .rp-avatar { background:#2b76c0; color:#fff; }
 
-    .cc-avatar {
-      flex:0 0 42px; width:42px; height:42px; display:grid; place-items:center; border-radius:50%;
-      background:linear-gradient(135deg,#2b76c0 0%,#7fb0e6 100%); color:#fff;
-      font-family:"Fredoka","Baloo 2",system-ui,sans-serif; font-size:15px; font-weight:600;
+    .rp-info { min-width:0; }
+    .rp-name {
+      font-family:"Fredoka","Baloo 2",system-ui,sans-serif; font-size:16px; font-weight:600;
+      line-height:1.25; color:#1f1410; overflow-wrap:anywhere;
     }
-    .cc-body { min-width:0; flex:1; }
+    .rp-role { margin-top:3px; font-size:13.5px; font-weight:500; line-height:1.35; color:#2b76c0; overflow-wrap:anywhere; }
+    .rp-org  { margin-top:1px; font-size:12.5px; font-weight:300; line-height:1.4; color:#6b5d56; overflow-wrap:anywhere; }
 
-    .cc-line1 { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
-    .cc-name {
-      min-width:0; font-family:"Fredoka","Baloo 2",system-ui,sans-serif; font-size:15.5px; font-weight:700;
-      line-height:1.2; color:#1f1410; overflow-wrap:anywhere;
+    .rp-side { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+    .rp-batch {
+      padding:2px 9px; border-radius:999px; background:#eaf3fb; color:#2b76c0;
+      font-size:11.5px; font-weight:600; line-height:1.5; white-space:nowrap;
     }
-    .cc-batch {
-      flex:0 0 auto; padding:2px 9px; border-radius:999px; background:#eaf3fb; color:#2b76c0;
-      font-size:11px; font-weight:600; line-height:1.4; white-space:nowrap;
-    }
+    .rp-chev { color:#8a7b73; transition:transform 0.2s ease; }
+    .rp-item.open .rp-chev { transform:rotate(180deg); color:#2b76c0; }
 
-    .cc-role { margin-top:4px; font-size:13px; font-weight:500; line-height:1.35; color:#2b76c0; overflow-wrap:anywhere; }
-    .cc-org  { margin-top:2px; font-size:12px; font-weight:300; line-height:1.4; color:#6b5d56; overflow-wrap:anywhere; }
-
-    .cc-contact { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
-    .cc-link {
-      display:inline-flex; align-items:center; gap:6px; max-width:100%;
-      padding:4px 10px; border:1px solid #f4dfd1; border-radius:999px; background:#fff;
-      color:#1f1410; font-size:11.5px; font-weight:400; line-height:1.3; text-decoration:none;
-      transition:0.2s ease;
+    /* ----- expandable contact details ----- */
+    .rp-detail { display:none; padding:0 20px 16px 78px; }
+    .rp-item.open .rp-detail { display:block; }
+    .rp-detail-box { border:1px solid #f4dfd1; border-radius:12px; background:#fff; overflow:hidden; }
+    .rp-c { display:flex; align-items:center; gap:12px; padding:10px 12px; }
+    .rp-c + .rp-c { border-top:1px solid #f4dfd1; }
+    .rp-c-ico {
+      flex:0 0 30px; width:30px; height:30px; display:grid; place-items:center;
+      border-radius:8px; background:#eaf3fb; color:#2b76c0;
     }
-    .cc-link span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .cc-link svg { flex:0 0 auto; color:#2b76c0; }
-    .cc-link:hover { border-color:#2b76c0; color:#2b76c0; background:#eaf3fb; }
+    .rp-c-text { flex:1; min-width:0; }
+    .rp-c-label { font-size:11.5px; font-weight:400; line-height:1.2; color:#8a7b73; }
+    .rp-c-value {
+      display:block; margin-top:1px; font-size:13.5px; font-weight:500; line-height:1.3; color:#1f1410;
+      text-decoration:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    }
+    a.rp-c-value:hover { color:#2b76c0; text-decoration:underline; }
+    .rp-c-value:focus-visible { outline:2px solid #2b76c0; outline-offset:2px; border-radius:4px; }
+
+    .rp-copy, .rp-open {
+      flex:0 0 32px; width:32px; height:32px; display:grid; place-items:center; cursor:pointer;
+      border:1px solid #f4dfd1; border-radius:8px; background:#fff; color:#6b5d56; text-decoration:none;
+      transition:0.18s ease;
+    }
+    .rp-copy:hover, .rp-open:hover { color:#2b76c0; border-color:#2b76c0; background:#eaf3fb; }
+    .rp-copy:focus-visible, .rp-open:focus-visible { outline:2px solid #2b76c0; outline-offset:2px; }
+    .rp-copy.done { color:#1f8a4c; border-color:#1f8a4c; background:#eaf7ef; }
+    .rp-copy .ic-check { display:none; }
+    .rp-copy.done .ic-copy { display:none; }
+    .rp-copy.done .ic-check { display:block; }
+
+    .rp-nocontact { padding:12px; font-size:13px; font-weight:300; color:#6b5d56; }
+    .rp-empty { padding:40px 26px; text-align:center; color:#6b5d56; font-size:14px; font-weight:300; }
+
+    @media (max-width:650px) {
+      .rp-head { padding:22px 56px 18px 20px; }
+      .rp-city { font-size:26px; }
+      .rp-seg button { padding:0 8px; }
+      .rp-row { padding:14px 14px; column-gap:12px; grid-template-columns:40px minmax(0,1fr) auto; }
+      .rp-avatar { width:40px; height:40px; }
+      .rp-detail { padding:0 14px 14px 14px; }
+    }
   `;
 
   (function injectPanelCss() {
     const style = document.createElement("style");
-    style.id = "cc-panel-styles";
+    style.id = "rp-panel-styles";
     style.textContent = PANEL_CSS;
     document.head.appendChild(style);
   })();
@@ -359,6 +462,11 @@
     if (!parts.length) return "P";
     return ((parts[0][0] || "") + (parts.length > 1 ? parts[parts.length - 1][0] : "")).toUpperCase();
   }
+
+  const batchNum = person => {
+    const n = parseInt(person.batch, 10);
+    return Number.isFinite(n) ? n : null;
+  };
 
   /* ================= DATA ================= */
 
@@ -404,6 +512,9 @@
   let focusTimeout = null;
   let countryData = [];
 
+  /* state of the right panel (filter / sort / which rows are open) */
+  const view = { query: "", sort: "newest", open: new Set() };
+
   const globeContainer = document.getElementById("globe-container");
   const locationList = document.getElementById("location-list");
   const searchInput = document.getElementById("location-search");
@@ -412,6 +523,8 @@
   const centerLabel = document.getElementById("center-label");
   const loading = document.getElementById("map-loading");
   const detailsPanel = document.getElementById("details-panel");
+  const detailsClose = document.getElementById("details-close");
+  const detailsContent = document.getElementById("details-content");
 
   centerMarker?.addEventListener("click", event => {
     event.preventDefault();
@@ -419,28 +532,45 @@
     if (selectedLocation) showLocation(selectedLocation);
   });
 
-  /* ================= PERSON CARDS ================= */
+  /* ================= ICONS ================= */
+
+  const ICONS = {
+    phone: '<path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2 2A15.5 15.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"></path>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3.5 7 8.5 6 8.5-6"></path>',
+    linkedin: '<path d="M6 9v10M6 5.5v.01M11 19v-6a3 3 0 0 1 6 0v6M11 9v10"></path>',
+    copy: '<rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V6a2 2 0 0 1 2-2h8"></path>',
+    check: '<path d="m5 12.5 4.5 4.5L19 7.5"></path>',
+    chevron: '<path d="m6 9 6 6 6-6"></path>',
+    search: '<circle cx="11" cy="11" r="6.5"></circle><path d="m20 20-4-4"></path>',
+    external: '<path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4"></path>'
+  };
+
+  function icon(name, size = 16, cls = "") {
+    return `<svg class="${cls}" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+  }
+
+  /* ================= PEOPLE LIST ================= */
 
   function getPeople(location) {
     return Array.isArray(location.people) ? location.people : [];
   }
 
-  const ICONS = {
-    phone: '<path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2 2A15.5 15.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"></path>',
-    mail: '<rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3.5 7 8.5 6 8.5-6"></path>',
-    linkedin: '<path d="M6 9v10M6 5.5v.01M11 19v-6a3 3 0 0 1 6 0v6M11 9v10"></path>'
-  };
-
-  function icon(name, size = 14) {
-    return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+  function contactLine({ ico, label, text, href, copy, external }) {
+    return `
+      <div class="rp-c">
+        <div class="rp-c-ico">${icon(ico, 15)}</div>
+        <div class="rp-c-text">
+          <div class="rp-c-label">${escapeHtml(label)}</div>
+          <a class="rp-c-value" href="${escapeHtml(href)}" title="${escapeHtml(text)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(text)}</a>
+        </div>
+        ${copy
+          ? `<button class="rp-copy" type="button" data-copy="${escapeHtml(copy)}" aria-label="Copy ${escapeHtml(label.toLowerCase())}" title="Copy">${icon("copy", 15, "ic-copy")}${icon("check", 15, "ic-check")}</button>`
+          : `<a class="rp-open" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHtml(label)}" title="Open">${icon("external", 15)}</a>`}
+      </div>
+    `;
   }
 
-  function link(iconName, text, href, external = false) {
-    if (!text || !href) return "";
-    return `<a class="cc-link" href="${escapeHtml(href)}" title="${escapeHtml(text)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${icon(iconName, 14)}<span>${escapeHtml(text)}</span></a>`;
-  }
-
-  function buildPersonCard(person) {
+  function buildPersonRow(person, idx) {
     const designation = person.designation;
     const organization = person.organization;
 
@@ -449,62 +579,220 @@
     const orgLine = designation && organization && !sameText(designation, organization) ? organization : "";
 
     const linkedin = linkedinUrl(person.linkedin);
-    const contact = [
-      person.phone ? link("phone", person.phone, "tel:" + person.phone.replace(/[^+\d]/g, "")) : "",
-      person.email ? link("mail", person.email, "mailto:" + person.email) : "",
-      linkedin ? link("linkedin", "LinkedIn", linkedin, true) : ""
+    const lines = [
+      person.phone ? contactLine({ ico: "phone", label: "Phone", text: person.phone, href: "tel:" + person.phone.replace(/[^+\d]/g, ""), copy: person.phone }) : "",
+      person.email ? contactLine({ ico: "mail", label: "Email", text: person.email, href: "mailto:" + person.email, copy: person.email }) : "",
+      linkedin ? contactLine({ ico: "linkedin", label: "LinkedIn", text: "View profile", href: linkedin, external: true }) : ""
     ].join("");
 
+    const isOpen = view.open.has(idx);
+
     return `
-      <article class="cc-card">
-        <div class="cc-avatar">${escapeHtml(initials(person.name))}</div>
-        <div class="cc-body">
-          <div class="cc-line1">
-            <div class="cc-name">${escapeHtml(person.name || "-")}</div>
-            ${person.batch ? `<div class="cc-batch">Batch ${escapeHtml(person.batch)}</div>` : ""}
+      <article class="rp-item${isOpen ? " open" : ""}" data-idx="${idx}">
+        <button class="rp-row" type="button" aria-expanded="${isOpen}">
+          <div class="rp-avatar">${escapeHtml(initials(person.name))}</div>
+          <div class="rp-info">
+            <div class="rp-name">${escapeHtml(person.name || "-")}</div>
+            ${roleLine ? `<div class="rp-role">${escapeHtml(roleLine)}</div>` : ""}
+            ${orgLine ? `<div class="rp-org">${escapeHtml(orgLine)}</div>` : ""}
           </div>
-          ${roleLine ? `<div class="cc-role">${escapeHtml(roleLine)}</div>` : ""}
-          ${orgLine ? `<div class="cc-org">${escapeHtml(orgLine)}</div>` : ""}
-          ${contact ? `<div class="cc-contact">${contact}</div>` : ""}
+          <div class="rp-side">
+            ${person.batch ? `<span class="rp-batch">Batch ${escapeHtml(person.batch)}</span>` : "<span></span>"}
+            <span class="rp-chev">${icon("chevron", 16)}</span>
+          </div>
+        </button>
+        <div class="rp-detail">
+          <div class="rp-detail-box">${lines || `<div class="rp-nocontact">No contact details shared.</div>`}</div>
         </div>
       </article>
     `;
   }
 
-  function buildPeopleCards(location) {
-    return getPeople(location).map(buildPersonCard).join("");
+  function sortedPeople(location) {
+    /* keep the original index so open/closed state survives filtering + sorting */
+    const items = getPeople(location).map((person, idx) => ({ person, idx }));
+
+    const byName = (a, b) => String(a.person.name || "").localeCompare(String(b.person.name || ""));
+
+    items.sort((a, b) => {
+      if (view.sort === "az") return byName(a, b);
+      const x = batchNum(a.person), y = batchNum(b.person);
+      if (x === null && y === null) return byName(a, b);
+      if (x === null) return 1;
+      if (y === null) return -1;
+      return view.sort === "oldest" ? x - y : y - x;
+    });
+
+    return items;
+  }
+
+  function renderPeople() {
+    const list = detailsContent?.querySelector("#rp-list");
+    if (!list || !selectedLocation) return;
+
+    const q = view.query.trim().toLowerCase();
+    let items = sortedPeople(selectedLocation);
+
+    if (q) {
+      items = items.filter(({ person }) =>
+        [person.name, person.designation, person.organization, person.batch]
+          .some(v => String(v || "").toLowerCase().includes(q))
+      );
+    }
+
+    if (!items.length) {
+      list.innerHTML = getPeople(selectedLocation).length
+        ? `<div class="rp-empty">No alumni match “${escapeHtml(view.query.trim())}”.</div>`
+        : `<div class="rp-empty">No alumni listed for this city yet.</div>`;
+      return;
+    }
+
+    list.innerHTML = items.map(({ person, idx }) => buildPersonRow(person, idx)).join("");
   }
 
   /* ================= RIGHT PANEL ================= */
 
+  function batchRange(people) {
+    const nums = people.map(batchNum).filter(n => n !== null);
+    if (!nums.length) return "";
+    const min = Math.min(...nums), max = Math.max(...nums);
+    return min === max ? `Batch ${min}` : `Batches ${min} to ${max}`;
+  }
+
   function showLocation(location) {
-    if (!location) return;
+    if (!location || !detailsContent) return;
 
+    const sameCity = selectedLocation && selectedLocation.id === location.id && !detailsPanel.classList.contains("hidden");
     selectedLocation = location;
-    detailsPanel?.classList.remove("hidden");
 
-    const content = document.getElementById("details-content");
-    if (!content) return;
+    /* re-trigger the slide-in only when the panel was closed */
+    const wasHidden = detailsPanel.classList.contains("hidden");
+    detailsPanel.classList.remove("hidden");
+    if (wasHidden) {
+      detailsPanel.style.animation = "none";
+      void detailsPanel.offsetWidth;
+      detailsPanel.style.animation = "";
+    }
 
-    const count = getPeople(location).length;
-    const label = count === 1 ? "person" : "people";
+    const people = getPeople(location);
+    const count = people.length;
     const place = location.address || location.country || "";
+    const range = batchRange(people);
 
-    content.innerHTML = `
-      <div class="cc-top">
-        <div class="cc-eyebrow">PSGians in</div>
-        <div class="cc-city-name">${escapeHtml(location.name)}</div>
-        <div class="cc-city-sub"><b>${count} ${label}</b> from PSG${place ? " · " + escapeHtml(place) : ""}</div>
+    /* new city -> reset filter + sort, open the first person */
+    if (!sameCity) {
+      view.query = "";
+      view.sort = "newest";
+      view.open = new Set();
+      const first = sortedPeople(location)[0];
+      if (first) view.open.add(first.idx);
+    }
+
+    detailsContent.innerHTML = `
+      <div class="rp">
+        <header class="rp-head">
+          <div class="rp-city">${escapeHtml(location.name)}</div>
+          ${place ? `<div class="rp-sub">${escapeHtml(place)}</div>` : ""}
+          <div class="rp-chips">
+            <span class="rp-chip">${count} ${count === 1 ? "alumnus" : "alumni"}</span>
+            ${range ? `<span class="rp-chip">${escapeHtml(range)}</span>` : ""}
+          </div>
+        </header>
+
+        ${count > 1 ? `
+        <div class="rp-toolbar">
+          <label class="rp-filter">
+            ${icon("search", 16)}
+            <input id="rp-filter-input" type="text" placeholder="Filter by name or company" autocomplete="off" value="${escapeHtml(view.query)}" />
+          </label>
+          <div class="rp-seg" role="group" aria-label="Sort people">
+            <button type="button" data-sort="newest" class="${view.sort === "newest" ? "on" : ""}">Newest</button>
+            <button type="button" data-sort="oldest" class="${view.sort === "oldest" ? "on" : ""}">Oldest</button>
+            <button type="button" data-sort="az" class="${view.sort === "az" ? "on" : ""}">A to Z</button>
+          </div>
+        </div>` : ""}
+
+        <div id="rp-list" class="rp-list"></div>
       </div>
-
-      <div class="cc-list">${buildPeopleCards(location)}</div>
     `;
 
-    content.scrollTop = 0;
+    renderPeople();
 
     updateActiveLocation();
     updateSelectedMapMarker();
   }
+
+  /* one set of listeners for the whole panel (content is re-rendered often) */
+  detailsContent?.addEventListener("input", event => {
+    if (event.target.id !== "rp-filter-input") return;
+    view.query = event.target.value;
+    renderPeople();
+  });
+
+  detailsContent?.addEventListener("click", async event => {
+    /* sort buttons */
+    const sortBtn = event.target.closest("[data-sort]");
+    if (sortBtn) {
+      view.sort = sortBtn.dataset.sort;
+      detailsContent.querySelectorAll("[data-sort]").forEach(b => b.classList.toggle("on", b === sortBtn));
+      renderPeople();
+      return;
+    }
+
+    /* copy buttons */
+    const copyBtn = event.target.closest(".rp-copy");
+    if (copyBtn) {
+      const text = copyBtn.dataset.copy || "";
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); } catch (err) { /* ignore */ }
+        ta.remove();
+      }
+      copyBtn.classList.add("done");
+      copyBtn.title = "Copied";
+      setTimeout(() => { copyBtn.classList.remove("done"); copyBtn.title = "Copy"; }, 1400);
+      return;
+    }
+
+    /* open / close a person */
+    const row = event.target.closest(".rp-row");
+    if (row) {
+      const item = row.closest(".rp-item");
+      const idx = Number(item.dataset.idx);
+      const open = !item.classList.contains("open");
+      item.classList.toggle("open", open);
+      row.setAttribute("aria-expanded", String(open));
+      if (open) view.open.add(idx); else view.open.delete(idx);
+    }
+  });
+
+  function closeDetails() {
+    clearTimeout(focusTimeout);
+    selectedLocation = null;
+    detailsPanel?.classList.add("hidden");
+    hideCenterMarker();
+    updateActiveLocation();
+    updateSelectedMapMarker();
+
+    const c = globe?.controls();
+    if (c) c.enabled = true;
+  }
+
+  detailsClose?.addEventListener("click", closeDetails);
+
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Escape" || !selectedLocation) return;
+    const tag = document.activeElement?.tagName;
+    if (tag === "INPUT") return;
+    closeDetails();
+  });
 
   /* ================= CENTER MARKER ================= */
 
